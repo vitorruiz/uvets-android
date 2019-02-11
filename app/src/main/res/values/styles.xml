@@ -1,0 +1,23 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="Theme.UVets" parent="Theme.MaterialComponents.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+
+        <item name="colorSecondary">@color/colorSecondary</item>
+
+        <item name="colorAccent">@color/colorSecondary</item>
+
+        <item name="scrimBackground">@color/mtrl_scrim_color</item>
+        <item name="snackbarButtonStyle">?attr/borderlessButtonStyle</item>
+
+        <item name="floatingActionButtonStyle">@style/Widget.UVets.FloatingActionButton</item>
+    </style>
+
+    <style name="Widget.UVets.FloatingActionButton" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="android:tint">@android:color/white</item>
+    </style>
+
+</resources>
