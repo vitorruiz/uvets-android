@@ -1,6 +1,7 @@
 package br.com.uvets.uvetsandroid.data
 
 import android.util.Log
+import br.com.uvets.uvetsandroid.data.model.Pet
 import br.com.uvets.uvetsandroid.data.remote.getPetApi
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
@@ -10,7 +11,7 @@ import retrofit2.HttpException
 
 class PetRepository {
 
-    fun getPets() {
+    fun fetchPets(onSuccess: (List<Pet>?) -> Unit, onFail: (Int, Throwable) -> Unit, onError: (Throwable) -> Unit) {
 
         GlobalScope.launch(Dispatchers.Default) {
             val request = getPetApi().getPets()
@@ -18,7 +19,7 @@ class PetRepository {
                 val response = request.await()
 
                 if (response.isSuccessful) {
-                    Log.d("PetRespository", Gson().toJson(response.body()))
+                    onSuccess(response.body())
                 }
                 else {
                     Log.d("PetRespository", response.message())
