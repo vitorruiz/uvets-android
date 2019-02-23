@@ -6,32 +6,67 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import br.com.uvets.uvetsandroid.ui.createpet.CreatePetFragment
+import br.com.uvets.uvetsandroid.ui.login.LoginFragment
+import br.com.uvets.uvetsandroid.ui.signup.SignUpFragment
+
+enum class ContainerView {
+    SIGN_UP, CREATE_PET, LOGIN
+}
 
 class ContainerActivity : AppCompatActivity() {
 
     companion object {
 
         const val VIEW_ID_PARAM = "view_id"
+        const val VIEW_NO_ACTION_BAR = "view_no_action_bar"
 
-        fun createPetView(context: Context) : Intent{
-            val intent = Intent(context, ContainerActivity::class.java)
-            intent.putExtra(VIEW_ID_PARAM, 0)
-            return intent
+        private fun basicContainerIntent(context: Context): Intent {
+            return Intent(context, ContainerActivity::class.java)
+        }
+
+        fun createPetView(context: Context): Intent {
+            return basicContainerIntent(context).apply {
+                putExtra(VIEW_ID_PARAM, ContainerView.CREATE_PET)
+            }
+        }
+
+        fun createSignUpView(context: Context): Intent {
+            return basicContainerIntent(context).apply {
+                putExtra(VIEW_ID_PARAM, ContainerView.SIGN_UP)
+                //putExtra(VIEW_NO_ACTION_BAR, true)
+            }
+        }
+
+        fun createLoginView(context: Context): Intent {
+            return basicContainerIntent(context).apply {
+                putExtra(VIEW_ID_PARAM, ContainerView.LOGIN)
+                //putExtra(VIEW_NO_ACTION_BAR, true)
+            }
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+//        val viewNoActionBar = intent?.extras?.getBoolean(VIEW_NO_ACTION_BAR)
+//        if (viewNoActionBar != null && viewNoActionBar) {
+//            setTheme(R.style.Theme_UVets_NoActionBar)
+//        }
+
         setContentView(R.layout.activity_container)
 
-        val viewId = intent?.extras?.getInt(VIEW_ID_PARAM) ?: -1
-
-        when (viewId) {
-            0 -> loadFragment(CreatePetFragment())
+        (intent?.extras?.getSerializable(VIEW_ID_PARAM) as ContainerView?).apply {
+            when (this) {
+                ContainerView.SIGN_UP -> loadFragment(SignUpFragment())
+                ContainerView.CREATE_PET -> loadFragment(CreatePetFragment())
+                ContainerView.LOGIN -> loadFragment(LoginFragment())
+                null -> loadFragment(LoginFragment())
+            }
         }
+
+
     }
 
-    fun loadFragment(fragment: Fragment) {
+    private fun loadFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
             .replace(R.id.main_container, fragment)
             .commitNow()

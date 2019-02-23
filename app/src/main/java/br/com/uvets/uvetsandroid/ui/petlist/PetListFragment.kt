@@ -1,6 +1,8 @@
 package br.com.uvets.uvetsandroid.ui.petlist
 
 
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -8,7 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import br.com.uvets.uvetsandroid.R
-import br.com.uvets.uvetsandroid.data.PetRepository
 import kotlinx.android.synthetic.main.fragment_pet_list.*
 
 /**
@@ -17,7 +18,8 @@ import kotlinx.android.synthetic.main.fragment_pet_list.*
  */
 class PetListFragment : Fragment() {
 
-    val petRepository = PetRepository()
+    private lateinit var mViewModel: PetListViewModel
+    private lateinit var mPetAdapter: PetAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -28,12 +30,23 @@ class PetListFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        mViewModel = ViewModelProviders.of(this).get(PetListViewModel::class.java)
 
-        val petNames = listOf("Rufus", "Sofia", "Rex")
+        setUpView()
+        setUpObservers()
 
+        mViewModel.fetchPets()
+    }
+
+    private fun setUpView() {
+        mPetAdapter = PetAdapter(context!!, arrayListOf())
         rvPetList.layoutManager = LinearLayoutManager(context)
-        rvPetList.adapter = PetAdapter(context!!, petNames)
+        rvPetList.adapter = mPetAdapter
+    }
 
-        petRepository.getPets()
+    private fun setUpObservers() {
+        mViewModel.mPetListLiveData.observe(this, Observer { petList ->
+            petList?.let { mPetAdapter.refreshList(it) }
+        })
     }
 }
