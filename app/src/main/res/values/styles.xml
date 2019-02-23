@@ -33,6 +33,10 @@
         <item name="floatingActionButtonStyle">@style/Widget.UVets.FloatingActionButton</item>
     </style>
 
+    <style name="Widget.UVets.Toolbar" parent="Widget.AppCompat.Toolbar">
+        <item name="android:background">@drawable/gradient_primary_toolbar</item>
+    </style>
+
     <style name="Widget.UVets.FloatingActionButton" parent="Widget.MaterialComponents.FloatingActionButton">
         <item name="android:tint">@android:color/white</item>
     </style>
