@@ -10,6 +10,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import br.com.uvets.uvetsandroid.R
+import br.com.uvets.uvetsandroid.loading
+import br.com.uvets.uvetsandroid.showError
 import kotlinx.android.synthetic.main.fragment_pet_list.*
 
 /**
@@ -47,6 +49,18 @@ class PetListFragment : Fragment() {
     private fun setUpObservers() {
         mViewModel.mPetListLiveData.observe(this, Observer { petList ->
             petList?.let { mPetAdapter.refreshList(it) }
+        })
+
+        mViewModel.isLoadingLiveData.observe(this, Observer { isLoading ->
+            isLoading?.let {
+                loading(it)
+            }
+        })
+
+        mViewModel.errorMessageLiveData.observe(this, Observer { errorMessage ->
+            errorMessage?.let {
+                showError(it)
+            }
         })
     }
 }

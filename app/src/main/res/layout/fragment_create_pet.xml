@@ -21,7 +21,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="16dp"
             android:scaleType="centerCrop"
-            app:srcCompat="@drawable/ic_add" />
+            app:srcCompat="@drawable/ic_animal_paw_print" />
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/tiPetName"

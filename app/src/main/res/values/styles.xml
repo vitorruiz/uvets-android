@@ -41,4 +41,11 @@
         <item name="android:tint">@android:color/white</item>
     </style>
 
+    <style name="Theme.UVets.Dialog" parent="Theme.MaterialComponents.Light.Dialog">
+        <item name="materialButtonStyle">@style/Widget.MaterialComponents.Button.TextButton</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorSecondary">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorSecondary</item>
+    </style>
+
 </resources>

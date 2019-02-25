@@ -19,4 +19,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <include layout="@layout/include_loading_container" />
+
 </android.support.constraint.ConstraintLayout>

@@ -47,20 +47,25 @@ class ContainerActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        val viewNoActionBar = intent?.extras?.getBoolean(VIEW_NO_ACTION_BAR)
-//        if (viewNoActionBar != null && viewNoActionBar) {
-//            setTheme(R.style.Theme_UVets_NoActionBar)
-//        }
-
-        setContentView(R.layout.activity_container)
+        val viewNoActionBar = intent?.extras?.getBoolean(VIEW_NO_ACTION_BAR)
+        if (viewNoActionBar != null && viewNoActionBar) {
+            setTheme(R.style.Theme_UVets_NoActionBar)
+        }
 
         (intent?.extras?.getSerializable(VIEW_ID_PARAM) as ContainerView?).apply {
+            var fragmentToLoad: Fragment = LoginFragment()
             when (this) {
-                ContainerView.SIGN_UP -> loadFragment(SignUpFragment())
-                ContainerView.CREATE_PET -> loadFragment(CreatePetFragment())
-                ContainerView.LOGIN -> loadFragment(LoginFragment())
-                null -> loadFragment(LoginFragment())
+                ContainerView.SIGN_UP -> fragmentToLoad = SignUpFragment()
+                ContainerView.CREATE_PET -> fragmentToLoad = CreatePetFragment()
+                ContainerView.LOGIN -> fragmentToLoad = LoginFragment()
+                null -> {
+                    setTheme(R.style.Theme_UVets_NoActionBar)
+                    fragmentToLoad = LoginFragment()
+                }
             }
+
+            setContentView(R.layout.activity_container)
+            loadFragment(fragmentToLoad)
         }
 
 
