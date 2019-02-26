@@ -1,29 +1,36 @@
 package br.com.uvets.uvetsandroid.ui.login
 
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
+import br.com.uvets.uvetsandroid.data.remote.RestResponseListener
+import br.com.uvets.uvetsandroid.data.repository.UserRepository
+import br.com.uvets.uvetsandroid.ui.base.BaseNavigator
 import br.com.uvets.uvetsandroid.ui.base.BaseViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import java.util.concurrent.TimeUnit
 
-class LoginViewModel : BaseViewModel() {
+class LoginViewModel : BaseViewModel<BaseNavigator>() {
+
+    private val mUserRepository = UserRepository()
 
     fun login(email: String, password: String, onSuccess: () -> Unit) {
+        mNavigator?.showLoader(true)
 
-        GlobalScope.launch(Dispatchers.Default) {
-            isLoadingLiveData.postValue(true)
-
-            delay(3, TimeUnit.SECONDS)
-            if (email == "admin" && password == "admin") {
+        mUserRepository.authenticate(email, password, object : RestResponseListener<String> {
+            override fun onSuccess(obj: String) {
                 onSuccess()
-            } else {
-                errorMessageLiveData.postValue("Usuário ou senha inválido")
             }
 
-            isLoadingLiveData.postValue(false)
-        }
+            override fun onFail(responseCode: Int) {
+                if (responseCode == 401) {
+                    mNavigator?.showErrorMessage("Usuário ou senha inválido")
+                }
+            }
+
+            override fun onError(throwable: Throwable) {
+                mNavigator?.showErrorMessage("Erro inesperado")
+            }
+
+            override fun onComplete() {
+                mNavigator?.showLoader(false)
+            }
+
+        })
     }
 }

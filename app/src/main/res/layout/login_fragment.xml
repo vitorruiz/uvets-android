@@ -44,7 +44,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="E-mail*"
-                    android:inputType="textEmailAddress" />
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -63,7 +64,8 @@
                     android:id="@+id/tvPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Senha*" />
+                    android:hint="Senha*"
+                    android:maxLines="1" />
 
             </android.support.design.widget.TextInputLayout>
 

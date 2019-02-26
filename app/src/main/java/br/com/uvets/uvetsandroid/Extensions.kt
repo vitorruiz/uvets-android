@@ -6,6 +6,7 @@ import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.view.View
 import android.widget.ImageView
+import android.widget.Toast
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.zhihu.matisse.Matisse
@@ -26,7 +27,7 @@ fun ImageView.loadFromFile(imageFile: File) {
 
 fun ImageView.enableImagePickerOnClick(fragment: Fragment) {
     setOnClickListener {
-//        Matisse.from(fragment)
+        //        Matisse.from(fragment)
 //            .choose(MimeType.ofImage())
 //            .maxSelectable(1)
 //            //.addFilter(GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
@@ -57,5 +58,7 @@ fun Fragment.loading(isLoading: Boolean) {
 fun Fragment.showError(errorMessage: String) {
     if (coordinator != null) {
         Snackbar.make(coordinator, errorMessage, Snackbar.LENGTH_SHORT).show()
+    } else {
+        Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show()
     }
 }

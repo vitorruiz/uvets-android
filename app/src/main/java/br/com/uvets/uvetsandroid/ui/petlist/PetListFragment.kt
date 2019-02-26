@@ -10,15 +10,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import br.com.uvets.uvetsandroid.R
-import br.com.uvets.uvetsandroid.loading
-import br.com.uvets.uvetsandroid.showError
+import br.com.uvets.uvetsandroid.ui.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_pet_list.*
 
 /**
  * A simple [Fragment] subclass.
  *
  */
-class PetListFragment : Fragment() {
+class PetListFragment : BaseFragment() {
 
     private lateinit var mViewModel: PetListViewModel
     private lateinit var mPetAdapter: PetAdapter
@@ -33,6 +32,7 @@ class PetListFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         mViewModel = ViewModelProviders.of(this).get(PetListViewModel::class.java)
+        mViewModel.attachNavigator(this)
 
         setUpView()
         setUpObservers()
@@ -49,18 +49,6 @@ class PetListFragment : Fragment() {
     private fun setUpObservers() {
         mViewModel.mPetListLiveData.observe(this, Observer { petList ->
             petList?.let { mPetAdapter.refreshList(it) }
-        })
-
-        mViewModel.isLoadingLiveData.observe(this, Observer { isLoading ->
-            isLoading?.let {
-                loading(it)
-            }
-        })
-
-        mViewModel.errorMessageLiveData.observe(this, Observer { errorMessage ->
-            errorMessage?.let {
-                showError(it)
-            }
         })
     }
 }

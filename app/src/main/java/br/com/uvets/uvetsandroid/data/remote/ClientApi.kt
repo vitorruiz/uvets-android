@@ -1,7 +1,6 @@
 package br.com.uvets.uvetsandroid.data.remote
 
 import android.util.Log
-import br.com.uvets.uvetsandroid.ui.petlist.PetAdapter
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -66,6 +65,21 @@ class AuthInterceptor(val token: String) : Interceptor {
     }
 }
 
-fun getPetApi(): PetApi {
-    return ClientApi<PetApi>().getClient(PetApi::class.java)
+interface RestResponseListener<T> {
+    fun onSuccess(obj: T)
+    fun onFail(responseCode: Int)
+    fun onError(throwable: Throwable)
+    fun onComplete()
+}
+
+fun getPetService(): PetService {
+    return ClientApi<PetService>().getClient(PetService::class.java)
+}
+
+fun getAuthService(): AuthService {
+    return ClientApi<AuthService>().getClient(AuthService::class.java)
+}
+
+fun getVetService(): VetService {
+    return ClientApi<VetService>().getClient(VetService::class.java)
 }

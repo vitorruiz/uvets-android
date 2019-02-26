@@ -6,9 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import br.com.uvets.uvetsandroid.R
+import br.com.uvets.uvetsandroid.data.model.Vet
 import kotlinx.android.synthetic.main.item_vet_list.view.*
 
-class VetAdapter(val context: Context, val vetList: List<String>) : RecyclerView.Adapter<VetAdapter.VetViewHolder>() {
+class VetAdapter(val context: Context, private var vetList: List<Vet>) :
+    RecyclerView.Adapter<VetAdapter.VetViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, type: Int): VetAdapter.VetViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.item_vet_list, parent, false)
@@ -19,6 +21,11 @@ class VetAdapter(val context: Context, val vetList: List<String>) : RecyclerView
         return vetList.size
     }
 
+    fun refreshList(list: List<Vet>) {
+        this.vetList = list
+        notifyDataSetChanged()
+    }
+
     override fun onBindViewHolder(viewHolder: VetAdapter.VetViewHolder, position: Int) {
         viewHolder.bindView(vetList[position])
     }
@@ -26,8 +33,8 @@ class VetAdapter(val context: Context, val vetList: List<String>) : RecyclerView
 
     class VetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bindView(vetName: String) = with(itemView) {
-            vet_name.text = vetName
+        fun bindView(vet: Vet) = with(itemView) {
+            tvVetName.text = vet.name
         }
     }
 }
