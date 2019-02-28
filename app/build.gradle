@@ -47,12 +47,11 @@ dependencies {
     implementation 'com.ncapdevi:frag-nav:2.4.0'
 
     implementation "android.arch.persistence.room:runtime:$room_version"
-    implementation 'com.android.support:support-v4:28.0.0'
     kapt "android.arch.persistence.room:compiler:$room_version" // For Kotlin use kapt instead of annotationProcessor
 
-    implementation 'com.zhihu.android:matisse:0.5.2-beta4'
+    //implementation 'com.zhihu.android:matisse:0.5.2-beta4'
 
-    implementation 'com.squareup.picasso:picasso:2.71828'
+    //implementation 'com.squareup.picasso:picasso:2.71828'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

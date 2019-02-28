@@ -33,14 +33,14 @@ class ContainerActivity : AppCompatActivity() {
         fun createSignUpView(context: Context): Intent {
             return basicContainerIntent(context).apply {
                 putExtra(VIEW_ID_PARAM, ContainerView.SIGN_UP)
-                //putExtra(VIEW_NO_ACTION_BAR, true)
+                putExtra(VIEW_NO_ACTION_BAR, true)
             }
         }
 
         fun createLoginView(context: Context): Intent {
             return basicContainerIntent(context).apply {
                 putExtra(VIEW_ID_PARAM, ContainerView.LOGIN)
-                //putExtra(VIEW_NO_ACTION_BAR, true)
+                putExtra(VIEW_NO_ACTION_BAR, true)
             }
         }
     }

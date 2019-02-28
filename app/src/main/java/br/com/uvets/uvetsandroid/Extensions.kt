@@ -1,7 +1,5 @@
 package br.com.uvets.uvetsandroid
 
-import android.R
-import android.content.pm.ActivityInfo
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.view.View
@@ -9,9 +7,6 @@ import android.widget.ImageView
 import android.widget.Toast
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.zhihu.matisse.Matisse
-import com.zhihu.matisse.MimeType
-import com.zhihu.matisse.engine.impl.PicassoEngine
 import kotlinx.android.synthetic.main.include_loading_container.*
 import kotlinx.android.synthetic.main.login_fragment.*
 import java.io.File
@@ -36,16 +31,6 @@ fun ImageView.enableImagePickerOnClick(fragment: Fragment) {
 //            .thumbnailScale(0.85f)
 //            .imageEngine(PicassoEngine())
 //            .forResult(123)
-        Matisse.from(fragment)
-            .choose(MimeType.ofAll())
-            .countable(true)
-            .maxSelectable(9)
-            //.addFilter(GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
-            .gridExpectedSize(resources.getDimensionPixelSize(R.dimen.app_icon_size))
-            .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
-            .thumbnailScale(0.85f)
-            .imageEngine(PicassoEngine())
-            .forResult(123)
     }
 }
 
