@@ -1,7 +1,6 @@
 package br.com.uvets.uvetsandroid.ui.vetlist
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +9,7 @@ import br.com.uvets.uvetsandroid.data.model.Vet
 import kotlinx.android.synthetic.main.item_vet_list.view.*
 
 class VetAdapter(val context: Context, private var vetList: List<Vet>) :
-    RecyclerView.Adapter<VetAdapter.VetViewHolder>() {
+    androidx.recyclerview.widget.RecyclerView.Adapter<VetAdapter.VetViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, type: Int): VetAdapter.VetViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.item_vet_list, parent, false)
@@ -31,7 +30,7 @@ class VetAdapter(val context: Context, private var vetList: List<Vet>) :
     }
 
 
-    class VetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class VetViewHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
 
         fun bindView(vet: Vet) = with(itemView) {
             tvVetName.text = vet.name

@@ -1,7 +1,6 @@
 package br.com.uvets.uvetsandroid.ui.petlist
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +8,8 @@ import br.com.uvets.uvetsandroid.R
 import br.com.uvets.uvetsandroid.data.model.Pet
 import kotlinx.android.synthetic.main.item_pet_list.view.*
 
-class PetAdapter(val context: Context, private var petList: List<Pet>) : RecyclerView.Adapter<PetAdapter.PetViewHolder>() {
+class PetAdapter(val context: Context, private var petList: List<Pet>) :
+    androidx.recyclerview.widget.RecyclerView.Adapter<PetAdapter.PetViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, type: Int): PetViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.item_pet_list, parent, false)
@@ -29,7 +29,7 @@ class PetAdapter(val context: Context, private var petList: List<Pet>) : Recycle
         notifyDataSetChanged()
     }
 
-    class PetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class PetViewHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
 
         fun bindView(pet: Pet) = with(itemView) {
             tvPetName.text = pet.name

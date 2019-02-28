@@ -1,14 +1,13 @@
 package br.com.uvets.uvetsandroid.ui.petlist
 
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import br.com.uvets.uvetsandroid.R
 import br.com.uvets.uvetsandroid.ui.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_pet_list.*
@@ -41,14 +40,25 @@ class PetListFragment : BaseFragment() {
     }
 
     private fun setUpView() {
+        activity!!.title = "Seus pets"
+
         mPetAdapter = PetAdapter(context!!, arrayListOf())
-        rvPetList.layoutManager = LinearLayoutManager(context)
+        rvPetList.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
         rvPetList.adapter = mPetAdapter
+
+        swipeRefresh.setOnRefreshListener {
+            mViewModel.fetchPets(true)
+        }
     }
 
     private fun setUpObservers() {
         mViewModel.mPetListLiveData.observe(this, Observer { petList ->
             petList?.let { mPetAdapter.refreshList(it) }
         })
+    }
+
+    override fun showLoader(isLoading: Boolean) {
+        super.showLoader(isLoading)
+        if (!isLoading) swipeRefresh.isRefreshing = false
     }
 }

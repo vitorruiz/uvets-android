@@ -1,14 +1,14 @@
 package br.com.uvets.uvetsandroid
 
-import android.support.design.widget.Snackbar
-import android.support.v4.app.Fragment
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
+import androidx.cardview.widget.CardView
+import androidx.fragment.app.Fragment
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.include_loading_container.*
-import kotlinx.android.synthetic.main.login_fragment.*
 import java.io.File
 
 
@@ -20,7 +20,7 @@ fun ImageView.loadFromFile(imageFile: File) {
 //        .into(this)
 }
 
-fun ImageView.enableImagePickerOnClick(fragment: Fragment) {
+fun ImageView.enableImagePickerOnClick(fragment: androidx.fragment.app.Fragment) {
     setOnClickListener {
         //        Matisse.from(fragment)
 //            .choose(MimeType.ofImage())
@@ -40,10 +40,30 @@ fun Fragment.loading(isLoading: Boolean) {
     }
 }
 
-fun Fragment.showError(errorMessage: String) {
-    if (coordinator != null) {
-        Snackbar.make(coordinator, errorMessage, Snackbar.LENGTH_SHORT).show()
-    } else {
-        Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show()
-    }
+fun Fragment.showSuccess(message: String) {
+    val toast = Toast(context)
+    toast.duration = Toast.LENGTH_LONG
+
+    //inflate view
+    val custom_view = layoutInflater.inflate(R.layout.toast_icon_text, null)
+    (custom_view.findViewById(R.id.message) as TextView).text = message
+    (custom_view.findViewById(R.id.icon) as ImageView).setImageResource(R.drawable.ic_done)
+    (custom_view.findViewById(R.id.parent_view) as CardView).setCardBackgroundColor(resources.getColor(R.color.green_500))
+
+    toast.view = custom_view
+    toast.show()
+}
+
+fun Fragment.showError(message: String) {
+    val toast = Toast(context)
+    toast.duration = Toast.LENGTH_LONG
+
+    //inflate view
+    val custom_view = layoutInflater.inflate(R.layout.toast_icon_text, null)
+    (custom_view.findViewById(R.id.message) as TextView).text = message
+    (custom_view.findViewById(R.id.icon) as ImageView).setImageResource(R.drawable.ic_close)
+    (custom_view.findViewById(R.id.parent_view) as CardView).setCardBackgroundColor(resources.getColor(R.color.red_600))
+
+    toast.view = custom_view
+    toast.show()
 }

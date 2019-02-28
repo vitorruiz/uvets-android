@@ -1,13 +1,12 @@
 package br.com.uvets.uvetsandroid.ui.vetlist
 
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import br.com.uvets.uvetsandroid.R
 import br.com.uvets.uvetsandroid.ui.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_vet_list.*
@@ -36,14 +35,25 @@ class VetListFragment : BaseFragment() {
     }
 
     private fun setUpView() {
+        activity!!.title = "Veterinários"
+
         mVetAdapter = VetAdapter(context!!, arrayListOf())
-        rv_vet_list.layoutManager = LinearLayoutManager(context)
-        rv_vet_list.adapter = mVetAdapter
+        rvVetList.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
+        rvVetList.adapter = mVetAdapter
+
+        swipeRefresh.setOnRefreshListener {
+            mViewModel.fetchVets(true)
+        }
     }
 
     private fun setUpObservers() {
         mViewModel.vetListLiveData.observe(this, Observer { vetList ->
             vetList?.let { mVetAdapter.refreshList(it) }
         })
+    }
+
+    override fun showLoader(isLoading: Boolean) {
+        super.showLoader(isLoading)
+        if (!isLoading) swipeRefresh.isRefreshing = false
     }
 }

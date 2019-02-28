@@ -1,35 +1,38 @@
 package br.com.uvets.uvetsandroid.ui.petlist
 
-import android.arch.lifecycle.MutableLiveData
+import android.app.Application
+import androidx.lifecycle.MutableLiveData
 import br.com.uvets.uvetsandroid.data.model.Pet
 import br.com.uvets.uvetsandroid.data.remote.RestResponseListener
 import br.com.uvets.uvetsandroid.data.repository.PetRepository
 import br.com.uvets.uvetsandroid.ui.base.BaseNavigator
 import br.com.uvets.uvetsandroid.ui.base.BaseViewModel
 
-class PetListViewModel : BaseViewModel<BaseNavigator>() {
+class PetListViewModel(application: Application) : BaseViewModel<BaseNavigator>(application) {
 
     private val mPetRepository = PetRepository()
     val mPetListLiveData = MutableLiveData<List<Pet>>()
 
-    fun fetchPets() {
-        mNavigator?.showLoader(mPetListLiveData.value.isNullOrEmpty())
-        mPetRepository.fetchPets(object : RestResponseListener<List<Pet>?> {
-            override fun onSuccess(obj: List<Pet>?) {
-                mPetListLiveData.postValue(obj)
-            }
+    fun fetchPets(force: Boolean = false) {
+        if (mPetListLiveData.value.isNullOrEmpty() || force) {
+            mNavigator?.showLoader(mPetListLiveData.value.isNullOrEmpty())
+            mPetRepository.fetchPets(object : RestResponseListener<List<Pet>?> {
+                override fun onSuccess(obj: List<Pet>?) {
+                    mPetListLiveData.postValue(obj)
+                }
 
-            override fun onFail(responseCode: Int) {
-                mNavigator?.showErrorMessage("Erro de requisição. Código $responseCode")
-            }
+                override fun onFail(responseCode: Int) {
+                    mNavigator?.showErrorMessage("Erro de requisição. Código $responseCode")
+                }
 
-            override fun onError(throwable: Throwable) {
-                mNavigator?.showErrorMessage(throwable.localizedMessage)
-            }
+                override fun onError(throwable: Throwable) {
+                    mNavigator?.showErrorMessage(throwable.localizedMessage)
+                }
 
-            override fun onComplete() {
-                mNavigator?.showLoader(false)
-            }
-        })
+                override fun onComplete() {
+                    mNavigator?.showLoader(false)
+                }
+            })
+        }
     }
 }

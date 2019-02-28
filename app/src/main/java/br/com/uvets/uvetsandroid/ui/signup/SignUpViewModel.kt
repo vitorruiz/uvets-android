@@ -1,6 +1,5 @@
 package br.com.uvets.uvetsandroid.ui.signup
 
-import android.arch.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModel
 
-class SignUpViewModel : ViewModel() {
-}
+class SignUpViewModel : ViewModel()

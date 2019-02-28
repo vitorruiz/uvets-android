@@ -3,8 +3,7 @@ package br.com.uvets.uvetsandroid
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import br.com.uvets.uvetsandroid.ui.createpet.CreatePetFragment
 import br.com.uvets.uvetsandroid.ui.login.LoginFragment
 import br.com.uvets.uvetsandroid.ui.signup.SignUpFragment
@@ -53,7 +52,7 @@ class ContainerActivity : AppCompatActivity() {
         }
 
         (intent?.extras?.getSerializable(VIEW_ID_PARAM) as ContainerView?).apply {
-            var fragmentToLoad: Fragment = LoginFragment()
+            var fragmentToLoad: androidx.fragment.app.Fragment = LoginFragment()
             when (this) {
                 ContainerView.SIGN_UP -> fragmentToLoad = SignUpFragment()
                 ContainerView.CREATE_PET -> fragmentToLoad = CreatePetFragment()
@@ -71,7 +70,7 @@ class ContainerActivity : AppCompatActivity() {
 
     }
 
-    private fun loadFragment(fragment: Fragment) {
+    private fun loadFragment(fragment: androidx.fragment.app.Fragment) {
         supportFragmentManager.beginTransaction()
             .replace(R.id.main_container, fragment)
             .commitNow()

@@ -1,20 +1,13 @@
 package br.com.uvets.uvetsandroid.ui.base
 
-import android.support.design.widget.Snackbar
-import android.support.v4.app.Fragment
 import android.view.View
-import android.widget.Toast
+import br.com.uvets.uvetsandroid.showError
 import kotlinx.android.synthetic.main.include_loading_container.*
-import kotlinx.android.synthetic.main.login_fragment.*
 
-open class BaseFragment : Fragment(), BaseNavigator {
+open class BaseFragment : androidx.fragment.app.Fragment(), BaseNavigator {
 
     override fun showErrorMessage(errorMessage: String) {
-        if (coordinator != null) {
-            Snackbar.make(coordinator, errorMessage, Snackbar.LENGTH_SHORT).show()
-        } else {
-            Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show()
-        }
+        showError(errorMessage)
     }
 
     override fun showLoader(isLoading: Boolean) {

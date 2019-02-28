@@ -1,11 +1,11 @@
 package br.com.uvets.uvetsandroid
 
 import android.os.Bundle
-import android.support.design.widget.BottomNavigationView
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import br.com.uvets.uvetsandroid.ui.petlist.PetListFragment
 import br.com.uvets.uvetsandroid.ui.profile.ProfileFragment
 import br.com.uvets.uvetsandroid.ui.vetlist.VetListFragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.ncapdevi.fragnav.FragNavController
 import kotlinx.android.synthetic.main.activity_main.*
 

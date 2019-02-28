@@ -13,7 +13,7 @@ import retrofit2.http.POST
 
 interface AuthService {
 
-    @POST("/auth")
+    @POST("/auth2")
     fun auth(@Body loginVO: LoginRequestVO): Deferred<Response<ResponseBody>>
 }
 

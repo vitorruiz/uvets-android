@@ -5,16 +5,16 @@
     android:id="@+id/loading_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/overlay_dark_30"
+    android:background="@color/overlay_dark_20"
     android:clickable="true"
     android:focusable="true"
     android:visibility="gone"
     tools:visibility="visible">
 
-    <android.support.v4.widget.ContentLoadingProgressBar
+    <ProgressBar
         style="@style/Widget.AppCompat.ProgressBar"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_centerInParent="true"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"

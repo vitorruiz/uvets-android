@@ -1,12 +1,12 @@
 package br.com.uvets.uvetsandroid.ui.login
 
-import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProviders
 import br.com.uvets.uvetsandroid.ContainerActivity
 import br.com.uvets.uvetsandroid.MainActivity
 import br.com.uvets.uvetsandroid.R
@@ -31,6 +31,10 @@ class LoginFragment : BaseFragment() {
 
         setUpView()
         setUpObservers()
+
+        if (mViewModel.isUserAuthenticated()) {
+            goToMainView()
+        }
     }
 
     private fun setUpView() {
@@ -39,8 +43,7 @@ class LoginFragment : BaseFragment() {
         btLogin.setOnClickListener {
             if (isFormValid()) {
                 mViewModel.login(tvEmail.text.toString(), tvPassword.text.toString()) {
-                    startActivity(Intent(context!!, MainActivity::class.java))
-                    activity?.finish()
+                    goToMainView()
                 }
             }
         }
@@ -53,6 +56,11 @@ class LoginFragment : BaseFragment() {
     private fun setUpObservers() {
     }
 
+    private fun goToMainView() {
+        startActivity(Intent(context!!, MainActivity::class.java))
+        activity?.finish()
+    }
+
     private fun isFormValid(): Boolean {
         var result = true
 
@@ -60,14 +68,14 @@ class LoginFragment : BaseFragment() {
             tiEmail.error = "Campo obrigatório"
             result = false
         } else {
-            tiEmail.error = null
+            tiEmail.isErrorEnabled = false
         }
 
         if (tvPassword.text.isNullOrEmpty()) {
             tiPassword.error = "Campo obrigatório"
             result = false
         } else {
-            tiPassword.error = null
+            tiPassword.isErrorEnabled = false
         }
 
         return result

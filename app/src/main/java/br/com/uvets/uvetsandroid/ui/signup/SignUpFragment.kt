@@ -1,16 +1,17 @@
 package br.com.uvets.uvetsandroid.ui.signup
 
-import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProviders
+import br.com.concrete.canarinho.validator.Validador
+import br.com.concrete.canarinho.watcher.MascaraNumericaTextWatcher
 import br.com.uvets.uvetsandroid.R
 import kotlinx.android.synthetic.main.sign_up_fragment.*
 
-class SignUpFragment : Fragment() {
+class SignUpFragment : androidx.fragment.app.Fragment() {
 
     private lateinit var mViewModel: SignUpViewModel
 
@@ -32,6 +33,14 @@ class SignUpFragment : Fragment() {
         tvPassword.transformationMethod = PasswordTransformationMethod()
         tvConfirmPassword.transformationMethod = PasswordTransformationMethod()
 
+        tvDoc.addTextChangedListener(
+            MascaraNumericaTextWatcher("###.###.###-##")
+        )
+
+        tvPhone.addTextChangedListener(
+            MascaraNumericaTextWatcher("(##) #####-####")
+        )
+
         btSignUp.setOnClickListener {
             if (isFormValid()) {
 
@@ -46,49 +55,55 @@ class SignUpFragment : Fragment() {
             tiFullName.error = "Campo obrigatório"
             result = false
         } else {
-            tiFullName.error = null
+            tiFullName.isErrorEnabled = false
         }
 
         if (tvDoc.text.isNullOrEmpty()) {
             tiDoc.error = "Campo obrigatório"
             result = false
         } else {
-            tiDoc.error = null
+            if (Validador.CPF.ehValido(tvDoc.text.toString())) {
+                tiDoc.isErrorEnabled = false
+            } else {
+                tiDoc.error = "CPF inválido"
+                result = false
+            }
+
         }
 
         if (tvPhone.text.isNullOrEmpty()) {
             tiPhone.error = "Campo obrigatório"
             result = false
         } else {
-            tiPhone.error = null
+            tiPhone.isErrorEnabled = false
         }
 
         if (tvEmail.text.isNullOrEmpty()) {
             tiEmail.error = "Campo obrigatório"
             result = false
         } else {
-            tiEmail.error = null
+            tiEmail.isErrorEnabled = false
         }
 
         if (tvAddress.text.isNullOrEmpty()) {
             tiAddress.error = "Campo obrigatório"
             result = false
         } else {
-            tiAddress.error = null
+            tiAddress.isErrorEnabled = false
         }
 
         if (tvPassword.text.isNullOrEmpty()) {
             tiPassword.error = "Campo obrigatório"
             result = false
         } else {
-            tiPassword.error = null
+            tiPassword.isErrorEnabled = false
         }
 
         if (tvConfirmPassword.text.isNullOrEmpty()) {
             tiConfirmPassword.error = "Campo obrigatório"
             result = false
         } else {
-            tiConfirmPassword.error = null
+            tiConfirmPassword.isErrorEnabled = false
         }
 
         if (!tvPassword.text.isNullOrEmpty() && !tvConfirmPassword.text.isNullOrEmpty()) {
@@ -97,8 +112,8 @@ class SignUpFragment : Fragment() {
                 tiConfirmPassword.error = "As senhas devem ser iguais"
                 result = false
             } else {
-                tiPassword.error = null
-                tiConfirmPassword.error = null
+                tiPassword.isErrorEnabled = false
+                tiConfirmPassword.isErrorEnabled = false
             }
         }
 
