@@ -6,15 +6,16 @@ import br.com.uvets.uvetsandroid.data.remote.getAuthService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class UserRepository {
 
     fun authenticate(email: String, password: String, callback: RestResponseListener<String>) {
 
-        GlobalScope.launch(Dispatchers.Default) {
+        GlobalScope.launch(Dispatchers.Main) {
             val request = getAuthService().auth(LoginRequestVO(email, password))
             try {
-                val response = request.await()
+                val response = withContext(Dispatchers.IO) { request.await() }
 
                 if (response.isSuccessful) {
                     callback.onSuccess(response.body().toString())
@@ -24,8 +25,8 @@ class UserRepository {
             } catch (e: Throwable) {
                 callback.onError(e)
             }
-        }
 
-        callback.onComplete()
+            callback.onComplete()
+        }
     }
 }

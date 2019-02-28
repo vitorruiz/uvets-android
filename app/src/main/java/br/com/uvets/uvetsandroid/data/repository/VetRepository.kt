@@ -6,14 +6,15 @@ import br.com.uvets.uvetsandroid.data.remote.getVetService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class VetRepository {
 
     fun fetchVets(callback: RestResponseListener<List<Vet>?>) {
-        GlobalScope.launch(Dispatchers.Default) {
+        GlobalScope.launch(Dispatchers.Main) {
             val request = getVetService().getVets()
             try {
-                val response = request.await()
+                val response = withContext(Dispatchers.IO) { request.await() }
 
                 if (response.isSuccessful) {
                     callback.onSuccess(response.body())

@@ -35,6 +35,8 @@ class VetAdapter(val context: Context, private var vetList: List<Vet>) :
 
         fun bindView(vet: Vet) = with(itemView) {
             tvVetName.text = vet.name
+            tvRating.text = vet.rating.toString()
+            tvClassification.text = vet.classification
         }
     }
 }

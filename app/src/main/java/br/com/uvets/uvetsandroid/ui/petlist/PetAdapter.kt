@@ -32,7 +32,7 @@ class PetAdapter(val context: Context, private var petList: List<Pet>) : Recycle
     class PetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bindView(pet: Pet) = with(itemView) {
-            pet_name.text = pet.name
+            tvPetName.text = pet.name
         }
     }
 }

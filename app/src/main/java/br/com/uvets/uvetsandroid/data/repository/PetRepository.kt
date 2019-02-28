@@ -6,15 +6,16 @@ import br.com.uvets.uvetsandroid.data.remote.getPetService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class PetRepository {
 
     fun fetchPets(callback: RestResponseListener<List<Pet>?>) {
         //TODO: Implementar sistema de cache
-        GlobalScope.launch(Dispatchers.Default) {
+        GlobalScope.launch(Dispatchers.Main) {
             val request = getPetService().getPets()
             try {
-                val response = request.await()
+                val response = withContext(Dispatchers.IO) { request.await() }
 
                 if (response.isSuccessful) {
                     callback.onSuccess(response.body())
@@ -24,8 +25,8 @@ class PetRepository {
             } catch (e: Throwable) {
                 callback.onError(e)
             }
-        }
 
-        callback.onComplete()
+            callback.onComplete()
+        }
     }
 }
