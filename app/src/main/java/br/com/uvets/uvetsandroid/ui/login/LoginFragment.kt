@@ -1,5 +1,6 @@
 package br.com.uvets.uvetsandroid.ui.login
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
@@ -14,6 +15,8 @@ import br.com.uvets.uvetsandroid.ui.base.BaseFragment
 import kotlinx.android.synthetic.main.login_fragment.*
 
 class LoginFragment : BaseFragment() {
+
+    private val REQUEST_SIGN_UP = 1
 
     private lateinit var mViewModel: LoginViewModel
 
@@ -49,7 +52,7 @@ class LoginFragment : BaseFragment() {
         }
 
         btSignUp.setOnClickListener {
-            startActivity(ContainerActivity.createSignUpView(context!!))
+            startActivityForResult(ContainerActivity.createSignUpView(context!!), REQUEST_SIGN_UP)
         }
     }
 
@@ -85,6 +88,16 @@ class LoginFragment : BaseFragment() {
         super.showLoader(isLoading)
         btLogin.isEnabled = !isLoading
         btSignUp.isEnabled = !isLoading
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_SIGN_UP) {
+            tvEmail.setText(data?.getStringExtra("user_email"))
+            tvPassword.setText((data?.getStringExtra("user_pwd")))
+            btLogin.performClick()
+        }
     }
 
 }

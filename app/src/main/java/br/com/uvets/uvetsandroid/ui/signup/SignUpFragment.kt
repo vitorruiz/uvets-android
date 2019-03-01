@@ -1,5 +1,7 @@
 package br.com.uvets.uvetsandroid.ui.signup
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
@@ -9,9 +11,9 @@ import androidx.lifecycle.ViewModelProviders
 import br.com.concrete.canarinho.formatador.Formatador
 import br.com.concrete.canarinho.validator.Validador
 import br.com.concrete.canarinho.watcher.MascaraNumericaTextWatcher
-import br.com.uvets.uvetsandroid.R
 import br.com.uvets.uvetsandroid.ui.base.BaseFragment
 import kotlinx.android.synthetic.main.sign_up_fragment.*
+
 
 class SignUpFragment : BaseFragment(), SignUpNavigator {
 
@@ -21,7 +23,7 @@ class SignUpFragment : BaseFragment(), SignUpNavigator {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.sign_up_fragment, container, false)
+        return inflater.inflate(br.com.uvets.uvetsandroid.R.layout.sign_up_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -131,6 +133,11 @@ class SignUpFragment : BaseFragment(), SignUpNavigator {
     }
 
     override fun goToLogin() {
+        val returnIntent = Intent().apply {
+            putExtra("user_email", tvEmail.text.toString())
+            putExtra("user_pwd", tvPassword.text.toString())
+        }
+        activity?.setResult(Activity.RESULT_OK, returnIntent)
         activity?.finish()
     }
 
