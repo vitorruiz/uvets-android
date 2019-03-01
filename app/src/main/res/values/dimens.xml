@@ -3,7 +3,16 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
-    <!--genaral spacing-->
+    <!-- Material Spacing -->
+    <dimen name="spacing_material_xsmall">2dp</dimen>
+    <dimen name="spacing_material_small">4dp</dimen>
+    <dimen name="spacing_material_medium">8dp</dimen>
+    <dimen name="spacing_material_xmedium">16dp</dimen>
+    <dimen name="spacing_material_large">32dp</dimen>
+    <dimen name="spacing_material_xlarge">64dp</dimen>
+    <dimen name="spacing_material_xxlarge">128dp</dimen>
+
+    <!-- General Spacing -->
     <dimen name="spacing_xsmall">2dp</dimen>
     <dimen name="spacing_small">3dp</dimen>
     <dimen name="spacing_medium">5dp</dimen>

@@ -22,11 +22,11 @@ class PetListViewModel(application: Application) : BaseViewModel<BaseNavigator>(
                 }
 
                 override fun onFail(responseCode: Int) {
-                    mNavigator?.showErrorMessage("Erro de requisição. Código $responseCode")
+                    mNavigator?.showError("Erro de requisição. Código $responseCode")
                 }
 
                 override fun onError(throwable: Throwable) {
-                    mNavigator?.showErrorMessage(throwable.localizedMessage)
+                    mNavigator?.showError(throwable.localizedMessage)
                 }
 
                 override fun onComplete() {

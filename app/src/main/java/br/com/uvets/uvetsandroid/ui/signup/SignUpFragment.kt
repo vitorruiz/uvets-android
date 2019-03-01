@@ -6,12 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
+import br.com.concrete.canarinho.formatador.Formatador
 import br.com.concrete.canarinho.validator.Validador
 import br.com.concrete.canarinho.watcher.MascaraNumericaTextWatcher
 import br.com.uvets.uvetsandroid.R
+import br.com.uvets.uvetsandroid.ui.base.BaseFragment
 import kotlinx.android.synthetic.main.sign_up_fragment.*
 
-class SignUpFragment : androidx.fragment.app.Fragment() {
+class SignUpFragment : BaseFragment(), SignUpNavigator {
 
     private lateinit var mViewModel: SignUpViewModel
 
@@ -25,6 +27,7 @@ class SignUpFragment : androidx.fragment.app.Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         mViewModel = ViewModelProviders.of(this).get(SignUpViewModel::class.java)
+        mViewModel.attachNavigator(this)
 
         setUpView()
     }
@@ -43,7 +46,14 @@ class SignUpFragment : androidx.fragment.app.Fragment() {
 
         btSignUp.setOnClickListener {
             if (isFormValid()) {
-
+                mViewModel.register(
+                    tvFullName.text.toString(),
+                    Formatador.CPF.desformata(tvDoc.text.toString()),
+                    Formatador.TELEFONE.desformata(tvPhone.text.toString()),
+                    tvEmail.text.toString(),
+                    tvAddress.text.toString(),
+                    tvPassword.text.toString()
+                )
             }
         }
     }
@@ -118,6 +128,10 @@ class SignUpFragment : androidx.fragment.app.Fragment() {
         }
 
         return result
+    }
+
+    override fun goToLogin() {
+        activity?.finish()
     }
 
 }

@@ -1,6 +1,7 @@
 package br.com.uvets.uvetsandroid.data.repository
 
 import br.com.uvets.uvetsandroid.data.model.vo.LoginRequestVO
+import br.com.uvets.uvetsandroid.data.model.vo.SignUpRequestVO
 import br.com.uvets.uvetsandroid.data.remote.RestResponseListener
 import br.com.uvets.uvetsandroid.data.remote.getAuthService
 import kotlinx.coroutines.Dispatchers
@@ -19,6 +20,26 @@ class UserRepository {
 
                 if (response.isSuccessful) {
                     callback.onSuccess(response.body().toString())
+                } else {
+                    callback.onFail(response.code())
+                }
+            } catch (e: Throwable) {
+                callback.onError(e)
+            }
+
+            callback.onComplete()
+        }
+    }
+
+    fun registerTutor(signUpRequestVO: SignUpRequestVO, callback: RestResponseListener<String?>) {
+
+        GlobalScope.launch(Dispatchers.Main) {
+            val request = getAuthService().registerTutor(signUpRequestVO)
+            try {
+                val response = withContext(Dispatchers.IO) { request.await() }
+
+                if (response.isSuccessful) {
+                    callback.onSuccess(null)
                 } else {
                     callback.onFail(response.code())
                 }

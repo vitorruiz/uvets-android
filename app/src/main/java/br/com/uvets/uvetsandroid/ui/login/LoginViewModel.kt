@@ -21,14 +21,14 @@ class LoginViewModel(application: Application) : BaseViewModel<BaseNavigator>(ap
 
             override fun onFail(responseCode: Int) {
                 if (responseCode == 401) {
-                    mNavigator?.showErrorMessage("Usuário ou senha inválido")
+                    mNavigator?.showError("Usuário ou senha inválido")
                 } else {
-                    mNavigator?.showErrorMessage("Ocorreu um erro na requisição. Código: $responseCode")
+                    mNavigator?.showError("Ocorreu um erro na requisição. Código: $responseCode")
                 }
             }
 
             override fun onError(throwable: Throwable) {
-                mNavigator?.showErrorMessage("Erro inesperado")
+                mNavigator?.showError(throwable.localizedMessage)
             }
 
             override fun onComplete() {

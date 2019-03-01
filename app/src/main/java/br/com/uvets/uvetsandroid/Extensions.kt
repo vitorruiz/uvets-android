@@ -40,30 +40,30 @@ fun Fragment.loading(isLoading: Boolean) {
     }
 }
 
-fun Fragment.showSuccess(message: String) {
+fun Fragment.showSuccessToast(message: String) {
     val toast = Toast(context)
     toast.duration = Toast.LENGTH_LONG
 
     //inflate view
-    val custom_view = layoutInflater.inflate(R.layout.toast_icon_text, null)
-    (custom_view.findViewById(R.id.message) as TextView).text = message
-    (custom_view.findViewById(R.id.icon) as ImageView).setImageResource(R.drawable.ic_done)
-    (custom_view.findViewById(R.id.parent_view) as CardView).setCardBackgroundColor(resources.getColor(R.color.green_500))
+    val view = layoutInflater.inflate(R.layout.toast_icon_text, null)
+    (view.findViewById(R.id.message) as TextView).text = message
+    (view.findViewById(R.id.icon) as ImageView).setImageResource(R.drawable.ic_done)
+    (view.findViewById(R.id.parent_view) as CardView).setCardBackgroundColor(resources.getColor(R.color.green_500))
 
-    toast.view = custom_view
+    toast.view = view
     toast.show()
 }
 
-fun Fragment.showError(message: String) {
+fun Fragment.showErrorToast(message: String) {
     val toast = Toast(context)
     toast.duration = Toast.LENGTH_LONG
 
     //inflate view
-    val custom_view = layoutInflater.inflate(R.layout.toast_icon_text, null)
-    (custom_view.findViewById(R.id.message) as TextView).text = message
-    (custom_view.findViewById(R.id.icon) as ImageView).setImageResource(R.drawable.ic_close)
-    (custom_view.findViewById(R.id.parent_view) as CardView).setCardBackgroundColor(resources.getColor(R.color.red_600))
+    val view = layoutInflater.inflate(R.layout.toast_icon_text, null)
+    (view.findViewById(R.id.message) as TextView).text = message
+    (view.findViewById(R.id.icon) as ImageView).setImageResource(R.drawable.ic_close)
+    (view.findViewById(R.id.parent_view) as CardView).setCardBackgroundColor(resources.getColor(R.color.red_600))
 
-    toast.view = custom_view
+    toast.view = view
     toast.show()
 }

@@ -1,13 +1,18 @@
 package br.com.uvets.uvetsandroid.ui.base
 
 import android.view.View
-import br.com.uvets.uvetsandroid.showError
+import br.com.uvets.uvetsandroid.showErrorToast
+import br.com.uvets.uvetsandroid.showSuccessToast
 import kotlinx.android.synthetic.main.include_loading_container.*
 
 open class BaseFragment : androidx.fragment.app.Fragment(), BaseNavigator {
 
-    override fun showErrorMessage(errorMessage: String) {
-        showError(errorMessage)
+    override fun showSuccess(message: String) {
+        showSuccessToast(message)
+    }
+
+    override fun showError(message: String) {
+        showErrorToast(message)
     }
 
     override fun showLoader(isLoading: Boolean) {
