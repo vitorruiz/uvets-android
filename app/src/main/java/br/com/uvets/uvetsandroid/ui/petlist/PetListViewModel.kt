@@ -16,7 +16,7 @@ class PetListViewModel(application: Application) : BaseViewModel<BaseNavigator>(
     fun fetchPets(force: Boolean = false) {
         if (mPetListLiveData.value.isNullOrEmpty() || force) {
             mNavigator?.showLoader(mPetListLiveData.value.isNullOrEmpty())
-            mPetRepository.fetchPets(object : RestResponseListener<List<Pet>?> {
+            mPetRepository.fetchPets(getUserToken(), object : RestResponseListener<List<Pet>?> {
                 override fun onSuccess(obj: List<Pet>?) {
                     mPetListLiveData.postValue(obj)
                 }

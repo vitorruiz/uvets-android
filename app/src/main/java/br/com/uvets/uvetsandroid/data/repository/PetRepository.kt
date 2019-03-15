@@ -10,10 +10,10 @@ import kotlinx.coroutines.withContext
 
 class PetRepository {
 
-    fun fetchPets(callback: RestResponseListener<List<Pet>?>) {
+    fun fetchPets(userToken: String, callback: RestResponseListener<List<Pet>?>) {
         //TODO: Implementar sistema de cache
         GlobalScope.launch(Dispatchers.Main) {
-            val request = getPetService().getPets()
+            val request = getPetService(userToken).getPets()
             try {
                 val response = withContext(Dispatchers.IO) { request.await() }
 

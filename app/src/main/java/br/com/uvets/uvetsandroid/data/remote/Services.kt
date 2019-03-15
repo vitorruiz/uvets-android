@@ -14,10 +14,10 @@ import retrofit2.http.POST
 
 interface AuthService {
 
-    @POST("/auth")
+    @POST("/login")
     fun auth(@Body loginVO: LoginRequestVO): Deferred<Response<ResponseBody>>
 
-    @POST("/tutor")
+    @POST("/users/tutor")
     fun registerTutor(@Body signUpRequestVO: SignUpRequestVO): Deferred<Response<Void>>
 }
 

@@ -12,7 +12,7 @@ open class BaseViewModel<N>(application: Application) : AndroidViewModel(applica
         mNavigator = navigator
     }
 
-    protected fun getUserToken(): String? {
-        return mSharedPreferences.getString("user_token", null)
+    protected fun getUserToken(): String {
+        return mSharedPreferences.getString("user_token", "")!!
     }
 }

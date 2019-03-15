@@ -15,7 +15,7 @@ class ClientApi<T> {
     fun getClient(c: Class<T>): T {
         val retrofit = Retrofit.Builder()
             .client(getOkhttpClient().build())
-            .baseUrl("http://private-24263-uvets.apiary-mock.com")
+            .baseUrl("https://uvets-api.herokuapp.com")
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .build()
@@ -26,7 +26,7 @@ class ClientApi<T> {
     fun getClientWithAuth(c: Class<T>, token: String): T {
         val retrofit = Retrofit.Builder()
             .client(getOkhttpClientAuth(token).build())
-            .baseUrl("http://private-24263-uvets.apiary-mock.com")
+            .baseUrl("https://uvets-api.herokuapp.com")
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .build()
@@ -45,6 +45,7 @@ class ClientApi<T> {
     private fun getOkhttpClientAuth(token: String): OkHttpClient.Builder {
         return OkHttpClient.Builder()
             .addInterceptor(AuthInterceptor(token))
+            .addInterceptor(HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY })
             .connectTimeout(30, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)
             .writeTimeout(30, TimeUnit.SECONDS)
@@ -72,8 +73,8 @@ interface RestResponseListener<T> {
     fun onComplete()
 }
 
-fun getPetService(): PetService {
-    return ClientApi<PetService>().getClient(PetService::class.java)
+fun getPetService(token: String): PetService {
+    return ClientApi<PetService>().getClientWithAuth(PetService::class.java, token)
 }
 
 fun getAuthService(): AuthService {
