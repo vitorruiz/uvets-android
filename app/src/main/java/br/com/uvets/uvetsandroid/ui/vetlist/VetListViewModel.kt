@@ -1,6 +1,7 @@
 package br.com.uvets.uvetsandroid.ui.vetlist
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import br.com.uvets.uvetsandroid.data.model.Vet
 import br.com.uvets.uvetsandroid.data.remote.RestResponseListener
@@ -36,5 +37,12 @@ class VetListViewModel(application: Application) : BaseViewModel<BaseNavigator>(
 
             })
         }
+    }
+
+    override fun onCleared() {
+        vetRepository.dispose()
+        Log.d("Vem Monstro", "onCleared")
+        super.onCleared()
+
     }
 }

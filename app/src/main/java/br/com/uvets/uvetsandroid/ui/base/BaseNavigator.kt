@@ -5,4 +5,5 @@ interface BaseNavigator {
     fun showError(message: String)
     //fun showError(@IdRes resId: Int)
     fun showLoader(isLoading: Boolean)
+    fun onLogoutSucceeded()
 }

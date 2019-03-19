@@ -3,16 +3,20 @@ package br.com.uvets.uvetsandroid.data.model
 import android.os.Parcel
 import android.os.Parcelable
 
-data class Pet(val name: String,
-               val birth: Long,
-               val race: String,
-               val gender: String,
-               val photoUrl: String?,
-               val castrated: Boolean,
-               val weight: Double?,
-               val chipNumber: String?) : Parcelable {
+data class Pet(
+    val id: Long,
+    val name: String,
+    val birth: Long,
+    val race: String,
+    val gender: String,
+    val photoUrl: String?,
+    val castrated: Boolean,
+    val weight: Double?,
+    val chipNumber: String?
+) : Parcelable {
 
     constructor(parcel: Parcel) : this(
+        parcel.readLong(),
         parcel.readString(),
         parcel.readLong(),
         parcel.readString(),
@@ -21,9 +25,11 @@ data class Pet(val name: String,
         parcel.readByte() != 0.toByte(),
         parcel.readValue(Double::class.java.classLoader) as? Double,
         parcel.readString()
-    )
+    ) {
+    }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeLong(id)
         parcel.writeString(name)
         parcel.writeLong(birth)
         parcel.writeString(race)
@@ -47,4 +53,6 @@ data class Pet(val name: String,
             return arrayOfNulls(size)
         }
     }
+
+
 }

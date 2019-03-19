@@ -59,6 +59,6 @@ class PetListFragment : BaseFragment() {
 
     override fun showLoader(isLoading: Boolean) {
         super.showLoader(isLoading)
-        if (!isLoading) swipeRefresh.isRefreshing = false
+        if (swipeRefresh != null && !isLoading) swipeRefresh.isRefreshing = false
     }
 }

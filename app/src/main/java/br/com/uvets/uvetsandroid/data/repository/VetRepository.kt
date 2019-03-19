@@ -3,10 +3,7 @@ package br.com.uvets.uvetsandroid.data.repository
 import br.com.uvets.uvetsandroid.data.model.Vet
 import br.com.uvets.uvetsandroid.data.remote.RestResponseListener
 import br.com.uvets.uvetsandroid.data.remote.getVetService
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 
 class VetRepository {
 
@@ -27,5 +24,9 @@ class VetRepository {
 
             callback.onComplete()
         }
+    }
+
+    fun dispose(){
+        GlobalScope.coroutineContext[Job]?.cancel()
     }
 }

@@ -8,13 +8,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
-import br.com.uvets.uvetsandroid.ContainerActivity
-import br.com.uvets.uvetsandroid.MainActivity
 import br.com.uvets.uvetsandroid.R
+import br.com.uvets.uvetsandroid.ui.ContainerActivity
+import br.com.uvets.uvetsandroid.ui.MainActivity
 import br.com.uvets.uvetsandroid.ui.base.BaseFragment
 import kotlinx.android.synthetic.main.login_fragment.*
 
-class LoginFragment : BaseFragment() {
+class LoginFragment : BaseFragment(), LoginNavigator {
 
     private val REQUEST_SIGN_UP = 1
 
@@ -62,6 +62,10 @@ class LoginFragment : BaseFragment() {
     private fun goToMainView() {
         startActivity(Intent(context!!, MainActivity::class.java))
         activity?.finish()
+    }
+
+    override fun onLoginSucceeded() {
+        goToMainView()
     }
 
     private fun isFormValid(): Boolean {

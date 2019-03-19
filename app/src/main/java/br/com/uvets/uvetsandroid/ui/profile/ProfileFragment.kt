@@ -5,9 +5,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import br.com.uvets.uvetsandroid.R
+import br.com.uvets.uvetsandroid.ui.base.BaseFragment
+import kotlinx.android.synthetic.main.fragment_profile.*
 
-class ProfileFragment : androidx.fragment.app.Fragment() {
+class ProfileFragment : BaseFragment() {
+
+    private lateinit var mViewModel: ProfileViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -17,5 +23,28 @@ class ProfileFragment : androidx.fragment.app.Fragment() {
         return inflater.inflate(R.layout.fragment_profile, container, false)
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        mViewModel = ViewModelProviders.of(this).get(ProfileViewModel::class.java)
+        mViewModel.attachNavigator(this)
+
+        setUpView()
+        setUpObservers()
+    }
+
+    private fun setUpObservers() {
+        mViewModel.userLiveData.observe(this, Observer {
+            tvUserName.text = it.name
+            tvUserEmail.text = it.email
+        })
+    }
+
+    private fun setUpView() {
+        activity?.title = "Perfil"
+
+        llLogout.setOnClickListener {
+            mViewModel.doLogout()
+        }
+    }
 
 }

@@ -1,12 +1,13 @@
 package br.com.uvets.uvetsandroid.ui.login
 
 import android.app.Application
+import br.com.uvets.uvetsandroid.data.model.User
+import br.com.uvets.uvetsandroid.data.prefs.PrefsDataStore
 import br.com.uvets.uvetsandroid.data.remote.RestResponseListener
 import br.com.uvets.uvetsandroid.data.repository.UserRepository
-import br.com.uvets.uvetsandroid.ui.base.BaseNavigator
 import br.com.uvets.uvetsandroid.ui.base.BaseViewModel
 
-class LoginViewModel(application: Application) : BaseViewModel<BaseNavigator>(application) {
+class LoginViewModel(application: Application) : BaseViewModel<LoginNavigator>(application) {
 
     private val mUserRepository = UserRepository()
 
@@ -16,7 +17,7 @@ class LoginViewModel(application: Application) : BaseViewModel<BaseNavigator>(ap
         mUserRepository.authenticate(email, password, object : RestResponseListener<String> {
             override fun onSuccess(obj: String) {
                 saveUserToken(obj)
-                onSuccess()
+                //onSuccess()
             }
 
             override fun onFail(responseCode: Int) {
@@ -32,19 +33,36 @@ class LoginViewModel(application: Application) : BaseViewModel<BaseNavigator>(ap
             }
 
             override fun onComplete() {
-                mNavigator?.showLoader(false)
+                fetchUser()
+                //mNavigator?.showLoader(false)
             }
 
         })
     }
 
-    private fun saveUserToken(token: String) {
-        mSharedPreferences.edit()
-            .putString("user_token", token)
-            .apply()
+    private fun fetchUser() {
+        mUserRepository.fetchUser(object : RestResponseListener<User?> {
+            override fun onSuccess(obj: User?) {
+                PrefsDataStore.saveUserData(obj!!)
+            }
+
+            override fun onFail(responseCode: Int) {
+                mNavigator?.showError("Ocorreu um erro na requisição. Código: $responseCode")
+            }
+
+            override fun onError(throwable: Throwable) {
+                mNavigator?.showError(throwable.localizedMessage)
+            }
+
+            override fun onComplete() {
+                mNavigator?.showLoader(false)
+                mNavigator?.onLoginSucceeded()
+            }
+
+        })
     }
 
     fun isUserAuthenticated(): Boolean {
-        return !mSharedPreferences.getString("user_token", null).isNullOrEmpty()
+        return !PrefsDataStore.getUserToken().isEmpty()
     }
 }

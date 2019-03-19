@@ -15,7 +15,7 @@ class ClientApi<T> {
     fun getClient(c: Class<T>): T {
         val retrofit = Retrofit.Builder()
             .client(getOkhttpClient().build())
-            .baseUrl("https://uvets-api.herokuapp.com")
+            .baseUrl("http://172.16.71.174:8080")
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .build()
@@ -26,7 +26,7 @@ class ClientApi<T> {
     fun getClientWithAuth(c: Class<T>, token: String): T {
         val retrofit = Retrofit.Builder()
             .client(getOkhttpClientAuth(token).build())
-            .baseUrl("https://uvets-api.herokuapp.com")
+            .baseUrl("http://172.16.71.174:8080")
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .build()
@@ -50,9 +50,28 @@ class ClientApi<T> {
             .readTimeout(30, TimeUnit.SECONDS)
             .writeTimeout(30, TimeUnit.SECONDS)
     }
+
+    class Builder<T> {
+        private var auth: Boolean = false
+        private var userToken: String? = null
+
+        fun withAuth(token: String): Builder<T> {
+            this.auth = true
+            this.userToken = token
+            return this
+        }
+
+        fun build(c: Class<T>): T {
+            return if (auth) {
+                ClientApi<T>().getClientWithAuth(c, userToken ?: "")
+            } else {
+                ClientApi<T>().getClient(c)
+            }
+        }
+    }
 }
 
-class AuthInterceptor(val token: String) : Interceptor {
+class AuthInterceptor(private val token: String) : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain?): Response {
         val requestBuilder = chain!!.request().newBuilder()
@@ -73,14 +92,50 @@ interface RestResponseListener<T> {
     fun onComplete()
 }
 
-fun getPetService(token: String): PetService {
-    return ClientApi<PetService>().getClientWithAuth(PetService::class.java, token)
+fun <T> getApiBuilder(): ClientApi.Builder<T> {
+    return ClientApi.Builder()
 }
 
-fun getAuthService(): AuthService {
-    return ClientApi<AuthService>().getClient(AuthService::class.java)
+fun getPetService(token: String? = null): PetService {
+    return if (token != null) {
+        getApiBuilder<PetService>()
+            .withAuth(token)
+            .build(PetService::class.java)
+    } else {
+        getApiBuilder<PetService>()
+            .build(PetService::class.java)
+    }
 }
 
-fun getVetService(): VetService {
-    return ClientApi<VetService>().getClient(VetService::class.java)
+fun getAuthService(token: String? = null): AuthService {
+    return if (token != null) {
+        getApiBuilder<AuthService>()
+            .withAuth(token)
+            .build(AuthService::class.java)
+    } else {
+        getApiBuilder<AuthService>()
+            .build(AuthService::class.java)
+    }
+}
+
+fun getUserService(token: String? = null): UserService {
+    return if (token != null) {
+        getApiBuilder<UserService>()
+            .withAuth(token)
+            .build(UserService::class.java)
+    } else {
+        getApiBuilder<UserService>()
+            .build(UserService::class.java)
+    }
+}
+
+fun getVetService(token: String? = null): VetService {
+    return if (token != null) {
+        getApiBuilder<VetService>()
+            .withAuth(token)
+            .build(VetService::class.java)
+    } else {
+        getApiBuilder<VetService>()
+            .build(VetService::class.java)
+    }
 }

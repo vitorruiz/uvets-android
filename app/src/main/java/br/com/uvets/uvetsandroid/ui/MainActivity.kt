@@ -1,7 +1,8 @@
-package br.com.uvets.uvetsandroid
+package br.com.uvets.uvetsandroid.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import br.com.uvets.uvetsandroid.R
 import br.com.uvets.uvetsandroid.ui.petlist.PetListFragment
 import br.com.uvets.uvetsandroid.ui.profile.ProfileFragment
 import br.com.uvets.uvetsandroid.ui.vetlist.VetListFragment
@@ -40,7 +41,9 @@ class MainActivity : AppCompatActivity() {
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
-        val builder = FragNavController.newBuilder(savedInstanceState, supportFragmentManager, R.id.container)
+        val builder = FragNavController.newBuilder(savedInstanceState, supportFragmentManager,
+            R.id.container
+        )
         builder.rootFragments(listOf(PetListFragment(), VetListFragment(), ProfileFragment()))
         fragNavController = builder.build()
 

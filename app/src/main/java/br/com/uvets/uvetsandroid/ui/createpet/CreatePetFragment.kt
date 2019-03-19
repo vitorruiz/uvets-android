@@ -6,12 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.lifecycle.ViewModelProviders
 import br.com.uvets.uvetsandroid.R
 import br.com.uvets.uvetsandroid.enableImagePickerOnClick
+import br.com.uvets.uvetsandroid.ui.base.BaseFragment
 import br.com.uvets.uvetsandroid.utils.PickerUtils
 import kotlinx.android.synthetic.main.fragment_create_pet.*
 
-class CreatePetFragment : androidx.fragment.app.Fragment() {
+class CreatePetFragment : BaseFragment(), CreatePetNavigator {
+
+    private lateinit var mViewModel: CreatePetViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,6 +27,8 @@ class CreatePetFragment : androidx.fragment.app.Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        mViewModel = ViewModelProviders.of(this).get(CreatePetViewModel::class.java)
+        mViewModel.attachNavigator(this)
 
         setUpView()
     }
@@ -35,5 +41,9 @@ class CreatePetFragment : androidx.fragment.app.Fragment() {
         }
 
         ivPetPhoto.enableImagePickerOnClick(this)
+    }
+
+    override fun onPetCreated() {
+
     }
 }

@@ -1,9 +1,10 @@
-package br.com.uvets.uvetsandroid
+package br.com.uvets.uvetsandroid.ui
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import br.com.uvets.uvetsandroid.R
 import br.com.uvets.uvetsandroid.ui.createpet.CreatePetFragment
 import br.com.uvets.uvetsandroid.ui.login.LoginFragment
 import br.com.uvets.uvetsandroid.ui.signup.SignUpFragment
@@ -25,20 +26,29 @@ class ContainerActivity : AppCompatActivity() {
 
         fun createPetView(context: Context): Intent {
             return basicContainerIntent(context).apply {
-                putExtra(VIEW_ID_PARAM, ContainerView.CREATE_PET)
+                putExtra(
+                    VIEW_ID_PARAM,
+                    ContainerView.CREATE_PET
+                )
             }
         }
 
         fun createSignUpView(context: Context): Intent {
             return basicContainerIntent(context).apply {
-                putExtra(VIEW_ID_PARAM, ContainerView.SIGN_UP)
+                putExtra(
+                    VIEW_ID_PARAM,
+                    ContainerView.SIGN_UP
+                )
                 putExtra(VIEW_NO_ACTION_BAR, true)
             }
         }
 
         fun createLoginView(context: Context): Intent {
             return basicContainerIntent(context).apply {
-                putExtra(VIEW_ID_PARAM, ContainerView.LOGIN)
+                putExtra(
+                    VIEW_ID_PARAM,
+                    ContainerView.LOGIN
+                )
                 putExtra(VIEW_NO_ACTION_BAR, true)
             }
         }
