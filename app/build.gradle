@@ -24,6 +24,22 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    flavorDimensions "env"
+    productFlavors {
+        mock {
+            dimension "env"
+            buildConfigField "String", "BASE_URL", "\"https://private-24263-uvets.apiary-mock.com\""
+        }
+        local {
+            dimension "env"
+            buildConfigField "String", "BASE_URL", "\"http://192.168.0.6:5000\""
+        }
+        server {
+            dimension "env"
+            buildConfigField "String", "BASE_URL", "\"http://uvetsapi-env.gevzwxdav3.sa-east-1.elasticbeanstalk.com\""
+        }
+    }
 }
 
 dependencies {

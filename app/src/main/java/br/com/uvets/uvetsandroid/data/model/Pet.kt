@@ -4,7 +4,7 @@ import android.os.Parcel
 import android.os.Parcelable
 
 data class Pet(
-    val id: Long,
+    val id: Long?,
     val name: String,
     val birth: Long,
     val race: String,
@@ -16,7 +16,7 @@ data class Pet(
 ) : Parcelable {
 
     constructor(parcel: Parcel) : this(
-        parcel.readLong(),
+        parcel.readValue(Long::class.java.classLoader) as? Long,
         parcel.readString(),
         parcel.readLong(),
         parcel.readString(),
@@ -25,11 +25,10 @@ data class Pet(
         parcel.readByte() != 0.toByte(),
         parcel.readValue(Double::class.java.classLoader) as? Double,
         parcel.readString()
-    ) {
-    }
+    )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeLong(id)
+        parcel.writeValue(id)
         parcel.writeString(name)
         parcel.writeLong(birth)
         parcel.writeString(race)
@@ -53,6 +52,5 @@ data class Pet(
             return arrayOfNulls(size)
         }
     }
-
 
 }

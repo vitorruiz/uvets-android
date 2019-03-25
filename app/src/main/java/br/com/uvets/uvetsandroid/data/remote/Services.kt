@@ -26,7 +26,7 @@ interface UserService {
     @GET("/users/fetch")
     fun fetchUser(): Deferred<Response<User>>
 
-    @POST("/users/tutor")
+    @POST("/users")
     fun registerTutor(@Body signUpRequestVO: SignUpRequestVO): Deferred<Response<Void>>
 }
 

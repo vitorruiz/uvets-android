@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
         fragNavController = builder.build()
 
         fab_create_pet.setOnClickListener {
-            startActivity(ContainerActivity.createPetView(this))
+            startActivityForResult(ContainerActivity.createPetView(this), 100)
         }
     }
 

@@ -1,6 +1,7 @@
 package br.com.uvets.uvetsandroid.data.repository
 
 import br.com.uvets.uvetsandroid.data.model.Vet
+import br.com.uvets.uvetsandroid.data.prefs.PrefsDataStore
 import br.com.uvets.uvetsandroid.data.remote.RestResponseListener
 import br.com.uvets.uvetsandroid.data.remote.getVetService
 import kotlinx.coroutines.*
@@ -9,7 +10,7 @@ class VetRepository {
 
     fun fetchVets(callback: RestResponseListener<List<Vet>?>) {
         GlobalScope.launch(Dispatchers.Main) {
-            val request = getVetService().getVets()
+            val request = getVetService(PrefsDataStore.getUserToken()).getVets()
             try {
                 val response = withContext(Dispatchers.IO) { request.await() }
 

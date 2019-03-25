@@ -1,6 +1,7 @@
 package br.com.uvets.uvetsandroid.data.remote
 
 import android.util.Log
+import br.com.uvets.uvetsandroid.BuildConfig
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -15,7 +16,7 @@ class ClientApi<T> {
     fun getClient(c: Class<T>): T {
         val retrofit = Retrofit.Builder()
             .client(getOkhttpClient().build())
-            .baseUrl("http://172.16.71.174:8080")
+            .baseUrl(BuildConfig.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .build()
@@ -26,7 +27,7 @@ class ClientApi<T> {
     fun getClientWithAuth(c: Class<T>, token: String): T {
         val retrofit = Retrofit.Builder()
             .client(getOkhttpClientAuth(token).build())
-            .baseUrl("http://172.16.71.174:8080")
+            .baseUrl(BuildConfig.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .build()
@@ -78,8 +79,8 @@ class AuthInterceptor(private val token: String) : Interceptor {
         requestBuilder.addHeader("Authorization", token)
         val request = requestBuilder.build()
         val response = chain.proceed(request)
-        if (response.code() == 401) {
-            Log.e("MEUAPP", "Error API KEY")
+        if (response.code() == 401 || response.code() == 403) {
+            Log.e("UVETS", "Error API KEY")
         }
         return response
     }

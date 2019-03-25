@@ -1,6 +1,8 @@
 package br.com.uvets.uvetsandroid.ui.petlist
 
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import br.com.uvets.uvetsandroid.R
+import br.com.uvets.uvetsandroid.data.model.Pet
 import br.com.uvets.uvetsandroid.ui.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_pet_list.*
 
@@ -37,6 +40,15 @@ class PetListFragment : BaseFragment() {
         setUpObservers()
 
         mViewModel.fetchPets()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (resultCode == Activity.RESULT_OK && requestCode == 100) {
+            val pet = data?.getParcelableExtra<Pet>("pet")
+            pet?.let {
+                mPetAdapter.addIem(it)
+            }
+        }
     }
 
     private fun setUpView() {
