@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import br.com.uvets.uvetsandroid.R
 import br.com.uvets.uvetsandroid.data.model.Pet
+import br.com.uvets.uvetsandroid.ui.ContainerActivity
 import br.com.uvets.uvetsandroid.ui.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_pet_list.*
 
@@ -60,6 +61,10 @@ class PetListFragment : BaseFragment() {
 
         swipeRefresh.setOnRefreshListener {
             mViewModel.fetchPets(true)
+        }
+
+        fbCreatePet.setOnClickListener {
+            startActivityForResult(ContainerActivity.createPetView(context!!), 100)
         }
     }
 

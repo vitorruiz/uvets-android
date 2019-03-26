@@ -11,13 +11,13 @@ class LoginViewModel(application: Application) : BaseViewModel<LoginNavigator>(a
 
     private val mUserRepository = UserRepository()
 
-    fun login(email: String, password: String, onSuccess: () -> Unit) {
+    fun login(email: String, password: String) {
         mNavigator?.showLoader(true)
 
         mUserRepository.authenticate(email, password, object : RestResponseListener<String> {
             override fun onSuccess(obj: String) {
                 saveUserToken(obj)
-                //onSuccess()
+                fetchUser()
             }
 
             override fun onFail(responseCode: Int) {
@@ -32,10 +32,7 @@ class LoginViewModel(application: Application) : BaseViewModel<LoginNavigator>(a
                 mNavigator?.showError(throwable.localizedMessage)
             }
 
-            override fun onComplete() {
-                fetchUser()
-                //mNavigator?.showLoader(false)
-            }
+            override fun onComplete() {}
 
         })
     }

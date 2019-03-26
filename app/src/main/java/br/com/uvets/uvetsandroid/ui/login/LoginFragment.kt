@@ -45,14 +45,12 @@ class LoginFragment : BaseFragment(), LoginNavigator {
 
         btLogin.setOnClickListener {
             if (isFormValid()) {
-                mViewModel.login(tvEmail.text.toString(), tvPassword.text.toString()) {
-                    goToMainView()
-                }
+                mViewModel.login(tvEmail.text.toString(), tvPassword.text.toString())
             }
         }
 
         btSignUp.setOnClickListener {
-            startActivityForResult(ContainerActivity.createSignUpView(context!!), REQUEST_SIGN_UP)
+            startActivityForResult(ContainerActivity.signUpView(context!!), REQUEST_SIGN_UP)
         }
     }
 

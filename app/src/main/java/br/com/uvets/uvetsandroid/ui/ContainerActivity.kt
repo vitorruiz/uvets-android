@@ -5,12 +5,13 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import br.com.uvets.uvetsandroid.R
+import br.com.uvets.uvetsandroid.data.model.Pet
 import br.com.uvets.uvetsandroid.ui.createpet.CreatePetFragment
 import br.com.uvets.uvetsandroid.ui.login.LoginFragment
 import br.com.uvets.uvetsandroid.ui.signup.SignUpFragment
 
 enum class ContainerView {
-    SIGN_UP, CREATE_PET, LOGIN
+    SIGN_UP, CREATE_PET, UPDATE_PET, LOGIN
 }
 
 class ContainerActivity : AppCompatActivity() {
@@ -19,6 +20,7 @@ class ContainerActivity : AppCompatActivity() {
 
         const val VIEW_ID_PARAM = "view_id"
         const val VIEW_NO_ACTION_BAR = "view_no_action_bar"
+        const val PET_PARAM = "pet"
 
         private fun basicContainerIntent(context: Context): Intent {
             return Intent(context, ContainerActivity::class.java)
@@ -33,7 +35,14 @@ class ContainerActivity : AppCompatActivity() {
             }
         }
 
-        fun createSignUpView(context: Context): Intent {
+        fun updatePetView(context: Context, pet: Pet): Intent {
+            return basicContainerIntent(context).apply {
+                putExtra(VIEW_ID_PARAM, ContainerView.UPDATE_PET)
+                putExtra(PET_PARAM, pet)
+            }
+        }
+
+        fun signUpView(context: Context): Intent {
             return basicContainerIntent(context).apply {
                 putExtra(
                     VIEW_ID_PARAM,
@@ -43,7 +52,7 @@ class ContainerActivity : AppCompatActivity() {
             }
         }
 
-        fun createLoginView(context: Context): Intent {
+        fun loginView(context: Context): Intent {
             return basicContainerIntent(context).apply {
                 putExtra(
                     VIEW_ID_PARAM,
@@ -66,6 +75,8 @@ class ContainerActivity : AppCompatActivity() {
             when (this) {
                 ContainerView.SIGN_UP -> fragmentToLoad = SignUpFragment()
                 ContainerView.CREATE_PET -> fragmentToLoad = CreatePetFragment()
+                ContainerView.UPDATE_PET -> fragmentToLoad =
+                    CreatePetFragment.updateInstance(intent!!.extras!!.getParcelable(PET_PARAM)!!)
                 ContainerView.LOGIN -> fragmentToLoad = LoginFragment()
                 null -> {
                     setTheme(R.style.Theme_UVets_NoActionBar)

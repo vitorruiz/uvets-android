@@ -1,9 +1,9 @@
 package br.com.uvets.uvetsandroid.ui.base
 
 import android.view.View
-import br.com.uvets.uvetsandroid.ui.ContainerActivity
 import br.com.uvets.uvetsandroid.showErrorToast
 import br.com.uvets.uvetsandroid.showSuccessToast
+import br.com.uvets.uvetsandroid.ui.ContainerActivity
 import kotlinx.android.synthetic.main.include_loading_container.*
 
 open class BaseFragment : androidx.fragment.app.Fragment(), BaseNavigator {
@@ -23,7 +23,7 @@ open class BaseFragment : androidx.fragment.app.Fragment(), BaseNavigator {
     }
 
     override fun onLogoutSucceeded() {
-        startActivity(ContainerActivity.createLoginView(context!!))
+        startActivity(ContainerActivity.loginView(context!!))
         activity?.finish()
     }
 }

@@ -21,6 +21,16 @@ class CreatePetFragment : BaseFragment(), CreatePetNavigator {
 
     private lateinit var mViewModel: CreatePetViewModel
 
+    companion object {
+        fun updateInstance(pet: Pet): CreatePetFragment {
+            return CreatePetFragment().apply {
+                arguments = Bundle().apply {
+                    putParcelable("pet", pet)
+                }
+            }
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
