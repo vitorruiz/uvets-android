@@ -4,5 +4,5 @@ import br.com.uvets.uvetsandroid.data.model.Pet
 import br.com.uvets.uvetsandroid.ui.base.BaseNavigator
 
 interface CreatePetNavigator : BaseNavigator {
-    fun onPetCreated(pet: Pet)
+    fun onPetSaved(pet: Pet)
 }

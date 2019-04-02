@@ -2,6 +2,8 @@ package br.com.uvets.uvetsandroid.data.remote
 
 import android.util.Log
 import br.com.uvets.uvetsandroid.BuildConfig
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -17,7 +19,7 @@ class ClientApi<T> {
         val retrofit = Retrofit.Builder()
             .client(getOkhttpClient().build())
             .baseUrl(BuildConfig.BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(getGson()))
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .build()
 
@@ -28,7 +30,7 @@ class ClientApi<T> {
         val retrofit = Retrofit.Builder()
             .client(getOkhttpClientAuth(token).build())
             .baseUrl(BuildConfig.BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(getGson()))
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .build()
 
@@ -50,6 +52,13 @@ class ClientApi<T> {
             .connectTimeout(30, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)
             .writeTimeout(30, TimeUnit.SECONDS)
+    }
+
+    private fun getGson(): Gson {
+        return GsonBuilder().apply {
+            setDateFormat("yyyy-MM-dd")
+            setPrettyPrinting()
+        }.create()
     }
 
     class Builder<T> {

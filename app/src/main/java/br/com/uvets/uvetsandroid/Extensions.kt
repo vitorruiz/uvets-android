@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.include_loading_container.*
+import pl.aprilapps.easyphotopicker.EasyImage
 import java.io.File
 
 
@@ -20,17 +21,9 @@ fun ImageView.loadFromFile(imageFile: File) {
 //        .into(this)
 }
 
-fun ImageView.enableImagePickerOnClick(fragment: androidx.fragment.app.Fragment) {
+fun ImageView.enableImagePickerOnClick(fragment: Fragment) {
     setOnClickListener {
-        //        Matisse.from(fragment)
-//            .choose(MimeType.ofImage())
-//            .maxSelectable(1)
-//            //.addFilter(GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
-//            //.gridExpectedSize(resources.getDimensionPixelSize(R.dimen.grid_expected_size))
-//            //.restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
-//            .thumbnailScale(0.85f)
-//            .imageEngine(PicassoEngine())
-//            .forResult(123)
+        EasyImage.openChooserWithGallery(fragment, "Selecione", 1)
     }
 }
 

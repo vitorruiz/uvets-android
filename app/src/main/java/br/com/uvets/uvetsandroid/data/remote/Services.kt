@@ -6,11 +6,10 @@ import br.com.uvets.uvetsandroid.data.model.Vet
 import br.com.uvets.uvetsandroid.data.model.vo.LoginRequestVO
 import br.com.uvets.uvetsandroid.data.model.vo.SignUpRequestVO
 import kotlinx.coroutines.Deferred
+import okhttp3.MultipartBody
 import okhttp3.ResponseBody
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
+import retrofit2.http.*
 
 
 interface AuthService {
@@ -37,6 +36,13 @@ interface PetService {
 
     @POST("/pets")
     fun createPet(@Body pet: Pet): Deferred<Response<Pet>>
+
+    @PUT("/pets/{id}")
+    fun updatePet(@Path("id") id: Long, @Body pet: Pet): Deferred<Response<Pet>>
+
+    @Multipart
+    @POST("pets/{id}/photo")
+    fun uploadPetPhoto(@Path("id") id: Long, @Part file: MultipartBody.Part): Deferred<Response<Void>>
 }
 
 interface VetService {

@@ -21,6 +21,7 @@ class LoginViewModel(application: Application) : BaseViewModel<LoginNavigator>(a
             }
 
             override fun onFail(responseCode: Int) {
+                mNavigator?.showLoader(false)
                 if (responseCode == 401) {
                     mNavigator?.showError("Usuário ou senha inválido")
                 } else {
@@ -29,6 +30,7 @@ class LoginViewModel(application: Application) : BaseViewModel<LoginNavigator>(a
             }
 
             override fun onError(throwable: Throwable) {
+                mNavigator?.showLoader(false)
                 mNavigator?.showError(throwable.localizedMessage)
             }
 

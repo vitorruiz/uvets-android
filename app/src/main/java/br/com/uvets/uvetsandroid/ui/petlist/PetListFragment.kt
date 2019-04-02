@@ -25,6 +25,11 @@ class PetListFragment : BaseFragment() {
     private lateinit var mViewModel: PetListViewModel
     private lateinit var mPetAdapter: PetAdapter
 
+    companion object {
+        const val REQUEST_CREATE_PET = 100
+        const val REQUEST_UPDATE_PET = 200
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
@@ -44,18 +49,32 @@ class PetListFragment : BaseFragment() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (resultCode == Activity.RESULT_OK && requestCode == 100) {
-            val pet = data?.getParcelableExtra<Pet>("pet")
-            pet?.let {
-                mPetAdapter.addIem(it)
+        if (resultCode == Activity.RESULT_OK) {
+
+            when (requestCode) {
+                REQUEST_CREATE_PET -> {
+                    val pet = data?.getParcelableExtra<Pet>("pet")
+                    pet?.let {
+                        mPetAdapter.addIem(it)
+                    }
+                }
+                REQUEST_UPDATE_PET -> {
+                    val pet = data?.getParcelableExtra<Pet>("pet")
+                    pet?.let {
+                        mPetAdapter.updateItem(it)
+                    }
+                }
             }
+
         }
     }
 
     private fun setUpView() {
         activity!!.title = "Seus pets"
 
-        mPetAdapter = PetAdapter(context!!, arrayListOf())
+        mPetAdapter = PetAdapter(context!!, arrayListOf()) { position, pet ->
+            startActivityForResult(ContainerActivity.updatePetView(context!!, pet), REQUEST_UPDATE_PET)
+        }
         rvPetList.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
         rvPetList.adapter = mPetAdapter
 
@@ -64,7 +83,7 @@ class PetListFragment : BaseFragment() {
         }
 
         fbCreatePet.setOnClickListener {
-            startActivityForResult(ContainerActivity.createPetView(context!!), 100)
+            startActivityForResult(ContainerActivity.createPetView(context!!), REQUEST_CREATE_PET)
         }
     }
 
