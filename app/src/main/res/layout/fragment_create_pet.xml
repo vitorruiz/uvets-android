@@ -17,32 +17,6 @@
             android:focusableInTouchMode="true"
             android:orientation="vertical">
 
-            <CheckBox
-                android:id="@+id/cbCastrated"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Castrado" />
-
-            <RadioGroup
-                android:id="@+id/rgSex"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:orientation="horizontal">
-
-                <androidx.appcompat.widget.AppCompatRadioButton
-                    android:id="@+id/rdMale"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Macho" />
-
-                <androidx.appcompat.widget.AppCompatRadioButton
-                    android:id="@+id/rdFemale"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Femêa" />
-            </RadioGroup>
-
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/ivPetPhoto"
                 android:layout_width="150dp"
@@ -51,20 +25,6 @@
                 android:layout_marginTop="16dp"
                 android:scaleType="centerCrop"
                 app:srcCompat="@drawable/ic_animal_paw_print" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btCreatePet"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="8dp"
-                android:text="Adicionar"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/rgSex" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tiWeight"
@@ -129,6 +89,46 @@
                     android:hint="Data de Nascimento" />
 
             </com.google.android.material.textfield.TextInputLayout>
+
+            <CheckBox
+                android:id="@+id/cbCastrated"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Castrado" />
+
+            <RadioGroup
+                android:id="@+id/rgSex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/rdMale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Macho" />
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/rdFemale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Femêa" />
+            </RadioGroup>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btCreatePet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:text="Adicionar"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rgSex" />
 
         </LinearLayout>
 

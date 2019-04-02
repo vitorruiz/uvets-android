@@ -5,32 +5,29 @@ import br.com.uvets.uvetsandroid.data.model.User
 import br.com.uvets.uvetsandroid.data.model.Vet
 import br.com.uvets.uvetsandroid.data.model.vo.LoginRequestVO
 import br.com.uvets.uvetsandroid.data.model.vo.SignUpRequestVO
+import br.com.uvets.uvetsandroid.data.model.vo.TokensVO
 import kotlinx.coroutines.Deferred
 import okhttp3.MultipartBody
 import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.*
 
-
-interface AuthService {
-
+interface ApiService {
+    // Auth Calls
     @POST("/login")
-    fun auth(@Body loginVO: LoginRequestVO): Deferred<Response<ResponseBody>>
+    fun auth(@Body loginVO: LoginRequestVO): Deferred<Response<TokensVO>>
 
     @GET("/auth/refresh_token")
     fun refreshToken(): Deferred<Response<ResponseBody>>
-}
 
-interface UserService {
+    // User Calls
     @GET("/users/fetch")
     fun fetchUser(): Deferred<Response<User>>
 
     @POST("/users")
     fun registerTutor(@Body signUpRequestVO: SignUpRequestVO): Deferred<Response<Void>>
-}
 
-interface PetService {
-
+    // Pet Calls
     @GET("/pets")
     fun getPets(): Deferred<Response<List<Pet>>>
 
@@ -43,10 +40,8 @@ interface PetService {
     @Multipart
     @POST("pets/{id}/photo")
     fun uploadPetPhoto(@Path("id") id: Long, @Part file: MultipartBody.Part): Deferred<Response<Void>>
-}
 
-interface VetService {
-
+    // Vet Calls
     @GET("/vets")
     fun getVets(): Deferred<Response<List<Vet>>>
 }

@@ -10,7 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.lifecycle.ViewModelProviders
 import br.com.uvets.uvetsandroid.R
 import br.com.uvets.uvetsandroid.data.model.Pet
 import br.com.uvets.uvetsandroid.enableImagePickerOnClick
@@ -18,6 +17,7 @@ import br.com.uvets.uvetsandroid.ui.base.BaseFragment
 import br.com.uvets.uvetsandroid.utils.PickerUtils
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_create_pet.*
+import org.koin.android.viewmodel.ext.android.viewModel
 import pl.aprilapps.easyphotopicker.EasyImage
 import java.io.File
 
@@ -25,7 +25,7 @@ class CreatePetFragment : BaseFragment(), CreatePetNavigator {
 
     private var mPet: Pet? = null
     private var mSelectedPetPhoto: File? = null
-    private lateinit var mViewModel: CreatePetViewModel
+    private val mViewModel: CreatePetViewModel by viewModel()
 
     companion object {
 
@@ -50,7 +50,7 @@ class CreatePetFragment : BaseFragment(), CreatePetNavigator {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        mViewModel = ViewModelProviders.of(this).get(CreatePetViewModel::class.java)
+        //mViewModel = ViewModelProviders.of(this).get(CreatePetViewModel::class.java)
         mViewModel.attachNavigator(this)
 
         mPet = arguments?.getParcelable(PET_EXTRA)

@@ -7,17 +7,17 @@ import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProviders
 import br.com.concrete.canarinho.formatador.Formatador
 import br.com.concrete.canarinho.validator.Validador
 import br.com.concrete.canarinho.watcher.MascaraNumericaTextWatcher
 import br.com.uvets.uvetsandroid.ui.base.BaseFragment
 import kotlinx.android.synthetic.main.sign_up_fragment.*
+import org.koin.android.viewmodel.ext.android.viewModel
 
 
 class SignUpFragment : BaseFragment(), SignUpNavigator {
 
-    private lateinit var mViewModel: SignUpViewModel
+    private val mViewModel: SignUpViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,7 +28,7 @@ class SignUpFragment : BaseFragment(), SignUpNavigator {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        mViewModel = ViewModelProviders.of(this).get(SignUpViewModel::class.java)
+        //mViewModel = ViewModelProviders.of(this).get(SignUpViewModel::class.java)
         mViewModel.attachNavigator(this)
 
         setUpView()

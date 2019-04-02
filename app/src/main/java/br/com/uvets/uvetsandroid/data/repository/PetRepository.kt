@@ -1,23 +1,24 @@
 package br.com.uvets.uvetsandroid.data.repository
 
+import br.com.uvets.uvetsandroid.business.interfaces.Configuration
 import br.com.uvets.uvetsandroid.data.model.Pet
-import br.com.uvets.uvetsandroid.data.prefs.PrefsDataStore
 import br.com.uvets.uvetsandroid.data.remote.RestResponseListener
-import br.com.uvets.uvetsandroid.data.remote.getPetService
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.File
 
 
-
-class PetRepository {
+class PetRepository(val configuration: Configuration) {
 
     fun fetchPets(callback: RestResponseListener<List<Pet>?>) {
         //TODO: Implementar sistema de cache
         GlobalScope.launch(Dispatchers.Main) {
-            val request = getPetService(PrefsDataStore.getUserToken()).getPets()
+            val request = configuration.getApiWithAuth().getPets()
             try {
                 val response = withContext(Dispatchers.IO) { request.await() }
 
@@ -36,7 +37,7 @@ class PetRepository {
 
     fun createPet(pet: Pet, callback: RestResponseListener<Pet>) {
         GlobalScope.launch(Dispatchers.Main) {
-            val request = getPetService(PrefsDataStore.getUserToken()).createPet(pet)
+            val request = configuration.getApiWithAuth().createPet(pet)
             try {
                 val response = withContext(Dispatchers.IO) { request.await() }
 
@@ -55,7 +56,7 @@ class PetRepository {
 
     fun updatePet(pet: Pet, callback: RestResponseListener<Pet>) {
         GlobalScope.launch(Dispatchers.Main) {
-            val request = getPetService(PrefsDataStore.getUserToken()).updatePet(pet.id!!, pet)
+            val request = configuration.getApiWithAuth().updatePet(pet.id!!, pet)
             try {
                 val response = withContext(Dispatchers.IO) { request.await() }
 
@@ -75,7 +76,7 @@ class PetRepository {
         val fileReqBody = RequestBody.create(MediaType.parse("image/*"), file)
         val part = MultipartBody.Part.createFormData("file", file.name, fileReqBody)
         GlobalScope.launch(Dispatchers.Main) {
-            val request = getPetService(PrefsDataStore.getUserToken()).uploadPetPhoto(petId, part)
+            val request = configuration.getApiWithAuth().uploadPetPhoto(petId, part)
 
             try {
                 val response = withContext(Dispatchers.IO) { request.await() }
@@ -90,9 +91,5 @@ class PetRepository {
             }
             callback.onComplete()
         }
-    }
-
-    fun dispose() {
-        GlobalScope.coroutineContext[Job]?.cancel()
     }
 }

@@ -1,27 +1,37 @@
 package br.com.uvets.uvetsandroid.data.repository
 
+import br.com.uvets.uvetsandroid.business.interfaces.Configuration
 import br.com.uvets.uvetsandroid.data.model.User
 import br.com.uvets.uvetsandroid.data.model.vo.LoginRequestVO
 import br.com.uvets.uvetsandroid.data.model.vo.SignUpRequestVO
-import br.com.uvets.uvetsandroid.data.prefs.PrefsDataStore
+import br.com.uvets.uvetsandroid.data.model.vo.TokensVO
 import br.com.uvets.uvetsandroid.data.remote.RestResponseListener
-import br.com.uvets.uvetsandroid.data.remote.getAuthService
-import br.com.uvets.uvetsandroid.data.remote.getUserService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class UserRepository {
+class UserRepository(val configuration: Configuration) {
 
-    fun authenticate(email: String, password: String, callback: RestResponseListener<String>) {
+    fun getUserData(): User? {
+        return configuration.getStorage().getUserData()
+    }
+
+    fun logoutUser() {
+        configuration.getStorage().clearStorage()
+    }
+
+    val isUserAuthenticated = configuration.getStorage().getUserTokens() != null
+
+    fun authenticate(email: String, password: String, callback: RestResponseListener<TokensVO>) {
         GlobalScope.launch(Dispatchers.Main) {
-            val request = getAuthService().auth(LoginRequestVO(email, password))
+            val request = configuration.getApi().auth(LoginRequestVO(email, password))
             try {
                 val response = withContext(Dispatchers.IO) { request.await() }
 
                 if (response.isSuccessful) {
-                    callback.onSuccess(response.body()!!.string())
+                    configuration.getStorage().saveUserTokens(response.body()!!)
+                    callback.onSuccess(response.body()!!)
                 } else {
                     callback.onFail(response.code())
                 }
@@ -33,14 +43,14 @@ class UserRepository {
         }
     }
 
-    fun fetchUser(callback: RestResponseListener<User?>) {
+    fun fetchUser(callback: RestResponseListener<User>) {
         GlobalScope.launch(Dispatchers.Main) {
-            val request = getUserService(PrefsDataStore.getUserToken()).fetchUser()
+            val request = configuration.getApiWithAuth().fetchUser()
             try {
                 val response = withContext(Dispatchers.IO) { request.await() }
 
                 if (response.isSuccessful) {
-                    callback.onSuccess(response.body())
+                    callback.onSuccess(response.body()!!)
                 } else {
                     callback.onFail(response.code())
                 }
@@ -52,30 +62,9 @@ class UserRepository {
         }
     }
 
-    fun refreshToken(callback: RestResponseListener<String>) {
+    fun registerTutor(signUpRequestVO: SignUpRequestVO, callback: RestResponseListener<Void?>) {
         GlobalScope.launch(Dispatchers.Main) {
-            val request = getAuthService(PrefsDataStore.getUserToken()).refreshToken()
-
-            try {
-                val response = withContext(Dispatchers.IO) { request.await() }
-
-                if (response.isSuccessful) {
-                    callback.onSuccess(response.body()!!.string())
-                } else {
-                    callback.onFail(response.code())
-                }
-            } catch (e: Throwable) {
-                callback.onError(e)
-            }
-
-            callback.onComplete()
-        }
-    }
-
-    fun registerTutor(signUpRequestVO: SignUpRequestVO, callback: RestResponseListener<String?>) {
-
-        GlobalScope.launch(Dispatchers.Main) {
-            val request = getUserService().registerTutor(signUpRequestVO)
+            val request = configuration.getApi().registerTutor(signUpRequestVO)
 
             try {
                 val response = withContext(Dispatchers.IO) { request.await() }

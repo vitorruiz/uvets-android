@@ -9,12 +9,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import br.com.uvets.uvetsandroid.R
 import br.com.uvets.uvetsandroid.data.model.Pet
 import br.com.uvets.uvetsandroid.ui.ContainerActivity
 import br.com.uvets.uvetsandroid.ui.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_pet_list.*
+import org.koin.android.viewmodel.ext.android.viewModel
 
 /**
  * A simple [Fragment] subclass.
@@ -22,7 +22,7 @@ import kotlinx.android.synthetic.main.fragment_pet_list.*
  */
 class PetListFragment : BaseFragment() {
 
-    private lateinit var mViewModel: PetListViewModel
+    private val mViewModel: PetListViewModel by viewModel()
     private lateinit var mPetAdapter: PetAdapter
 
     companion object {
@@ -39,7 +39,7 @@ class PetListFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        mViewModel = ViewModelProviders.of(this).get(PetListViewModel::class.java)
+        //mViewModel = ViewModelProviders.of(this).get(PetListViewModel::class.java)
         mViewModel.attachNavigator(this)
 
         setUpView()

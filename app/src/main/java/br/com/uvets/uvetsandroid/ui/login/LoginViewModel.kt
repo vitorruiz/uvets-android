@@ -1,22 +1,19 @@
 package br.com.uvets.uvetsandroid.ui.login
 
-import android.app.Application
 import br.com.uvets.uvetsandroid.data.model.User
-import br.com.uvets.uvetsandroid.data.prefs.PrefsDataStore
+import br.com.uvets.uvetsandroid.data.model.vo.TokensVO
 import br.com.uvets.uvetsandroid.data.remote.RestResponseListener
 import br.com.uvets.uvetsandroid.data.repository.UserRepository
 import br.com.uvets.uvetsandroid.ui.base.BaseViewModel
 
-class LoginViewModel(application: Application) : BaseViewModel<LoginNavigator>(application) {
-
-    private val mUserRepository = UserRepository()
+class LoginViewModel(userRepository: UserRepository) : BaseViewModel<LoginNavigator>(userRepository) {
 
     fun login(email: String, password: String) {
         mNavigator?.showLoader(true)
 
-        mUserRepository.authenticate(email, password, object : RestResponseListener<String> {
-            override fun onSuccess(obj: String) {
-                saveUserToken(obj)
+        userRepository.authenticate(email, password, object : RestResponseListener<TokensVO> {
+            override fun onSuccess(obj: TokensVO) {
+                //saveUserToken(obj)
                 fetchUser()
             }
 
@@ -40,9 +37,9 @@ class LoginViewModel(application: Application) : BaseViewModel<LoginNavigator>(a
     }
 
     private fun fetchUser() {
-        mUserRepository.fetchUser(object : RestResponseListener<User?> {
-            override fun onSuccess(obj: User?) {
-                PrefsDataStore.saveUserData(obj!!)
+        userRepository.fetchUser(object : RestResponseListener<User> {
+            override fun onSuccess(obj: User) {
+                //PrefsDataStore.saveUserData(obj!!)
             }
 
             override fun onFail(responseCode: Int) {
@@ -62,6 +59,6 @@ class LoginViewModel(application: Application) : BaseViewModel<LoginNavigator>(a
     }
 
     fun isUserAuthenticated(): Boolean {
-        return !PrefsDataStore.getUserToken().isEmpty()
+        return userRepository.isUserAuthenticated
     }
 }

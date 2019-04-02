@@ -2,6 +2,9 @@ package br.com.uvets.uvetsandroid.data.remote
 
 import android.util.Log
 import br.com.uvets.uvetsandroid.BuildConfig
+import br.com.uvets.uvetsandroid.business.interfaces.Storage
+import br.com.uvets.uvetsandroid.ui.base.BaseNavigator
+import br.com.uvets.uvetsandroid.ui.base.BaseViewModel
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
@@ -26,9 +29,9 @@ class ClientApi<T> {
         return retrofit.create(c)
     }
 
-    fun getClientWithAuth(c: Class<T>, token: String): T {
+    fun getClientWithAuth(c: Class<T>, storage: Storage): T {
         val retrofit = Retrofit.Builder()
-            .client(getOkhttpClientAuth(token).build())
+            .client(getOkhttpClientAuth(storage).build())
             .baseUrl(BuildConfig.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create(getGson()))
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
@@ -45,9 +48,10 @@ class ClientApi<T> {
             .writeTimeout(30, TimeUnit.SECONDS)
     }
 
-    private fun getOkhttpClientAuth(token: String): OkHttpClient.Builder {
+    private fun getOkhttpClientAuth(storage: Storage): OkHttpClient.Builder {
         return OkHttpClient.Builder()
-            .addInterceptor(AuthInterceptor(token))
+            .authenticator(TokenAuthenticator(storage))
+            .addInterceptor(AuthInterceptor(storage.getUserTokens()?.accessToken!!))
             .addInterceptor(HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY })
             .connectTimeout(30, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)
@@ -59,25 +63,6 @@ class ClientApi<T> {
             setDateFormat("yyyy-MM-dd")
             setPrettyPrinting()
         }.create()
-    }
-
-    class Builder<T> {
-        private var auth: Boolean = false
-        private var userToken: String? = null
-
-        fun withAuth(token: String): Builder<T> {
-            this.auth = true
-            this.userToken = token
-            return this
-        }
-
-        fun build(c: Class<T>): T {
-            return if (auth) {
-                ClientApi<T>().getClientWithAuth(c, userToken ?: "")
-            } else {
-                ClientApi<T>().getClient(c)
-            }
-        }
     }
 }
 
@@ -102,50 +87,32 @@ interface RestResponseListener<T> {
     fun onComplete()
 }
 
-fun <T> getApiBuilder(): ClientApi.Builder<T> {
-    return ClientApi.Builder()
-}
+abstract class RestResponseFactory<T, N : BaseNavigator>(val navigator: N?, val viewModel: BaseViewModel<N>) :
+    RestResponseListener<T> {
 
-fun getPetService(token: String? = null): PetService {
-    return if (token != null) {
-        getApiBuilder<PetService>()
-            .withAuth(token)
-            .build(PetService::class.java)
-    } else {
-        getApiBuilder<PetService>()
-            .build(PetService::class.java)
+    override fun onSuccess(obj: T) {}
+
+    override fun onFail(responseCode: Int) {
+        if (responseCode == 401) {
+            viewModel.doLogout()
+        }
+        navigator?.showError("Ocorreu um erro na requisição. Código: $responseCode")
     }
-}
 
-fun getAuthService(token: String? = null): AuthService {
-    return if (token != null) {
-        getApiBuilder<AuthService>()
-            .withAuth(token)
-            .build(AuthService::class.java)
-    } else {
-        getApiBuilder<AuthService>()
-            .build(AuthService::class.java)
+    override fun onError(throwable: Throwable) {
+        navigator?.showError(throwable.localizedMessage)
     }
-}
 
-fun getUserService(token: String? = null): UserService {
-    return if (token != null) {
-        getApiBuilder<UserService>()
-            .withAuth(token)
-            .build(UserService::class.java)
-    } else {
-        getApiBuilder<UserService>()
-            .build(UserService::class.java)
+    override fun onComplete() {
+        navigator?.showLoader(false)
     }
+
 }
 
-fun getVetService(token: String? = null): VetService {
-    return if (token != null) {
-        getApiBuilder<VetService>()
-            .withAuth(token)
-            .build(VetService::class.java)
+fun getApiService(storage: Storage? = null): ApiService {
+    return if (storage != null) {
+        ClientApi<ApiService>().getClientWithAuth(ApiService::class.java, storage)
     } else {
-        getApiBuilder<VetService>()
-            .build(VetService::class.java)
+        ClientApi<ApiService>().getClient(ApiService::class.java)
     }
 }

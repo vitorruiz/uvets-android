@@ -6,14 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import br.com.uvets.uvetsandroid.R
 import br.com.uvets.uvetsandroid.ui.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_vet_list.*
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class VetListFragment : BaseFragment() {
 
-    private lateinit var mViewModel: VetListViewModel
+    private val mViewModel: VetListViewModel by viewModel()
     private lateinit var mVetAdapter: VetAdapter
 
     override fun onCreateView(
@@ -25,7 +25,7 @@ class VetListFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        mViewModel = ViewModelProviders.of(this).get(VetListViewModel::class.java)
+        //mViewModel = ViewModelProviders.of(this).get(VetListViewModel::class.java)
         mViewModel.attachNavigator(this)
 
         setUpView()

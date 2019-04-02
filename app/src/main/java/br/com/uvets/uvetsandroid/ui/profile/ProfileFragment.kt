@@ -6,14 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import br.com.uvets.uvetsandroid.R
 import br.com.uvets.uvetsandroid.ui.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_profile.*
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class ProfileFragment : BaseFragment() {
 
-    private lateinit var mViewModel: ProfileViewModel
+    private val mViewModel: ProfileViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,7 +25,7 @@ class ProfileFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        mViewModel = ViewModelProviders.of(this).get(ProfileViewModel::class.java)
+        //mViewModel = ViewModelProviders.of(this).get(ProfileViewModel::class.java)
         mViewModel.attachNavigator(this)
 
         setUpView()

@@ -1,17 +1,16 @@
 package br.com.uvets.uvetsandroid.ui.vetlist
 
-import android.app.Application
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import br.com.uvets.uvetsandroid.data.model.Vet
 import br.com.uvets.uvetsandroid.data.remote.RestResponseListener
+import br.com.uvets.uvetsandroid.data.repository.UserRepository
 import br.com.uvets.uvetsandroid.data.repository.VetRepository
 import br.com.uvets.uvetsandroid.ui.base.BaseNavigator
 import br.com.uvets.uvetsandroid.ui.base.BaseViewModel
 
-class VetListViewModel(application: Application) : BaseViewModel<BaseNavigator>(application) {
+class VetListViewModel(userRepository: UserRepository, val vetRepository: VetRepository) :
+    BaseViewModel<BaseNavigator>(userRepository) {
 
-    private val vetRepository = VetRepository()
     val vetListLiveData = MutableLiveData<List<Vet>>()
 
     fun fetchVets(force: Boolean = false) {
@@ -37,12 +36,5 @@ class VetListViewModel(application: Application) : BaseViewModel<BaseNavigator>(
 
             })
         }
-    }
-
-    override fun onCleared() {
-        vetRepository.dispose()
-        Log.d("Vem Monstro", "onCleared")
-        super.onCleared()
-
     }
 }

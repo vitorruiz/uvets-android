@@ -7,18 +7,18 @@ import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProviders
 import br.com.uvets.uvetsandroid.R
 import br.com.uvets.uvetsandroid.ui.ContainerActivity
 import br.com.uvets.uvetsandroid.ui.MainActivity
 import br.com.uvets.uvetsandroid.ui.base.BaseFragment
 import kotlinx.android.synthetic.main.login_fragment.*
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class LoginFragment : BaseFragment(), LoginNavigator {
 
     private val REQUEST_SIGN_UP = 1
 
-    private lateinit var mViewModel: LoginViewModel
+    private val mViewModel: LoginViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,7 +29,7 @@ class LoginFragment : BaseFragment(), LoginNavigator {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        mViewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
+        //mViewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
         mViewModel.attachNavigator(this)
 
         setUpView()
