@@ -51,7 +51,7 @@ class ClientApi<T> {
     private fun getOkhttpClientAuth(storage: Storage): OkHttpClient.Builder {
         return OkHttpClient.Builder()
             .authenticator(TokenAuthenticator(storage))
-            .addInterceptor(AuthInterceptor(storage.getUserTokens()?.accessToken!!))
+            .addInterceptor(AuthInterceptor(storage.getUserTokens()?.accessToken ?: ""))
             .addInterceptor(HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY })
             .connectTimeout(30, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)

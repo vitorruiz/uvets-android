@@ -34,8 +34,8 @@ class ProfileFragment : BaseFragment() {
 
     private fun setUpObservers() {
         mViewModel.userLiveData.observe(this, Observer {
-            tvUserName.text = it.name
-            tvUserEmail.text = it.email
+            tvUserName.text = it?.name
+            tvUserEmail.text = it?.email
         })
     }
 

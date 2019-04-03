@@ -3,27 +3,37 @@ package br.com.uvets.uvetsandroid.business
 import br.com.uvets.uvetsandroid.business.interfaces.Storage
 import br.com.uvets.uvetsandroid.data.model.User
 import br.com.uvets.uvetsandroid.data.model.vo.TokensVO
+import br.com.uvets.uvetsandroid.utils.AppLogger
 import com.orhanobut.hawk.Hawk
 
 class AppStorage : Storage {
+
+    private val TAG = AppStorage::class.java.simpleName
+
+    companion object {
+        const val KEY_USER_TOKENS = "user_tokens"
+        const val KEY_USER_DATA = "user_data"
+    }
+
     override fun clearStorage() {
         Hawk.deleteAll()
     }
 
     override fun saveUserTokens(tokensVO: TokensVO) {
-        Hawk.put("user_token", tokensVO)
+        Hawk.put(KEY_USER_TOKENS, tokensVO)
     }
 
     override fun getUserTokens(): TokensVO? {
-        return Hawk.get("user_token")
+        return Hawk.get(KEY_USER_TOKENS)
     }
 
     override fun saveUserData(user: User) {
-        Hawk.put("user_data", user)
+        Hawk.put(KEY_USER_DATA, user)
+        AppLogger.d("$TAG > saveUserData > $user")
     }
 
     override fun getUserData(): User? {
-        return Hawk.get("user_data")
+        return Hawk.get(KEY_USER_DATA)
     }
 
 }

@@ -39,7 +39,6 @@ class LoginViewModel(userRepository: UserRepository) : BaseViewModel<LoginNaviga
     private fun fetchUser() {
         userRepository.fetchUser(object : RestResponseListener<User> {
             override fun onSuccess(obj: User) {
-                //PrefsDataStore.saveUserData(obj!!)
             }
 
             override fun onFail(responseCode: Int) {

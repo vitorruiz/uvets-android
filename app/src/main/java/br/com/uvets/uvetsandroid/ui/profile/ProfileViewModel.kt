@@ -8,7 +8,7 @@ import br.com.uvets.uvetsandroid.ui.base.BaseViewModel
 
 class ProfileViewModel(userRepository: UserRepository) : BaseViewModel<BaseNavigator>(userRepository) {
 
-    val userLiveData = MutableLiveData<User>()
+    val userLiveData = MutableLiveData<User?>()
 
     init {
         userLiveData.postValue(userRepository.getUserData())

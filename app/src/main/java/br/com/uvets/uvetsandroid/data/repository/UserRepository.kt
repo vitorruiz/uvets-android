@@ -50,7 +50,10 @@ class UserRepository(val configuration: Configuration) {
                 val response = withContext(Dispatchers.IO) { request.await() }
 
                 if (response.isSuccessful) {
-                    callback.onSuccess(response.body()!!)
+                    response.body()?.let {
+                        callback.onSuccess(it)
+                        configuration.getStorage().saveUserData(it)
+                    }
                 } else {
                     callback.onFail(response.code())
                 }

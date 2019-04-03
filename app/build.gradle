@@ -44,6 +44,7 @@ android {
 
 dependencies {
     def room_version = '2.0.0'
+    def timber_version = "4.6.1"
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -81,6 +82,9 @@ dependencies {
 
     implementation 'org.koin:koin-android:2.0.0-rc-2'
     implementation 'org.koin:koin-android-viewmodel:2.0.0-rc-2'
+
+    // Logger
+    implementation "com.jakewharton.timber:timber:$timber_version"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'

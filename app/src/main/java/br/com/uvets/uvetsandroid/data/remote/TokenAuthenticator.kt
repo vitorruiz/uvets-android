@@ -1,6 +1,5 @@
 package br.com.uvets.uvetsandroid.data.remote
 
-import android.util.Log
 import br.com.uvets.uvetsandroid.BuildConfig
 import br.com.uvets.uvetsandroid.business.interfaces.Storage
 import br.com.uvets.uvetsandroid.data.model.vo.TokensVO
@@ -19,8 +18,6 @@ class TokenAuthenticator(private val storage: Storage) : Authenticator {
         if (getRetryCount(response) >= 3) {
             return null // If we've failed 3 times, give up.
         }
-        Log.d(TokenAuthenticator::class.java.simpleName, "Authenticating for response: $response")
-        Log.d(TokenAuthenticator::class.java.simpleName, "Challenges: ${response.challenges()}")
 
         val accessToken = getNewAccessToken() ?: return null
 
