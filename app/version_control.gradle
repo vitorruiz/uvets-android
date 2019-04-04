@@ -1,0 +1,148 @@
+import java.text.SimpleDateFormat
+
+apply plugin: 'org.ajoberstar.grgit'
+
+// Inicializa o objeto para manipulação do repositório de código
+ext.repo = grgit.open(project.file('../'))
+
+version = getVersion(getVersionInfo())
+
+task proguardBackup(type: Zip) {
+    from('build/outputs/mapping/release')
+    include '*.txt'
+    outputs.dir 'proguard'
+    doLast {
+        setToMasterBranch()
+        new File('proguard').mkdirs()
+        copy {
+            from archivePath
+            into 'proguard'
+        }
+        delete(archivePath)
+    }
+}
+
+task closeAndIncrementTag() {
+    doLast {
+        // Deve estar apontado no trunk
+        setToMasterBranch()
+
+        // Pegar o VERSION_NAME para nomear a TAG
+        Properties versionProps = getVersionInfo()
+        String versionName = getVersion(versionProps)
+
+        println "Criando TAG  '" + versionName + "'"
+
+        // Criar a tag
+        createTag(versionName)
+
+        // Deve estar apontado no trunk
+        setToMasterBranch()
+
+        println "Incrementando códigos de versão"
+
+        // Incrementar o VERSION_CODE
+        incrementVersion(versionProps)
+
+        println "Tag '" + versionName + "' criado com sucesso."
+    }
+}
+
+def createTag(tagName) {
+    repo.tag.add {
+        name = tagName
+        message = "Deploy da versão ${tagName}"
+    }
+
+    //repo.push(tags: true)
+}
+
+def getBuildSuffix() {
+    def nowCal = Calendar.instance
+    def dateFormatter = new SimpleDateFormat("MMddHHmm")
+    return '.' + dateFormatter.format(nowCal.time)
+}
+
+def getVersion(versionProps) {
+    def revision = versionProps['VERSION_NAME_REVISION']
+    if (revision == '0') {
+        revision = ''
+    } else {
+        revision = '.' + revision
+    }
+    return versionProps['VERSION_NAME_MAJOR'] + '.' + versionProps['VERSION_NAME_MINOR'] + revision
+}
+
+def incrementVersion(versionProps) {
+    versionProps['VERSION_CODE'] = (versionProps['VERSION_CODE'].toInteger() + 1).toString()
+    versionProps['VERSION_NAME_MINOR'] = (versionProps['VERSION_NAME_MINOR'].toInteger() + 1).toString()
+    setVersions(versionProps)
+    repo.add(patterns: ['app-myaccouunt-android/version.properties'])
+    repo.commit(message: 'Incrementando o version code para a próxima versão de desenvolvimento (' + versionProps['VERSION_CODE'].toString() + ')')
+    //repo.push()
+}
+
+/*
+    Recupera o VERSION_CODE e o VERSION_NAME do arquivo de controle
+ */
+
+def setToMasterBranch() {
+    repo.checkout(branch: 'master')
+}
+/*
+    Armazena o novo VERSION_CODE e o VERSION_NAME no arquivo de controle
+ */
+
+def getVersionInfo() {
+    def versionPropsFile = file('version.properties')
+
+    if (versionPropsFile.canRead()) {
+        Properties versionProps = new Properties()
+        versionProps.load(new FileInputStream(versionPropsFile))
+        return versionProps
+    } else {
+        throw new Exception("Could not read version.properties!")
+    }
+}
+
+def setVersions(versionProps) {
+    def versionPropsFile = file('version.properties')
+    if (versionPropsFile.canRead()) {
+        versionProps.store(versionPropsFile.newWriter(), null)
+    } else {
+        throw new Exception("Could not write version.properties!")
+    }
+}
+
+def changeAPKName(variant) {
+
+    def file = ''
+    variant.outputs.all { output ->
+        file = output.outputFile
+    }
+
+    if ((variant.name == android.buildTypes.release.name) &&
+            !file.name.contains('build')) {
+        Properties versionProps = getVersionInfo()
+        android.defaultConfig.versionName = getVersion(versionProps)
+        android.defaultConfig.versionCode = versionProps['VERSION_CODE'].toInteger()
+
+        variant.outputs.all { output ->
+            outputFileName = new File(
+                    (String) file.name.replace(
+                            ".apk",
+                            // alter this string to change output file name
+                            "-" + android.defaultConfig.versionName + "-build-" + android.defaultConfig.versionCode + ".apk"
+                    ).replace('release', 'android')
+            )
+        }
+    }
+
+}
+
+ext {
+    getVersionInfo = this.&getVersionInfo
+    setVersionInfo = this.&setVersionInfo
+    getVersion = this.&getVersion
+    changeAPKName = this.&changeAPKName
+}

@@ -86,6 +86,9 @@ class ContainerActivity : AppCompatActivity() {
 
             setContentView(R.layout.activity_container)
             loadFragment(fragmentToLoad)
+            if (viewNoActionBar != null && !viewNoActionBar) {
+                supportActionBar?.setDisplayHomeAsUpEnabled(true)
+            }
         }
 
 

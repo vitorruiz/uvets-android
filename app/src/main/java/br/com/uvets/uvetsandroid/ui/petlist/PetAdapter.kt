@@ -7,8 +7,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import br.com.uvets.uvetsandroid.R
 import br.com.uvets.uvetsandroid.data.model.Pet
-import com.squareup.picasso.MemoryPolicy
-import com.squareup.picasso.NetworkPolicy
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_pet_list.view.*
 
@@ -53,9 +51,8 @@ class PetAdapter(
         fun bindView(pet: Pet, onPetClicked: (Int, Pet) -> Unit) = with(itemView) {
             tvPetName.text = pet.name
             pet.photoUrl?.let {
-                Picasso.get().load(it)
-                    .memoryPolicy(MemoryPolicy.NO_CACHE)
-                    .networkPolicy(NetworkPolicy.NO_CACHE)
+                Picasso.get()
+                    .load(it)
                     .into(ivPetPhoto)
             }
 

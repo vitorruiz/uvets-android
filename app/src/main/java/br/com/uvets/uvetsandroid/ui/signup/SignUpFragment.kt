@@ -2,14 +2,12 @@ package br.com.uvets.uvetsandroid.ui.signup
 
 import android.app.Activity
 import android.content.Intent
-import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import br.com.concrete.canarinho.formatador.Formatador
 import br.com.concrete.canarinho.validator.Validador
 import br.com.concrete.canarinho.watcher.MascaraNumericaTextWatcher
+import br.com.uvets.uvetsandroid.R
 import br.com.uvets.uvetsandroid.ui.base.BaseFragment
 import kotlinx.android.synthetic.main.sign_up_fragment.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -19,16 +17,18 @@ class SignUpFragment : BaseFragment(), SignUpNavigator {
 
     private val mViewModel: SignUpViewModel by viewModel()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(br.com.uvets.uvetsandroid.R.layout.sign_up_fragment, container, false)
+//    override fun onCreateView(
+//        inflater: LayoutInflater, container: ViewGroup?,
+//        savedInstanceState: Bundle?
+//    ): View? {
+//        return inflater.inflate(br.com.uvets.uvetsandroid.R.layout.sign_up_fragment, container, false)
+//    }
+
+    override fun getLayoutResource(): Int {
+        return R.layout.sign_up_fragment
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        //mViewModel = ViewModelProviders.of(this).get(SignUpViewModel::class.java)
+    override fun initComponents(rootView: View) {
         mViewModel.attachNavigator(this)
 
         setUpView()

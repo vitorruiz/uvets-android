@@ -2,11 +2,8 @@ package br.com.uvets.uvetsandroid.ui.login
 
 import android.app.Activity
 import android.content.Intent
-import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import br.com.uvets.uvetsandroid.R
 import br.com.uvets.uvetsandroid.ui.ContainerActivity
 import br.com.uvets.uvetsandroid.ui.MainActivity
@@ -20,16 +17,11 @@ class LoginFragment : BaseFragment(), LoginNavigator {
 
     private val mViewModel: LoginViewModel by viewModel()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.login_fragment, container, false)
+    override fun getLayoutResource(): Int {
+        return R.layout.login_fragment
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        //mViewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
+    override fun initComponents(rootView: View) {
         mViewModel.attachNavigator(this)
 
         setUpView()

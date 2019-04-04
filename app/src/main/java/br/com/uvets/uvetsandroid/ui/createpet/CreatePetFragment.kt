@@ -5,10 +5,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.text.format.DateFormat
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.TextView
 import br.com.uvets.uvetsandroid.R
 import br.com.uvets.uvetsandroid.data.model.Pet
@@ -16,6 +13,7 @@ import br.com.uvets.uvetsandroid.enableImagePickerOnClick
 import br.com.uvets.uvetsandroid.ui.base.BaseFragment
 import br.com.uvets.uvetsandroid.utils.PickerUtils
 import com.squareup.picasso.Picasso
+import id.zelory.compressor.Compressor
 import kotlinx.android.synthetic.main.fragment_create_pet.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import pl.aprilapps.easyphotopicker.EasyImage
@@ -40,17 +38,11 @@ class CreatePetFragment : BaseFragment(), CreatePetNavigator {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_create_pet, container, false)
+    override fun getLayoutResource(): Int {
+        return R.layout.fragment_create_pet
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        //mViewModel = ViewModelProviders.of(this).get(CreatePetViewModel::class.java)
+    override fun initComponents(rootView: View) {
         mViewModel.attachNavigator(this)
 
         mPet = arguments?.getParcelable(PET_EXTRA)
@@ -64,17 +56,16 @@ class CreatePetFragment : BaseFragment(), CreatePetNavigator {
         if (resultCode == Activity.RESULT_OK) {
             EasyImage.handleActivityResult(requestCode, resultCode, data!!, activity, object : EasyImage.Callbacks {
                 override fun onImagesPicked(imageFiles: MutableList<File>, source: EasyImage.ImageSource?, type: Int) {
-                    Log.d(CreatePetFragment::class.java.simpleName, "onImagesPicked")
-                    Picasso.get().load(imageFiles[0]).into(ivPetPhoto)
-                    mSelectedPetPhoto = imageFiles[0]
+                    mSelectedPetPhoto = Compressor(activity).compressToFile(imageFiles[0])
+                    Picasso.get().load(mSelectedPetPhoto!!).into(ivPetPhoto)
                 }
 
                 override fun onImagePickerError(e: Exception?, source: EasyImage.ImageSource?, type: Int) {
-                    Log.d(CreatePetFragment::class.java.simpleName, "onImagePickerError")
+
                 }
 
                 override fun onCanceled(source: EasyImage.ImageSource?, type: Int) {
-                    Log.d(CreatePetFragment::class.java.simpleName, "onCanceled")
+
                 }
 
             })

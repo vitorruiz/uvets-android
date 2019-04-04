@@ -1,10 +1,7 @@
 package br.com.uvets.uvetsandroid.ui.profile
 
 
-import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import br.com.uvets.uvetsandroid.R
 import br.com.uvets.uvetsandroid.ui.base.BaseFragment
@@ -15,17 +12,11 @@ class ProfileFragment : BaseFragment() {
 
     private val mViewModel: ProfileViewModel by viewModel()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false)
+    override fun getLayoutResource(): Int {
+        return R.layout.fragment_profile
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        //mViewModel = ViewModelProviders.of(this).get(ProfileViewModel::class.java)
+    override fun initComponents(rootView: View) {
         mViewModel.attachNavigator(this)
 
         setUpView()
