@@ -3,7 +3,6 @@ package br.com.uvets.uvetsandroid.business
 import br.com.uvets.uvetsandroid.business.interfaces.Storage
 import br.com.uvets.uvetsandroid.data.model.User
 import br.com.uvets.uvetsandroid.data.model.vo.TokensVO
-import br.com.uvets.uvetsandroid.utils.AppLogger
 import com.orhanobut.hawk.Hawk
 
 class AppStorage : Storage {
@@ -29,7 +28,6 @@ class AppStorage : Storage {
 
     override fun saveUserData(user: User) {
         Hawk.put(KEY_USER_DATA, user)
-        AppLogger.d("$TAG > saveUserData > $user")
     }
 
     override fun getUserData(): User? {

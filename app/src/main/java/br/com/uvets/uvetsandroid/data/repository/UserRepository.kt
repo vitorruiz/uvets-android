@@ -6,10 +6,12 @@ import br.com.uvets.uvetsandroid.data.model.vo.LoginRequestVO
 import br.com.uvets.uvetsandroid.data.model.vo.SignUpRequestVO
 import br.com.uvets.uvetsandroid.data.model.vo.TokensVO
 import br.com.uvets.uvetsandroid.data.remote.RestResponseListener
+import io.reactivex.Observable
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import retrofit2.Response
 
 class UserRepository(val configuration: Configuration) {
 
@@ -23,45 +25,23 @@ class UserRepository(val configuration: Configuration) {
 
     val isUserAuthenticated = configuration.getStorage().getUserTokens() != null
 
-    fun authenticate(email: String, password: String, callback: RestResponseListener<TokensVO>) {
-        GlobalScope.launch(Dispatchers.Main) {
-            val request = configuration.getApi().auth(LoginRequestVO(email, password))
-            try {
-                val response = withContext(Dispatchers.IO) { request.await() }
-
-                if (response.isSuccessful) {
-                    configuration.getStorage().saveUserTokens(response.body()!!)
-                    callback.onSuccess(response.body()!!)
-                } else {
-                    callback.onFail(response.code())
+    fun authenticate(email: String, password: String): Observable<Response<TokensVO>> {
+        return configuration.getApi().auth(LoginRequestVO(email, password)).doOnNext {
+            if (it.isSuccessful) {
+                it.body()?.let { body ->
+                    configuration.getStorage().saveUserTokens(body)
                 }
-            } catch (e: Throwable) {
-                callback.onError(e)
             }
-
-            callback.onComplete()
         }
     }
 
-    fun fetchUser(callback: RestResponseListener<User>) {
-        GlobalScope.launch(Dispatchers.Main) {
-            val request = configuration.getApiWithAuth().fetchUser()
-            try {
-                val response = withContext(Dispatchers.IO) { request.await() }
-
-                if (response.isSuccessful) {
-                    response.body()?.let {
-                        callback.onSuccess(it)
-                        configuration.getStorage().saveUserData(it)
-                    }
-                } else {
-                    callback.onFail(response.code())
+    fun fetchUser(): Observable<Response<User>> {
+        return configuration.getApiWithAuth().fetchUser().doOnNext {
+            if (it.isSuccessful) {
+                it.body()?.let { body ->
+                    configuration.getStorage().saveUserData(body)
                 }
-            } catch (e: Throwable) {
-                callback.onError(e)
             }
-
-            callback.onComplete()
         }
     }
 

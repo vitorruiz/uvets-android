@@ -6,23 +6,20 @@ import br.com.uvets.uvetsandroid.data.model.Vet
 import br.com.uvets.uvetsandroid.data.model.vo.LoginRequestVO
 import br.com.uvets.uvetsandroid.data.model.vo.SignUpRequestVO
 import br.com.uvets.uvetsandroid.data.model.vo.TokensVO
+import io.reactivex.Observable
 import kotlinx.coroutines.Deferred
 import okhttp3.MultipartBody
-import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.*
 
 interface ApiService {
     // Auth Calls
     @POST("/login")
-    fun auth(@Body loginVO: LoginRequestVO): Deferred<Response<TokensVO>>
-
-    @GET("/auth/refresh_token")
-    fun refreshToken(): Deferred<Response<ResponseBody>>
+    fun auth(@Body loginVO: LoginRequestVO): Observable<Response<TokensVO>>
 
     // User Calls
     @GET("/users/fetch")
-    fun fetchUser(): Deferred<Response<User>>
+    fun fetchUser(): Observable<Response<User>>
 
     @POST("/users")
     fun registerTutor(@Body signUpRequestVO: SignUpRequestVO): Deferred<Response<Void>>
