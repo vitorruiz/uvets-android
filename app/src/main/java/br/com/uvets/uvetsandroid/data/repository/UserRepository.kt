@@ -45,23 +45,7 @@ class UserRepository(val configuration: Configuration) {
         }
     }
 
-    fun registerTutor(signUpRequestVO: SignUpRequestVO, callback: RestResponseListener<Void?>) {
-        GlobalScope.launch(Dispatchers.Main) {
-            val request = configuration.getApi().registerTutor(signUpRequestVO)
-
-            try {
-                val response = withContext(Dispatchers.IO) { request.await() }
-
-                if (response.isSuccessful) {
-                    callback.onSuccess(null)
-                } else {
-                    callback.onFail(response.code())
-                }
-            } catch (e: Throwable) {
-                callback.onError(e)
-            }
-
-            callback.onComplete()
-        }
+    fun registerTutor(signUpRequestVO: SignUpRequestVO): Observable<Response<Void>> {
+        return configuration.getApi().registerTutor(signUpRequestVO)
     }
 }

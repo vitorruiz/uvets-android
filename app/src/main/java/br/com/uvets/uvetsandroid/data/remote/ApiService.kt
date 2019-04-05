@@ -22,17 +22,17 @@ interface ApiService {
     fun fetchUser(): Observable<Response<User>>
 
     @POST("/users")
-    fun registerTutor(@Body signUpRequestVO: SignUpRequestVO): Deferred<Response<Void>>
+    fun registerTutor(@Body signUpRequestVO: SignUpRequestVO): Observable<Response<Void>>
 
     // Pet Calls
     @GET("/pets")
-    fun getPets(): Deferred<Response<List<Pet>>>
+    fun getPets(): Observable<Response<List<Pet>>>
 
     @POST("/pets")
-    fun createPet(@Body pet: Pet): Deferred<Response<Pet>>
+    fun createPet(@Body pet: Pet): Observable<Response<Pet>>
 
     @PUT("/pets/{id}")
-    fun updatePet(@Path("id") id: Long, @Body pet: Pet): Deferred<Response<Pet>>
+    fun updatePet(@Path("id") id: Long, @Body pet: Pet): Observable<Response<Pet>>
 
     @Multipart
     @POST("pets/{id}/photo")
@@ -40,5 +40,5 @@ interface ApiService {
 
     // Vet Calls
     @GET("/vets")
-    fun getVets(): Deferred<Response<List<Vet>>>
+    fun getVets(): Observable<Response<List<Vet>>>
 }

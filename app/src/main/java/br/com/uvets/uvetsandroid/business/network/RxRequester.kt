@@ -10,7 +10,7 @@ abstract class RxRequester<T> : DisposableObserver<Response<T>>() {
     abstract fun onFail(responseCode: Int)
     abstract fun onFinish()
 
-    override fun onNext(t: retrofit2.Response<T>) {
+    override fun onNext(t: Response<T>) {
         if (t.isSuccessful) {
             t.body()?.let {
                 onSuccess(it)
