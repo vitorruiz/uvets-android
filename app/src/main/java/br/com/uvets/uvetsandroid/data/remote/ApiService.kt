@@ -6,36 +6,33 @@ import br.com.uvets.uvetsandroid.data.model.Vet
 import br.com.uvets.uvetsandroid.data.model.vo.LoginRequestVO
 import br.com.uvets.uvetsandroid.data.model.vo.SignUpRequestVO
 import br.com.uvets.uvetsandroid.data.model.vo.TokensVO
+import io.reactivex.Observable
 import kotlinx.coroutines.Deferred
 import okhttp3.MultipartBody
-import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.*
 
 interface ApiService {
     // Auth Calls
     @POST("/login")
-    fun auth(@Body loginVO: LoginRequestVO): Deferred<Response<TokensVO>>
-
-    @GET("/auth/refresh_token")
-    fun refreshToken(): Deferred<Response<ResponseBody>>
+    fun auth(@Body loginVO: LoginRequestVO): Observable<Response<TokensVO>>
 
     // User Calls
     @GET("/users/fetch")
-    fun fetchUser(): Deferred<Response<User>>
+    fun fetchUser(): Observable<Response<User>>
 
     @POST("/users")
-    fun registerTutor(@Body signUpRequestVO: SignUpRequestVO): Deferred<Response<Void>>
+    fun registerTutor(@Body signUpRequestVO: SignUpRequestVO): Observable<Response<Void>>
 
     // Pet Calls
     @GET("/pets")
-    fun getPets(): Deferred<Response<List<Pet>>>
+    fun getPets(): Observable<Response<List<Pet>>>
 
     @POST("/pets")
-    fun createPet(@Body pet: Pet): Deferred<Response<Pet>>
+    fun createPet(@Body pet: Pet): Observable<Response<Pet>>
 
     @PUT("/pets/{id}")
-    fun updatePet(@Path("id") id: Long, @Body pet: Pet): Deferred<Response<Pet>>
+    fun updatePet(@Path("id") id: Long, @Body pet: Pet): Observable<Response<Pet>>
 
     @Multipart
     @POST("pets/{id}/photo")
@@ -43,5 +40,5 @@ interface ApiService {
 
     // Vet Calls
     @GET("/vets")
-    fun getVets(): Deferred<Response<List<Vet>>>
+    fun getVets(): Observable<Response<List<Vet>>>
 }

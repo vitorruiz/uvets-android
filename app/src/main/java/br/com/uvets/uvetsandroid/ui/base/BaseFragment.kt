@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import br.com.uvets.uvetsandroid.business.network.RestError
 import br.com.uvets.uvetsandroid.showErrorToast
 import br.com.uvets.uvetsandroid.showSuccessToast
 import br.com.uvets.uvetsandroid.ui.ContainerActivity
@@ -27,6 +28,14 @@ abstract class BaseFragment : Fragment(), BaseNavigator {
 
     override fun showError(message: String) {
         showErrorToast(message)
+    }
+
+    override fun onRequestError(restError: RestError) {
+        showErrorToast(restError.errorMessage)
+    }
+
+    override fun onRequestFail(responseCode: Int) {
+        showErrorToast("Ocorreu um erro na requisição. Código: $responseCode")
     }
 
     override fun showLoader(isLoading: Boolean) {
