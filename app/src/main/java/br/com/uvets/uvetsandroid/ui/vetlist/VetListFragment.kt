@@ -17,6 +17,10 @@ class VetListFragment : BaseFragment() {
         return R.layout.fragment_vet_list
     }
 
+    override fun getTile(): String? {
+        return "Veterinários"
+    }
+
     override fun initComponents(rootView: View) {
         mViewModel.attachNavigator(this)
 
@@ -27,8 +31,6 @@ class VetListFragment : BaseFragment() {
     }
 
     private fun setUpView() {
-        activity!!.title = "Veterinários"
-
         mVetAdapter = VetAdapter(context!!, arrayListOf())
         rvVetList.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
         rvVetList.adapter = mVetAdapter

@@ -94,7 +94,7 @@ dependencies {
     // Gson
     implementation "com.google.code.gson:gson:$gson_version"
 
-    implementation 'com.ncapdevi:frag-nav:2.4.0'
+    implementation 'com.ncapdevi:frag-nav:3.2.0'
     implementation 'com.afollestad.material-dialogs:core:2.0.3'
     implementation 'br.com.concrete:canarinho:2.0.1'
     implementation "com.orhanobut:hawk:2.0.1"

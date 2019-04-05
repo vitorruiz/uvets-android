@@ -67,7 +67,7 @@ class ContainerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val viewNoActionBar = intent?.extras?.getBoolean(VIEW_NO_ACTION_BAR)
         if (viewNoActionBar != null && viewNoActionBar) {
-            setTheme(R.style.Theme_UVets_NoActionBar)
+            //setTheme(R.style.Theme_UVets_NoActionBar)
         }
 
         (intent?.extras?.getSerializable(VIEW_ID_PARAM) as ContainerView?).apply {
@@ -79,16 +79,16 @@ class ContainerActivity : AppCompatActivity() {
                     CreatePetFragment.updateInstance(intent!!.extras!!.getParcelable(PET_PARAM)!!)
                 ContainerView.LOGIN -> fragmentToLoad = LoginFragment()
                 null -> {
-                    setTheme(R.style.Theme_UVets_NoActionBar)
+                    //setTheme(R.style.Theme_UVets_NoActionBar)
                     fragmentToLoad = LoginFragment()
                 }
             }
 
             setContentView(R.layout.activity_container)
             loadFragment(fragmentToLoad)
-            if (viewNoActionBar != null && !viewNoActionBar) {
-                supportActionBar?.setDisplayHomeAsUpEnabled(true)
-            }
+//            if (viewNoActionBar != null && !viewNoActionBar) {
+//                supportActionBar?.setDisplayHomeAsUpEnabled(true)
+//            }
         }
 
 

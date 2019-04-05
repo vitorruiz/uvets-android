@@ -75,9 +75,9 @@ class CreatePetFragment : BaseFragment(), CreatePetNavigator {
 
     private fun setUpView() {
         if (mPet == null) {
-            activity?.title = "Cadastrar Pet"
+            setTitle("Cadastrar Pet")
         } else {
-            activity?.title = "Editar Pet"
+            setTitle("Editar Pet")
             btCreatePet.text = "Salvar"
         }
 

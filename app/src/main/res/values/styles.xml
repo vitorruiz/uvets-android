@@ -33,6 +33,18 @@
         <item name="floatingActionButtonStyle">@style/Widget.UVets.FloatingActionButton</item>
     </style>
 
+    <style name="Theme.UVets.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
+
+    <style name="Widget.UVets.Toolbar.Light" parent="@style/Theme.UVets.NoActionBar">
+        <item name="android:background">@android:color/background_light</item>
+        <item name="colorControlNormal">@color/grey_60</item>
+        <item name="android:textColorPrimary">@color/grey_60</item>
+    </style>
+
+    <style name="Widget.UVets.Toolbar.Title.Light" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textColor">@color/grey_60</item>
+    </style>
+
     <style name="Widget.UVets.Toolbar" parent="Widget.AppCompat.Toolbar">
         <item name="android:background">@drawable/gradient_primary_toolbar</item>
     </style>
