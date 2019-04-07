@@ -5,10 +5,10 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class User(
-    val address: String,
+    val address: Address,
     val doc: String,
     val email: String,
-    val id: Int,
+    val id: Long,
     val name: String,
     val phone: String
     //val roles: List<String>

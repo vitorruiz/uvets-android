@@ -9,7 +9,7 @@ data class Vet(
     val doc: String,
     val phone: String,
     val email: String,
-    val address: String,
+    val address: Address,
     val crmv: String,
     val classification: String,
     val rating: Double

@@ -17,6 +17,11 @@ import kotlinx.android.synthetic.main.include_toolbar.*
 
 abstract class BaseFragment : Fragment(), BaseNavigator, IOnBackPressed {
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        settings()
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(getLayoutResource(), container, false)
     }
@@ -81,6 +86,8 @@ abstract class BaseFragment : Fragment(), BaseNavigator, IOnBackPressed {
     override fun onBackPressed() {
 
     }
+
+    protected open fun settings() {}
 
     protected open fun getTile(): String? = null
 
