@@ -8,6 +8,7 @@ import br.com.uvets.uvetsandroid.data.repository.UserRepository
 import br.com.uvets.uvetsandroid.networkSchedulers
 import br.com.uvets.uvetsandroid.ui.base.BaseNavigator
 import br.com.uvets.uvetsandroid.ui.base.BaseViewModel
+import java.util.concurrent.TimeUnit
 
 class PetListViewModel(userRepository: UserRepository, val petRepository: PetRepository) :
     BaseViewModel<BaseNavigator>(userRepository) {
@@ -20,6 +21,7 @@ class PetListViewModel(userRepository: UserRepository, val petRepository: PetRep
 
             registerDisposable(
                 petRepository.fetchPets()
+                    .debounce(400, TimeUnit.MILLISECONDS)
                     .networkSchedulers()
                     .subscribeWith(object : BasicRxRequester<List<Pet>, BaseNavigator>(this, mNavigator) {
                         override fun onSuccess(t: List<Pet>) {

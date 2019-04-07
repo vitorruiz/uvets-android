@@ -1,11 +1,14 @@
 package br.com.uvets.uvetsandroid.business
 
 import br.com.uvets.uvetsandroid.business.interfaces.Storage
+import br.com.uvets.uvetsandroid.data.database.AppDatabase
+import br.com.uvets.uvetsandroid.data.model.Pet
 import br.com.uvets.uvetsandroid.data.model.User
 import br.com.uvets.uvetsandroid.data.model.vo.TokensVO
 import com.orhanobut.hawk.Hawk
+import io.reactivex.Single
 
-class AppStorage : Storage {
+class AppStorage(val appDatabase: AppDatabase) : Storage {
 
     private val TAG = AppStorage::class.java.simpleName
 
@@ -34,4 +37,11 @@ class AppStorage : Storage {
         return Hawk.get(KEY_USER_DATA)
     }
 
+    override fun savePets(pets: List<Pet>) {
+        appDatabase.petDao().insertAll(pets)
+    }
+
+    override fun getPets(): Single<List<Pet>> {
+        return appDatabase.petDao().getPets()
+    }
 }

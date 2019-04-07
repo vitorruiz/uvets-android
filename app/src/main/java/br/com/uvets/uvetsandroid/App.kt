@@ -1,10 +1,12 @@
 package br.com.uvets.uvetsandroid
 
 import android.app.Application
+import androidx.room.Room
 import br.com.uvets.uvetsandroid.business.AppConfiguration
 import br.com.uvets.uvetsandroid.business.AppStorage
 import br.com.uvets.uvetsandroid.business.interfaces.Configuration
 import br.com.uvets.uvetsandroid.business.interfaces.Storage
+import br.com.uvets.uvetsandroid.data.database.AppDatabase
 import br.com.uvets.uvetsandroid.data.repository.PetRepository
 import br.com.uvets.uvetsandroid.data.repository.UserRepository
 import br.com.uvets.uvetsandroid.data.repository.VetRepository
@@ -14,6 +16,7 @@ import br.com.uvets.uvetsandroid.ui.petlist.PetListViewModel
 import br.com.uvets.uvetsandroid.ui.profile.ProfileViewModel
 import br.com.uvets.uvetsandroid.ui.signup.SignUpViewModel
 import br.com.uvets.uvetsandroid.ui.vetlist.VetListViewModel
+import br.com.uvets.uvetsandroid.utils.AppLogger
 import com.orhanobut.hawk.Hawk
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -26,6 +29,7 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         Hawk.init(this).build()
+        AppLogger.init()
 
         startKoin {
             androidLogger()
@@ -34,8 +38,9 @@ class App : Application() {
         }
     }
 
-    val appModule = module {
-        single<Storage> { AppStorage() }
+    private val appModule = module {
+        single { Room.databaseBuilder(get(), AppDatabase::class.java, "uvets-database").build() }
+        single<Storage> { AppStorage(get()) }
         single<Configuration> { AppConfiguration(get()) }
 
         // Repositories

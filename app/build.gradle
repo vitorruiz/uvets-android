@@ -88,6 +88,7 @@ dependencies {
 
     // Database
     implementation "androidx.room:room-runtime:$room_version"
+    implementation "androidx.room:room-rxjava2:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
 
     // Dependency Injection
