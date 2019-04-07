@@ -8,10 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import br.com.uvets.uvetsandroid.R
 import br.com.uvets.uvetsandroid.data.model.Pet
-import br.com.uvets.uvetsandroid.pushFragmentWithAnim
 import br.com.uvets.uvetsandroid.ui.ContainerActivity
 import br.com.uvets.uvetsandroid.ui.base.BaseFragment
-import br.com.uvets.uvetsandroid.ui.createpet.CreatePetFragment
 import kotlinx.android.synthetic.main.fragment_pet_list.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -79,8 +77,8 @@ class PetListFragment : BaseFragment() {
         }
 
         fbCreatePet.setOnClickListener {
-            //startActivityForResult(ContainerActivity.createPetView(context!!), REQUEST_CREATE_PET)
-            getNavigationController()?.pushFragmentWithAnim(CreatePetFragment())
+            startActivityForResult(ContainerActivity.createPetView(context!!), REQUEST_CREATE_PET)
+//            getNavigationController()?.pushFragmentWithAnim(CreatePetFragment())
         }
     }
 
@@ -91,7 +89,6 @@ class PetListFragment : BaseFragment() {
     }
 
     override fun showLoader(isLoading: Boolean) {
-        super.showLoader(isLoading)
-        if (swipeRefresh != null && !isLoading) swipeRefresh.isRefreshing = false
+        if (swipeRefresh != null) swipeRefresh.isRefreshing = isLoading
     }
 }

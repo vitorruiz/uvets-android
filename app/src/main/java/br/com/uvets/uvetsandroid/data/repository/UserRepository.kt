@@ -5,12 +5,7 @@ import br.com.uvets.uvetsandroid.data.model.User
 import br.com.uvets.uvetsandroid.data.model.vo.LoginRequestVO
 import br.com.uvets.uvetsandroid.data.model.vo.SignUpRequestVO
 import br.com.uvets.uvetsandroid.data.model.vo.TokensVO
-import br.com.uvets.uvetsandroid.data.remote.RestResponseListener
 import io.reactivex.Observable
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import retrofit2.Response
 
 class UserRepository(val configuration: Configuration) {
@@ -23,7 +18,7 @@ class UserRepository(val configuration: Configuration) {
         configuration.getStorage().clearStorage()
     }
 
-    val isUserAuthenticated = configuration.getStorage().getUserTokens() != null
+    fun isUserAuthenticated() = (configuration.getStorage().getUserTokens() != null)
 
     fun authenticate(email: String, password: String): Observable<Response<TokensVO>> {
         return configuration.getApi().auth(LoginRequestVO(email, password)).doOnNext {

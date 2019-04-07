@@ -7,6 +7,15 @@
     <color name="colorSecondaryDark">#b90045</color>
     <color name="colorSecondaryLight">#ff6b9e</color>
 
+    <!-- UVets Theme Colors -->
+    <color name="primaryColor">#1aa38c</color>
+    <color name="primaryLightColor">#5cd5bc</color>
+    <color name="primaryDarkColor">#00735f</color>
+    <color name="secondaryColor">#f22f70</color>
+    <color name="secondaryLightColor">#ff6b9e</color>
+    <color name="secondaryDarkColor">#b90045</color>
+    <color name="primaryTextColor">#ffffff</color>
+    <color name="secondaryTextColor">#ffffff</color>
 
     <color name="overlay_dark_10">#1A000000</color>
     <color name="overlay_dark_20">#33000000</color>

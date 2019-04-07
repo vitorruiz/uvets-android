@@ -10,13 +10,16 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "br.com.uvets.uvets"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 28
         versionCode VERSIONS['VERSION_CODE'].toInteger()
         versionName getVersion(VERSIONS)
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
+    }
+    androidExtensions {
+        experimental = true
     }
     buildTypes {
         debug {

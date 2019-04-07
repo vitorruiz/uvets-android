@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.text.format.DateFormat
 import android.view.View
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import br.com.uvets.uvetsandroid.R
 import br.com.uvets.uvetsandroid.data.model.Pet
 import br.com.uvets.uvetsandroid.enableImagePickerOnClick
@@ -44,6 +45,10 @@ class CreatePetFragment : BaseFragment(), CreatePetNavigator {
 
     override fun initComponents(rootView: View) {
         mViewModel.attachNavigator(this)
+
+        (activity as? AppCompatActivity)?.supportActionBar?.run {
+            setDisplayHomeAsUpEnabled(true)
+        }
 
         mPet = arguments?.getParcelable(PET_EXTRA)
 

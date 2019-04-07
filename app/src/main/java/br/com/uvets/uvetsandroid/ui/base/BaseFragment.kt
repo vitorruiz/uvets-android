@@ -50,8 +50,8 @@ abstract class BaseFragment : Fragment(), BaseNavigator, IOnBackPressed {
     }
 
     override fun onLogoutSucceeded() {
-        startActivity(ContainerActivity.loginView(context!!))
         activity?.finish()
+        startActivity(ContainerActivity.loginView(context!!))
     }
 
     protected fun getNavigationController(): FragNavController? {
