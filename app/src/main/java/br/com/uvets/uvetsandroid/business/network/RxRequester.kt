@@ -21,7 +21,36 @@ abstract class RxRequester<T> : DisposableObserver<Response<T>>() {
     }
 
     override fun onError(e: Throwable) {
-        onError(RestError(e.localizedMessage))
+        HttpErrorHandler.resolveError(e, {
+            onFail(it)
+        }, {
+            onError(it)
+        })
+        onFinish()
+    }
+
+    override fun onComplete() {
+        onFinish()
+    }
+}
+
+abstract class RxRequesterNew<T> : DisposableObserver<T>() {
+
+    abstract fun onSuccess(t: T)
+    abstract fun onError(restError: RestError)
+    abstract fun onFail(responseCode: Int)
+    abstract fun onFinish()
+
+    override fun onNext(t: T) {
+        onSuccess(t)
+    }
+
+    override fun onError(e: Throwable) {
+        HttpErrorHandler.resolveError(e, {
+            onFail(it)
+        }, {
+            onError(it)
+        })
         onFinish()
     }
 

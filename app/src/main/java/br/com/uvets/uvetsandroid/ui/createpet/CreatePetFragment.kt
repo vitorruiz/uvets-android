@@ -11,9 +11,10 @@ import androidx.appcompat.app.AppCompatActivity
 import br.com.uvets.uvetsandroid.R
 import br.com.uvets.uvetsandroid.data.model.Pet
 import br.com.uvets.uvetsandroid.enableImagePickerOnClick
+import br.com.uvets.uvetsandroid.loadFromFile
+import br.com.uvets.uvetsandroid.loadFromUrl
 import br.com.uvets.uvetsandroid.ui.base.BaseFragment
 import br.com.uvets.uvetsandroid.utils.PickerUtils
-import com.squareup.picasso.Picasso
 import id.zelory.compressor.Compressor
 import kotlinx.android.synthetic.main.fragment_create_pet.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -62,7 +63,7 @@ class CreatePetFragment : BaseFragment(), CreatePetNavigator {
             EasyImage.handleActivityResult(requestCode, resultCode, data!!, activity, object : EasyImage.Callbacks {
                 override fun onImagesPicked(imageFiles: MutableList<File>, source: EasyImage.ImageSource?, type: Int) {
                     mSelectedPetPhoto = Compressor(activity).compressToFile(imageFiles[0])
-                    Picasso.get().load(mSelectedPetPhoto!!).into(ivPetPhoto)
+                    ivPetPhoto.loadFromFile(mSelectedPetPhoto!!)
                 }
 
                 override fun onImagePickerError(e: Exception?, source: EasyImage.ImageSource?, type: Int) {
@@ -94,7 +95,7 @@ class CreatePetFragment : BaseFragment(), CreatePetNavigator {
             if (it.gender == "Macho") rdMale.isChecked = true else rdFemale.isChecked = true
             cbCastrated.isChecked = it.castrated
             it.photoUrl?.let { photoUrl ->
-                Picasso.get().load(photoUrl).into(ivPetPhoto)
+                ivPetPhoto.loadFromUrl(photoUrl)
             }
         }
 

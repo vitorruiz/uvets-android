@@ -98,7 +98,7 @@ class VetListFragment : BaseFragment() {
         }
         mViewModel.vetListLiveData.observe(this, Observer { vetList ->
             vetList?.let {
-                val markers = it.map { vet ->
+                val markers = it.filter { it.address.lat != null && it.address.lon != null }.map { vet ->
                     MarkerOptions()
                         .title(vet.name)
                         .snippet(vet.classification)

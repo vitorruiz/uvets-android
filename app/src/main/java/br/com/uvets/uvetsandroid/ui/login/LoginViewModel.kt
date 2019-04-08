@@ -1,6 +1,6 @@
 package br.com.uvets.uvetsandroid.ui.login
 
-import br.com.uvets.uvetsandroid.business.network.BasicRxRequester
+import br.com.uvets.uvetsandroid.business.network.ViewModelRxRequester
 import br.com.uvets.uvetsandroid.data.model.User
 import br.com.uvets.uvetsandroid.data.model.vo.TokensVO
 import br.com.uvets.uvetsandroid.data.repository.UserRepository
@@ -14,9 +14,17 @@ class LoginViewModel(userRepository: UserRepository) : BaseViewModel<LoginNaviga
         registerDisposable(
             userRepository.authenticate(email, password)
                 .networkSchedulers()
-                .subscribeWith(object : BasicRxRequester<TokensVO, LoginNavigator>(this, mNavigator) {
+                .subscribeWith(object : ViewModelRxRequester<TokensVO, LoginNavigator>(this, mNavigator) {
                     override fun onSuccess(t: TokensVO) {
                         fetchUser()
+                    }
+
+                    override fun onFail(responseCode: Int) {
+                        if (responseCode == 401) {
+                            mNavigator?.showError("Usuário ou senha inválidos")
+                        } else {
+                            super.onFail(responseCode)
+                        }
                     }
                 })
         )
@@ -26,7 +34,7 @@ class LoginViewModel(userRepository: UserRepository) : BaseViewModel<LoginNaviga
         registerDisposable(
             userRepository.fetchUser()
                 .networkSchedulers()
-                .subscribeWith(object : BasicRxRequester<User, LoginNavigator>(this, mNavigator) {
+                .subscribeWith(object : ViewModelRxRequester<User, LoginNavigator>(this, mNavigator) {
                     override fun onFinish() {
                         super.onFinish()
                         mNavigator?.onLoginSucceeded()

@@ -2,8 +2,10 @@ package br.com.uvets.uvetsandroid
 
 import android.app.Application
 import br.com.uvets.uvetsandroid.business.AppConfiguration
+import br.com.uvets.uvetsandroid.business.AppLocalStorage
 import br.com.uvets.uvetsandroid.business.AppStorage
 import br.com.uvets.uvetsandroid.business.interfaces.Configuration
+import br.com.uvets.uvetsandroid.business.interfaces.LocalStorage
 import br.com.uvets.uvetsandroid.business.interfaces.Storage
 import br.com.uvets.uvetsandroid.data.repository.PetRepository
 import br.com.uvets.uvetsandroid.data.repository.UserRepository
@@ -14,7 +16,6 @@ import br.com.uvets.uvetsandroid.ui.petlist.PetListViewModel
 import br.com.uvets.uvetsandroid.ui.profile.ProfileViewModel
 import br.com.uvets.uvetsandroid.ui.signup.SignUpViewModel
 import br.com.uvets.uvetsandroid.ui.vetlist.VetListViewModel
-import com.orhanobut.hawk.Hawk
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.android.viewmodel.dsl.viewModel
@@ -25,7 +26,6 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        Hawk.init(this).build()
 
         startKoin {
             androidLogger()
@@ -34,8 +34,9 @@ class App : Application() {
         }
     }
 
-    val appModule = module {
-        single<Storage> { AppStorage() }
+    private val appModule = module {
+        single<LocalStorage> { AppLocalStorage(get()) }
+        single<Storage> { AppStorage(get()) }
         single<Configuration> { AppConfiguration(get()) }
 
         // Repositories

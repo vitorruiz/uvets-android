@@ -15,24 +15,24 @@ import retrofit2.http.*
 interface ApiService {
     // Auth Calls
     @POST("/login")
-    fun auth(@Body loginVO: LoginRequestVO): Observable<Response<TokensVO>>
+    fun auth(@Body loginVO: LoginRequestVO): Observable<TokensVO>
 
     // User Calls
     @GET("/users/fetch")
-    fun fetchUser(): Observable<Response<User>>
+    fun fetchUser(): Observable<User>
 
     @POST("/users")
-    fun registerTutor(@Body signUpRequestVO: SignUpRequestVO): Observable<Response<Void>>
+    fun registerTutor(@Body signUpRequestVO: SignUpRequestVO): Observable<Void>
 
     // Pet Calls
     @GET("/pets")
-    fun getPets(): Observable<Response<List<Pet>>>
+    fun getPets(): Observable<List<Pet>>
 
     @POST("/pets")
-    fun createPet(@Body pet: Pet): Observable<Response<Pet>>
+    fun createPet(@Body pet: Pet): Observable<Pet>
 
     @PUT("/pets/{id}")
-    fun updatePet(@Path("id") id: Long, @Body pet: Pet): Observable<Response<Pet>>
+    fun updatePet(@Path("id") id: Long, @Body pet: Pet): Observable<Pet>
 
     @Multipart
     @POST("pets/{id}/photo")
@@ -40,5 +40,5 @@ interface ApiService {
 
     // Vet Calls
     @GET("/vets")
-    fun getVets(): Observable<Response<List<Vet>>>
+    fun getVets(): Observable<List<Vet>>
 }

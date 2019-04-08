@@ -11,22 +11,21 @@ import kotlinx.coroutines.withContext
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import retrofit2.Response
 import java.io.File
 
 
 class PetRepository(val configuration: Configuration) {
 
-    fun fetchPets(): Observable<Response<List<Pet>>> {
+    fun fetchPets(): Observable<List<Pet>> {
         //TODO: Implementar sistema de cache
         return configuration.getApiWithAuth().getPets()
     }
 
-    fun createPet(pet: Pet): Observable<Response<Pet>> {
+    fun createPet(pet: Pet): Observable<Pet> {
         return configuration.getApiWithAuth().createPet(pet)
     }
 
-    fun updatePet(pet: Pet): Observable<Response<Pet>> {
+    fun updatePet(pet: Pet): Observable<Pet> {
         return configuration.getApiWithAuth().updatePet(pet.id!!, pet)
     }
 

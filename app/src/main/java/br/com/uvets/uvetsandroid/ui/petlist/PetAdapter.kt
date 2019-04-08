@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import br.com.uvets.uvetsandroid.R
 import br.com.uvets.uvetsandroid.data.model.Pet
-import com.squareup.picasso.Picasso
+import br.com.uvets.uvetsandroid.loadFromUrl
 import kotlinx.android.synthetic.main.item_pet_list.view.*
 
 class PetAdapter(
@@ -51,9 +51,7 @@ class PetAdapter(
         fun bindView(pet: Pet, onPetClicked: (Int, Pet) -> Unit) = with(itemView) {
             tvPetName.text = pet.name
             pet.photoUrl?.let {
-                Picasso.get()
-                    .load(it)
-                    .into(ivPetPhoto)
+                ivPetPhoto.loadFromUrl(it)
             }
 
             setOnClickListener {

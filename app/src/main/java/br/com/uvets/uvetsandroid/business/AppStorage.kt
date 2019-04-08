@@ -1,11 +1,11 @@
 package br.com.uvets.uvetsandroid.business
 
+import br.com.uvets.uvetsandroid.business.interfaces.LocalStorage
 import br.com.uvets.uvetsandroid.business.interfaces.Storage
 import br.com.uvets.uvetsandroid.data.model.User
 import br.com.uvets.uvetsandroid.data.model.vo.TokensVO
-import com.orhanobut.hawk.Hawk
 
-class AppStorage : Storage {
+class AppStorage(private val localStorage: LocalStorage) : Storage {
 
     private val TAG = AppStorage::class.java.simpleName
 
@@ -15,23 +15,23 @@ class AppStorage : Storage {
     }
 
     override fun clearStorage() {
-        Hawk.deleteAll()
+        localStorage.clear()
     }
 
     override fun saveUserTokens(tokensVO: TokensVO) {
-        Hawk.put(KEY_USER_TOKENS, tokensVO)
+        localStorage.putSerialized(KEY_USER_TOKENS, tokensVO)
     }
 
     override fun getUserTokens(): TokensVO? {
-        return Hawk.get(KEY_USER_TOKENS)
+        return localStorage.getSerialized(KEY_USER_TOKENS, null, TokensVO::class.java)
     }
 
     override fun saveUserData(user: User) {
-        Hawk.put(KEY_USER_DATA, user)
+        localStorage.putSerialized(KEY_USER_DATA, user)
     }
 
     override fun getUserData(): User? {
-        return Hawk.get(KEY_USER_DATA)
+        return localStorage.getSerialized(KEY_USER_DATA, null, User::class.java)
     }
 
 }

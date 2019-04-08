@@ -1,7 +1,7 @@
 package br.com.uvets.uvetsandroid.ui.petlist
 
 import androidx.lifecycle.MutableLiveData
-import br.com.uvets.uvetsandroid.business.network.BasicRxRequester
+import br.com.uvets.uvetsandroid.business.network.ViewModelRxRequester
 import br.com.uvets.uvetsandroid.data.model.Pet
 import br.com.uvets.uvetsandroid.data.repository.PetRepository
 import br.com.uvets.uvetsandroid.data.repository.UserRepository
@@ -21,7 +21,7 @@ class PetListViewModel(userRepository: UserRepository, val petRepository: PetRep
             registerDisposable(
                 petRepository.fetchPets()
                     .networkSchedulers()
-                    .subscribeWith(object : BasicRxRequester<List<Pet>, BaseNavigator>(this, mNavigator) {
+                    .subscribeWith(object : ViewModelRxRequester<List<Pet>, BaseNavigator>(this, mNavigator) {
                         override fun onSuccess(t: List<Pet>) {
                             mPetListLiveData.postValue(t)
                         }

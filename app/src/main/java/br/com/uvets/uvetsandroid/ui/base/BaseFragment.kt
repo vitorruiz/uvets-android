@@ -41,7 +41,11 @@ abstract class BaseFragment : Fragment(), BaseNavigator, IOnBackPressed {
     }
 
     override fun onRequestError(restError: RestError) {
-        showErrorToast(restError.errorMessage)
+        if (restError.isConnectionError) {
+            showErrorToast("Problema de conexão com a internet")
+        } else {
+            showErrorToast(restError.exception.message)
+        }
     }
 
     override fun onRequestFail(responseCode: Int) {

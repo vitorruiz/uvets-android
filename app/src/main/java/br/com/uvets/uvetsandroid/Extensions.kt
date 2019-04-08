@@ -6,6 +6,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.include_loading_container.*
@@ -16,9 +18,17 @@ import java.io.File
 inline fun <reified T> Gson.fromJson(json: String) = this.fromJson<T>(json, object : TypeToken<T>() {}.type)
 
 fun ImageView.loadFromFile(imageFile: File) {
-//    Glide.with(this.context)
-//        .load(imageFile)
-//        .into(this)
+    Glide.with(this.context)
+        .load(imageFile)
+        .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+        .into(this)
+}
+
+fun ImageView.loadFromUrl(imageUrl: String) {
+    Glide.with(this.context)
+        .load(imageUrl)
+        .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+        .into(this)
 }
 
 fun ImageView.enableImagePickerOnClick(fragment: Fragment) {
@@ -33,7 +43,7 @@ fun Fragment.loading(isLoading: Boolean) {
     }
 }
 
-fun Fragment.showSuccessToast(message: String) {
+fun Fragment.showSuccessToast(message: String?) {
     val toast = Toast(context)
     toast.duration = Toast.LENGTH_LONG
 
@@ -47,7 +57,7 @@ fun Fragment.showSuccessToast(message: String) {
     toast.show()
 }
 
-fun Fragment.showErrorToast(message: String) {
+fun Fragment.showErrorToast(message: String?) {
     val toast = Toast(context)
     toast.duration = Toast.LENGTH_LONG
 

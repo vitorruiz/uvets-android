@@ -1,9 +1,8 @@
 package br.com.uvets.uvetsandroid.ui.vetlist
 
 import androidx.lifecycle.MutableLiveData
-import br.com.uvets.uvetsandroid.business.network.BasicRxRequester
+import br.com.uvets.uvetsandroid.business.network.ViewModelRxRequester
 import br.com.uvets.uvetsandroid.data.model.Vet
-import br.com.uvets.uvetsandroid.data.remote.RestResponseListener
 import br.com.uvets.uvetsandroid.data.repository.UserRepository
 import br.com.uvets.uvetsandroid.data.repository.VetRepository
 import br.com.uvets.uvetsandroid.networkSchedulers
@@ -22,7 +21,7 @@ class VetListViewModel(userRepository: UserRepository, val vetRepository: VetRep
             registerDisposable(
                     vetRepository.fetchVets()
                             .networkSchedulers()
-                            .subscribeWith(object : BasicRxRequester<List<Vet>, BaseNavigator>(this, mNavigator) {
+                        .subscribeWith(object : ViewModelRxRequester<List<Vet>, BaseNavigator>(this, mNavigator) {
                                 override fun onSuccess(t: List<Vet>) {
                                     vetListLiveData.postValue(t)
                                 }

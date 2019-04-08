@@ -3,6 +3,7 @@ package br.com.uvets.uvetsandroid.data.remote
 import android.util.Log
 import br.com.uvets.uvetsandroid.BuildConfig
 import br.com.uvets.uvetsandroid.business.interfaces.Storage
+import br.com.uvets.uvetsandroid.business.network.*
 import br.com.uvets.uvetsandroid.ui.base.BaseNavigator
 import br.com.uvets.uvetsandroid.ui.base.BaseViewModel
 import com.google.gson.Gson
@@ -45,6 +46,7 @@ class ClientApi<T> {
 
     private fun getOkhttpClient(): OkHttpClient.Builder {
         return OkHttpClient.Builder()
+            .addInterceptor(RestErrorInterceptor())
             .addInterceptor(HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY })
             .connectTimeout(30, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)
@@ -53,6 +55,7 @@ class ClientApi<T> {
 
     private fun getOkhttpClientAuth(storage: Storage): OkHttpClient.Builder {
         return OkHttpClient.Builder()
+            .addInterceptor(RestErrorInterceptor())
             .authenticator(TokenAuthenticator(storage))
             .addInterceptor(AuthInterceptor(storage.getUserTokens()?.accessToken ?: ""))
             .addInterceptor(HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY })
@@ -77,8 +80,29 @@ class AuthInterceptor(private val token: String) : Interceptor {
         val request = requestBuilder.build()
         val response = chain.proceed(request)
         if (response.code() == 401 || response.code() == 403) {
-            Log.e("UVETS", "Error API KEY")
+            Log.e("UVETS", "NetworkError API KEY")
         }
+        return response
+    }
+}
+
+class RestErrorInterceptor : Interceptor {
+
+    override fun intercept(chain: Interceptor.Chain): Response {
+        val request = chain.request()
+        val response = chain.proceed(request)
+
+        when (response.code()) {
+            400 -> throw BadRequest
+            401 -> throw Unauthorized
+            403 -> throw Forbidden
+            404 -> throw NotFound
+            405 -> throw MethodNotAllowed
+            500 -> throw InternalServerError
+            502 -> throw BadGateway
+            503 -> throw ServiceUnavailable
+        }
+
         return response
     }
 }

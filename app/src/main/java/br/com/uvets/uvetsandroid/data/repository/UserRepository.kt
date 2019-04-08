@@ -6,7 +6,6 @@ import br.com.uvets.uvetsandroid.data.model.vo.LoginRequestVO
 import br.com.uvets.uvetsandroid.data.model.vo.SignUpRequestVO
 import br.com.uvets.uvetsandroid.data.model.vo.TokensVO
 import io.reactivex.Observable
-import retrofit2.Response
 
 class UserRepository(val configuration: Configuration) {
 
@@ -20,27 +19,19 @@ class UserRepository(val configuration: Configuration) {
 
     fun isUserAuthenticated() = (configuration.getStorage().getUserTokens() != null)
 
-    fun authenticate(email: String, password: String): Observable<Response<TokensVO>> {
+    fun authenticate(email: String, password: String): Observable<TokensVO> {
         return configuration.getApi().auth(LoginRequestVO(email, password)).doOnNext {
-            if (it.isSuccessful) {
-                it.body()?.let { body ->
-                    configuration.getStorage().saveUserTokens(body)
-                }
-            }
+            configuration.getStorage().saveUserTokens(it)
         }
     }
 
-    fun fetchUser(): Observable<Response<User>> {
+    fun fetchUser(): Observable<User> {
         return configuration.getApiWithAuth().fetchUser().doOnNext {
-            if (it.isSuccessful) {
-                it.body()?.let { body ->
-                    configuration.getStorage().saveUserData(body)
-                }
-            }
+            configuration.getStorage().saveUserData(it)
         }
     }
 
-    fun registerTutor(signUpRequestVO: SignUpRequestVO): Observable<Response<Void>> {
+    fun registerTutor(signUpRequestVO: SignUpRequestVO): Observable<Void> {
         return configuration.getApi().registerTutor(signUpRequestVO)
     }
 }

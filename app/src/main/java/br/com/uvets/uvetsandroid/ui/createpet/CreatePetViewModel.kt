@@ -1,6 +1,6 @@
 package br.com.uvets.uvetsandroid.ui.createpet
 
-import br.com.uvets.uvetsandroid.business.network.BasicRxRequester
+import br.com.uvets.uvetsandroid.business.network.ViewModelRxRequester
 import br.com.uvets.uvetsandroid.data.model.Pet
 import br.com.uvets.uvetsandroid.data.remote.RestResponseFactory
 import br.com.uvets.uvetsandroid.data.repository.PetRepository
@@ -29,7 +29,7 @@ class CreatePetViewModel(userRepository: UserRepository, val petRepository: PetR
         val pet = Pet(id, name, Date(birth), race, gender, photoUrl, castrated, weight, chipNumber)
         mNavigator?.showLoader(true)
 
-        val listener = object : BasicRxRequester<Pet, CreatePetNavigator>(this, mNavigator) {
+        val listener = object : ViewModelRxRequester<Pet, CreatePetNavigator>(this, mNavigator) {
             override fun onSuccess(t: Pet) {
                 if (photoToUpload != null) {
                     uploadPhoto(t.id!!, photoToUpload) { photoUrl ->
