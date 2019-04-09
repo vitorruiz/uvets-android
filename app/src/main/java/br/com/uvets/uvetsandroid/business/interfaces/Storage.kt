@@ -1,9 +1,9 @@
 package br.com.uvets.uvetsandroid.business.interfaces
 
+import androidx.lifecycle.LiveData
 import br.com.uvets.uvetsandroid.data.model.Pet
 import br.com.uvets.uvetsandroid.data.model.User
 import br.com.uvets.uvetsandroid.data.model.vo.TokensVO
-import io.reactivex.Single
 
 interface Storage {
     fun clearStorage()
@@ -13,5 +13,5 @@ interface Storage {
     fun getUserData(): User?
 
     fun savePets(pets: List<Pet>)
-    fun getPets(): Single<List<Pet>>
+    fun getPets(): LiveData<List<Pet>>
 }

@@ -1,12 +1,12 @@
 package br.com.uvets.uvetsandroid.business
 
+import androidx.lifecycle.LiveData
 import br.com.uvets.uvetsandroid.business.interfaces.LocalStorage
 import br.com.uvets.uvetsandroid.business.interfaces.Storage
 import br.com.uvets.uvetsandroid.data.database.AppDatabase
 import br.com.uvets.uvetsandroid.data.model.Pet
 import br.com.uvets.uvetsandroid.data.model.User
 import br.com.uvets.uvetsandroid.data.model.vo.TokensVO
-import io.reactivex.Single
 
 class AppStorage(private val localStorage: LocalStorage, val appDatabase: AppDatabase) : Storage {
     private val TAG = AppStorage::class.java.simpleName
@@ -40,7 +40,7 @@ class AppStorage(private val localStorage: LocalStorage, val appDatabase: AppDat
         appDatabase.petDao().insertAll(pets)
     }
 
-    override fun getPets(): Single<List<Pet>> {
+    override fun getPets(): LiveData<List<Pet>> {
         return appDatabase.petDao().getPets()
     }
 }

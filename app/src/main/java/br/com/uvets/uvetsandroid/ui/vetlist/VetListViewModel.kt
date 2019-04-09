@@ -10,7 +10,7 @@ import br.com.uvets.uvetsandroid.ui.base.BaseNavigator
 import br.com.uvets.uvetsandroid.ui.base.BaseViewModel
 
 class VetListViewModel(userRepository: UserRepository, val vetRepository: VetRepository) :
-        BaseViewModel<BaseNavigator>(userRepository) {
+    BaseViewModel<BaseNavigator>(userRepository) {
 
     val vetListLiveData = MutableLiveData<List<Vet>>()
 
@@ -19,13 +19,13 @@ class VetListViewModel(userRepository: UserRepository, val vetRepository: VetRep
             mNavigator?.showLoader(vetListLiveData.value.isNullOrEmpty())
 
             registerDisposable(
-                    vetRepository.fetchVets()
-                            .networkSchedulers()
-                        .subscribeWith(object : ViewModelRxRequester<List<Vet>, BaseNavigator>(this, mNavigator) {
-                                override fun onSuccess(t: List<Vet>) {
-                                    vetListLiveData.postValue(t)
-                                }
-                            })
+                vetRepository.fetchVets()
+                    .networkSchedulers()
+                    .subscribeWith(object : ViewModelRxRequester<List<Vet>, BaseNavigator>(this, mNavigator) {
+                        override fun onSuccess(t: List<Vet>) {
+                            vetListLiveData.postValue(t)
+                        }
+                    })
             )
         }
     }

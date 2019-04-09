@@ -1,11 +1,11 @@
 package br.com.uvets.uvetsandroid.data.repository
 
+import androidx.lifecycle.LiveData
 import br.com.uvets.uvetsandroid.business.interfaces.Configuration
 import br.com.uvets.uvetsandroid.data.model.Pet
 import br.com.uvets.uvetsandroid.data.remote.RestResponseListener
 import br.com.uvets.uvetsandroid.utils.AppLogger
 import io.reactivex.Observable
-import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -18,37 +18,15 @@ import java.io.File
 
 class PetRepository(val configuration: Configuration) {
 
-    fun fetchPets(): Observable<Response<List<Pet>>> {
-        return Observable.concatArray(
-            getPetsFromDb(),
-            getPetsFromApi()
-        )
-    }
-
-    private fun getPetsFromDb(): Observable<Response<List<Pet>>>? {
+    fun getPetsLiveData(): LiveData<List<Pet>> {
         return configuration.getStorage().getPets()
-            .filter { it.isNotEmpty() }
-            .map { Response.success(it) }
-            .toObservable()
-            .doOnNext {
-                AppLogger.d("Dispatching ${it.body()?.size} pets from DB...")
-            }
     }
 
-    private fun getPetsFromApi(): Observable<Response<List<Pet>>> {
+    fun fetchPets(): Observable<List<Pet>> {
         return configuration.getApiWithAuth().getPets()
             .doOnNext {
-                AppLogger.d("Dispatching ${it.body()?.size} users from API...")
-                storePetsInDb(it.body()!!)
-            }
-    }
-
-    private fun storePetsInDb(pets: List<Pet>) {
-        Observable.fromCallable { configuration.getStorage().savePets(pets) }
-            .subscribeOn(Schedulers.io())
-            .observeOn(Schedulers.io())
-            .subscribe {
-                AppLogger.d("Inserted ${pets.size} users from API in DB...")
+                AppLogger.d("Dispatching ${it.size} pets from API...")
+                configuration.getStorage().savePets(it)
             }
     }
 

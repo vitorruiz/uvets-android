@@ -19,7 +19,6 @@ import br.com.uvets.uvetsandroid.ui.profile.ProfileViewModel
 import br.com.uvets.uvetsandroid.ui.signup.SignUpViewModel
 import br.com.uvets.uvetsandroid.ui.vetlist.VetListViewModel
 import br.com.uvets.uvetsandroid.utils.AppLogger
-import com.orhanobut.hawk.Hawk
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.android.viewmodel.dsl.viewModel
@@ -30,7 +29,7 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        Hawk.init(this).build()
+
         AppLogger.init()
 
         startKoin {
@@ -43,7 +42,7 @@ class App : Application() {
     private val appModule = module {
         single { Room.databaseBuilder(get(), AppDatabase::class.java, "uvets-database").build() }
         single<LocalStorage> { AppLocalStorage(get()) }
-        single<Storage> { AppStorage(get()) }
+        single<Storage> { AppStorage(get(), get()) }
         single<Configuration> { AppConfiguration(get()) }
 
         // Repositories
