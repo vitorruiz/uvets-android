@@ -26,6 +26,10 @@ class LoginViewModel(userRepository: UserRepository) : BaseViewModel<LoginNaviga
                             super.onFail(responseCode)
                         }
                     }
+
+                    override fun onComplete() {
+
+                    }
                 })
         )
     }

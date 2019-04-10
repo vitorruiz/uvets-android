@@ -180,7 +180,7 @@
 
     </ScrollView>
 
-    <include layout="@layout/include_loading_container" />
+    <include layout="@layout/loading_ui" />
 
 </FrameLayout>
 

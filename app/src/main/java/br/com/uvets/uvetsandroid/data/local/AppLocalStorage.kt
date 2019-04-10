@@ -1,8 +1,7 @@
-package br.com.uvets.uvetsandroid.business
+package br.com.uvets.uvetsandroid.data.local
 
 import android.content.Context
 import android.content.SharedPreferences
-import br.com.uvets.uvetsandroid.business.interfaces.LocalStorage
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.util.*

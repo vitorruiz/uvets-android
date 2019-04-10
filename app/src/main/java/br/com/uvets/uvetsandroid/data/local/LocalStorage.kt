@@ -1,4 +1,4 @@
-package br.com.uvets.uvetsandroid.business.interfaces
+package br.com.uvets.uvetsandroid.data.local
 
 interface LocalStorage {
 

@@ -7,12 +7,12 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import br.com.uvets.uvetsandroid.business.network.RestError
+import br.com.uvets.uvetsandroid.loading
 import br.com.uvets.uvetsandroid.showErrorToast
 import br.com.uvets.uvetsandroid.showSuccessToast
 import br.com.uvets.uvetsandroid.ui.ContainerActivity
 import br.com.uvets.uvetsandroid.ui.MainActivity
 import com.ncapdevi.fragnav.FragNavController
-import kotlinx.android.synthetic.main.include_loading_container.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 
 abstract class BaseFragment : Fragment(), BaseNavigator, IOnBackPressed {
@@ -53,9 +53,7 @@ abstract class BaseFragment : Fragment(), BaseNavigator, IOnBackPressed {
     }
 
     override fun showLoader(isLoading: Boolean) {
-        if (loading_container != null) {
-            loading_container.visibility = if (isLoading) View.VISIBLE else View.GONE
-        }
+        loading(isLoading)
     }
 
     override fun onLogoutSucceeded() {

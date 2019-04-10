@@ -1,9 +1,9 @@
 package br.com.uvets.uvetsandroid.business
 
 import androidx.lifecycle.LiveData
-import br.com.uvets.uvetsandroid.business.interfaces.LocalStorage
 import br.com.uvets.uvetsandroid.business.interfaces.Storage
 import br.com.uvets.uvetsandroid.data.database.AppDatabase
+import br.com.uvets.uvetsandroid.data.local.LocalStorage
 import br.com.uvets.uvetsandroid.data.model.Pet
 import br.com.uvets.uvetsandroid.data.model.User
 import br.com.uvets.uvetsandroid.data.model.vo.TokensVO

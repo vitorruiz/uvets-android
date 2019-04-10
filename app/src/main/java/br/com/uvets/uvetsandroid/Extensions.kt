@@ -6,11 +6,13 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
+import br.com.uvets.uvetsandroid.ui.base.BaseFragment
+import com.blankj.utilcode.util.KeyboardUtils
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import kotlinx.android.synthetic.main.include_loading_container.*
+import kotlinx.android.synthetic.main.loading_ui.*
 import pl.aprilapps.easyphotopicker.EasyImage
 import java.io.File
 
@@ -37,7 +39,12 @@ fun ImageView.enableImagePickerOnClick(fragment: Fragment) {
     }
 }
 
-fun Fragment.loading(isLoading: Boolean) {
+fun BaseFragment.loading(isLoading: Boolean) {
+    activity?.run {
+        if (KeyboardUtils.isSoftInputVisible(this)) {
+            KeyboardUtils.hideSoftInput(this)
+        }
+    }
     if (loading_container != null) {
         loading_container.visibility = if (isLoading) View.VISIBLE else View.GONE
     }

@@ -22,7 +22,7 @@
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-    <include layout="@layout/include_loading_container" />
+    <include layout="@layout/loading_ui" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fbCreatePet"

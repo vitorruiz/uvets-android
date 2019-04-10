@@ -3,12 +3,12 @@ package br.com.uvets.uvetsandroid
 import android.app.Application
 import androidx.room.Room
 import br.com.uvets.uvetsandroid.business.AppConfiguration
-import br.com.uvets.uvetsandroid.business.AppLocalStorage
 import br.com.uvets.uvetsandroid.business.AppStorage
 import br.com.uvets.uvetsandroid.business.interfaces.Configuration
-import br.com.uvets.uvetsandroid.business.interfaces.LocalStorage
 import br.com.uvets.uvetsandroid.business.interfaces.Storage
 import br.com.uvets.uvetsandroid.data.database.AppDatabase
+import br.com.uvets.uvetsandroid.data.local.AppLocalStorage
+import br.com.uvets.uvetsandroid.data.local.LocalStorage
 import br.com.uvets.uvetsandroid.data.repository.PetRepository
 import br.com.uvets.uvetsandroid.data.repository.UserRepository
 import br.com.uvets.uvetsandroid.data.repository.VetRepository

@@ -78,12 +78,6 @@ class LoginFragment : BaseFragment(), LoginNavigator {
         return result
     }
 
-    override fun showLoader(isLoading: Boolean) {
-        super.showLoader(isLoading)
-        btLogin.isEnabled = !isLoading
-        btSignUp.isEnabled = !isLoading
-    }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 

@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import br.com.uvets.uvetsandroid.data.model.Pet
 
-@Database(entities = [Pet::class], version = 1)
+@Database(entities = [Pet::class], version = 1, exportSchema = false)
 @TypeConverters(DateTypeConverter::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun petDao(): PetDao
