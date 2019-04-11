@@ -60,7 +60,8 @@ class PickerUtils {
             month = newCalendar.get(Calendar.MONTH)
             day = newCalendar.get(Calendar.DAY_OF_MONTH)
             val datePickerDialog: DatePickerDialog
-            datePickerDialog = DatePickerDialog(context, R.style.Theme_UVets_Dialog, DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+            datePickerDialog =
+                DatePickerDialog(context, DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
                 val newDate = Calendar.getInstance()
                 newDate.set(year, monthOfYear, dayOfMonth)
                 viewToUpdate.text = dateFormatter.format(newDate.time)

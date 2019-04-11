@@ -10,10 +10,11 @@ import br.com.uvets.uvetsandroid.ui.base.BaseFragment
 import com.blankj.utilcode.util.KeyboardUtils
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.esafirm.imagepicker.features.ImagePicker
+import com.esafirm.imagepicker.features.ReturnMode
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.loading_ui.*
-import pl.aprilapps.easyphotopicker.EasyImage
 import java.io.File
 
 
@@ -35,7 +36,26 @@ fun ImageView.loadFromUrl(imageUrl: String) {
 
 fun ImageView.enableImagePickerOnClick(fragment: Fragment) {
     setOnClickListener {
-        EasyImage.openChooserWithGallery(fragment, "Selecione", 1)
+        //EasyImage.openChooserWithGallery(fragment, "Selecione", 1)
+        ImagePicker.create(fragment)
+            .returnMode(ReturnMode.ALL) // set whether pick and / or camera action should return immediate result or not.
+            .folderMode(true) // folder mode (false by default)
+            //.toolbarFolderTitle("Folder") // folder selection title
+            .toolbarImageTitle("Selecione") // image selection title
+            //.toolbarArrowColor(Color.BLACK) // Toolbar 'up' arrow color
+            //.includeVideo(true) // Show video on image picker
+            .single() // single mode
+            //.multi() // multi mode (default mode)
+            //.limit(10) // max images can be selected (99 by default)
+            //.showCamera(true) // show camera or not (true by default)
+            .imageDirectory("UVets") // directory name for captured image  ("Camera" folder by default)
+            //.origin(images) // original selected images, used in multi mode
+            //.exclude(images) // exclude anything that in image.getPath()
+            //.excludeFiles(files) // same as exclude but using ArrayList<File>
+            //.theme(R.style.CustomImagePickerTheme) // must inherit ef_BaseTheme. please refer to sample
+            //.enableLog(false) // disabling log
+            //.imageLoader(new GrayscaleImageLoder()) // custom image loader, must be serializeable
+            .start() // start image picker activity with request code
     }
 }
 

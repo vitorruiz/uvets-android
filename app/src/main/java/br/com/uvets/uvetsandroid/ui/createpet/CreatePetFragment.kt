@@ -14,11 +14,12 @@ import br.com.uvets.uvetsandroid.enableImagePickerOnClick
 import br.com.uvets.uvetsandroid.loadFromFile
 import br.com.uvets.uvetsandroid.loadFromUrl
 import br.com.uvets.uvetsandroid.ui.base.BaseFragment
+import br.com.uvets.uvetsandroid.utils.AppLogger
 import br.com.uvets.uvetsandroid.utils.PickerUtils
+import com.esafirm.imagepicker.features.ImagePicker
 import id.zelory.compressor.Compressor
 import kotlinx.android.synthetic.main.fragment_create_pet.*
 import org.koin.android.viewmodel.ext.android.viewModel
-import pl.aprilapps.easyphotopicker.EasyImage
 import java.io.File
 
 class CreatePetFragment : BaseFragment(), CreatePetNavigator {
@@ -60,21 +61,15 @@ class CreatePetFragment : BaseFragment(), CreatePetNavigator {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (resultCode == Activity.RESULT_OK) {
-            EasyImage.handleActivityResult(requestCode, resultCode, data!!, activity, object : EasyImage.Callbacks {
-                override fun onImagesPicked(imageFiles: MutableList<File>, source: EasyImage.ImageSource?, type: Int) {
-                    mSelectedPetPhoto = Compressor(activity).compressToFile(imageFiles[0])
-                    ivPetPhoto.loadFromFile(mSelectedPetPhoto!!)
-                }
-
-                override fun onImagePickerError(e: Exception?, source: EasyImage.ImageSource?, type: Int) {
-
-                }
-
-                override fun onCanceled(source: EasyImage.ImageSource?, type: Int) {
-
-                }
-
-            })
+            if (data == null) {
+                AppLogger.e("CreatePetFragment > onActivityResult: requestCode $requestCode resultCode $resultCode > data is null")
+                return
+            }
+            if (ImagePicker.shouldHandle(requestCode, resultCode, data)) {
+                val image = ImagePicker.getFirstImageOrNull(data)
+                mSelectedPetPhoto = Compressor(activity).compressToFile(File(image.path))
+                ivPetPhoto.loadFromFile(mSelectedPetPhoto!!)
+            }
         }
 
     }

@@ -46,21 +46,21 @@ class VetListFragment : BaseFragment() {
         mViewModel.fetchVets()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater?.inflate(R.menu.menu_vet_list, menu)
+        inflater.inflate(R.menu.menu_vet_list, menu)
     }
 
-    override fun onPrepareOptionsMenu(menu: Menu?) {
+    override fun onPrepareOptionsMenu(menu: Menu) {
         super.onPrepareOptionsMenu(menu)
-        mMenuListView = menu?.findItem(R.id.menu_list_view)!!
+        mMenuListView = menu.findItem(R.id.menu_list_view)!!
         mMenuMapView = menu.findItem(R.id.menu_map_view)!!
 
         mMenuListView.isVisible = false
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item?.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
             R.id.menu_map_view -> {
                 llMapLayout.visibility = View.VISIBLE
                 swipeRefresh.visibility = View.GONE
