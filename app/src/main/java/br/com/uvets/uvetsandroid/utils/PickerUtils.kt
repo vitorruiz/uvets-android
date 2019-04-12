@@ -6,7 +6,6 @@ import android.content.Context
 import android.text.TextUtils
 import android.text.format.DateFormat
 import android.widget.TextView
-import br.com.uvets.uvetsandroid.R
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -33,7 +32,15 @@ class PickerUtils {
                 minute = Integer.parseInt(hourString.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[1])
             }
             val timePickerDialog: TimePickerDialog
-            timePickerDialog = TimePickerDialog(context, R.style.Theme_UVets_Dialog, TimePickerDialog.OnTimeSetListener { timePicker, selectedHour, selectedMinute -> viewToUpdate.text = String.format("%02d:%02d", selectedHour, selectedMinute) }, hour, minute, true)
+            timePickerDialog = TimePickerDialog(
+                context,
+                TimePickerDialog.OnTimeSetListener { timePicker, selectedHour, selectedMinute ->
+                    viewToUpdate.text = String.format("%02d:%02d", selectedHour, selectedMinute)
+                },
+                hour,
+                minute,
+                true
+            )
             timePickerDialog.show()
         }
 

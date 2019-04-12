@@ -34,7 +34,7 @@
                 android:layout_height="3dp"
                 android:layout_marginTop="@dimen/spacing_medium"
                 android:layout_marginBottom="@dimen/spacing_medium"
-                android:background="@drawable/gradient_primary_toolbar" />
+                android:background="@color/gradient_primary_toolbar" />
 
             <View
                 android:layout_width="0dp"

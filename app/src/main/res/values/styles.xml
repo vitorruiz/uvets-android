@@ -1,41 +1,79 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="Theme.UVets" parent="Theme.MaterialComponents.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:statusBarColor">@android:color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <!-- Global color attributes -->
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryVariant">@color/primaryDarkColor</item>
+        <item name="colorOnPrimary">@color/onPrimaryColor</item>
+        <item name="colorSecondary">@color/secondaryColor</item>
+        <item name="colorSecondaryVariant">@color/secondaryDarkColor</item>
+        <item name="colorOnSecondary">@color/onSecondaryColor</item>
+        <item name="colorError">@color/errorColor</item>
+        <item name="colorOnError">@color/onErrorColor</item>
+        <item name="colorSurface">@color/surfaceColor</item>
+        <item name="colorOnSurface">@color/onSurfaceColor</item>
+        <item name="android:colorBackground">@color/backgroundColor</item>
+        <item name="colorOnBackground">@color/onBackgroundColor</item>
+
+        <!-- Global type attributes -->
+        <!--<item name="textAppearanceButton">@style/AppTextAppearance.Button</item>-->
+        <item name="fontFamily">@font/comfortaa_regular</item>
         <item name="android:fontFamily">@font/comfortaa_regular</item>
 
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <!-- Global shape attributes -->
+        <item name="shapeAppearanceSmallComponent">@style/AppShapeAppearance.SmallComponent</item>
+        <item name="shapeAppearanceMediumComponent">@style/AppShapeAppearance.MediumComponent</item>
+        <item name="shapeAppearanceLargeComponent">@style/AppShapeAppearance.LargeComponent</item>
 
-        <item name="colorSecondary">@color/colorSecondary</item>
+        <!-- Chip widget style attribute -->
+        <!--<item name="chipStyle">@style/AppChip</item>-->
+        <!--<item name="chipStandaloneStyle">@style/AppChip.Standalone</item>-->
 
-        <item name="colorAccent">@color/colorSecondary</item>
+        <!-- Button widget style attribute -->
+        <item name="materialButtonStyle">@style/AppButton</item>
 
-        <item name="scrimBackground">@color/mtrl_scrim_color</item>
-        <item name="snackbarButtonStyle">?attr/borderlessButtonStyle</item>
+        <!-- Text Field widget style attribute -->
+        <item name="textInputStyle">@style/AppTextField</item>
 
-        <item name="floatingActionButtonStyle">@style/Widget.UVets.FloatingActionButton</item>
+        <!-- Card widget style attribute -->
+        <!--<item name="materialCardViewStyle">@style/AppCard</item>-->
+
+        <!-- Bottom Navigation widget style attribute -->
+        <!--<item name="bottomNavigationStyle">@style/AppBottomNavigation</item>-->
     </style>
 
-    <style name="Theme.UVets.NoActionBar" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="android:fontFamily">@font/comfortaa_regular</item>
-
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-
-        <item name="colorSecondary">@color/colorSecondary</item>
-
-        <item name="colorAccent">@color/colorSecondary</item>
-
-        <item name="scrimBackground">@color/mtrl_scrim_color</item>
-        <item name="snackbarButtonStyle">?attr/borderlessButtonStyle</item>
-
-        <item name="floatingActionButtonStyle">@style/Widget.UVets.FloatingActionButton</item>
+    <style name="AppTextField" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <!--<item name="boxStrokeColor">@color/box_stroke_background</item>-->
     </style>
+
+    <style name="AppShapeAppearance.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">4dp</item>
+    </style>
+
+    <style name="AppShapeAppearance.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
+    </style>
+
+    <style name="AppShapeAppearance.LargeComponent" parent="ShapeAppearance.MaterialComponents.LargeComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">20dp</item>
+    </style>
+
+    <style name="AppButton" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">?attr/colorSecondary</item>
+        <item name="cornerRadius">50dp</item>
+        <!--<item name="android:textColor">@color/button_text_color</item>-->
+    </style>
+
+    <style name="AppBottomNavigation" parent="Widget.MaterialComponents.BottomNavigationView.Colored" />
 
     <style name="Theme.UVets.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
 
-    <style name="Widget.UVets.Toolbar.Light" parent="@style/Theme.UVets.NoActionBar">
+    <style name="Widget.UVets.Toolbar.Light" parent="@style/AppTheme">
         <item name="android:background">@android:color/background_light</item>
         <item name="colorControlNormal">@color/grey_60</item>
         <item name="android:textColorPrimary">@color/grey_60</item>
@@ -46,18 +84,18 @@
     </style>
 
     <style name="Widget.UVets.Toolbar" parent="Widget.AppCompat.Toolbar">
-        <item name="android:background">@drawable/gradient_primary_toolbar</item>
+        <item name="android:background">@color/gradient_primary_toolbar</item>
     </style>
 
     <style name="Widget.UVets.FloatingActionButton" parent="Widget.MaterialComponents.FloatingActionButton">
         <item name="android:tint">@android:color/white</item>
     </style>
 
-    <style name="Theme.UVets.Dialog" parent="Theme.MaterialComponents.Light.Dialog">
-        <item name="materialButtonStyle">@style/Widget.MaterialComponents.Button.TextButton</item>
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorSecondary">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorSecondary</item>
-    </style>
+    <!--<style name="Theme.UVets.Dialog" parent="Theme.MaterialComponents.Light.Dialog">-->
+    <!--<item name="materialButtonStyle">@style/Widget.MaterialComponents.Button.TextButton</item>-->
+    <!--<item name="colorPrimary">@color/colorPrimary</item>-->
+    <!--<item name="colorSecondary">@color/colorPrimaryDark</item>-->
+    <!--<item name="colorAccent">@color/colorSecondary</item>-->
+    <!--</style>-->
 
 </resources>
