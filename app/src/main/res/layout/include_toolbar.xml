@@ -11,7 +11,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:theme="@style/Widget.UVets.Toolbar.Light"
+        android:theme="@style/AppToolbar.Light"
         app:contentInsetStartWithNavigation="0dp"
         app:popupTheme="@style/ThemeOverlay.MaterialComponents.Light">
 
@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:textAppearance="@style/Widget.UVets.Toolbar.Title.Light"
+            android:textAppearance="@style/AppToolbar.Title.Light"
             tools:text="Title" />
 
     </androidx.appcompat.widget.Toolbar>
