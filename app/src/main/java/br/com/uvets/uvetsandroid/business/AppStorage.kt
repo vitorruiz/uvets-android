@@ -7,8 +7,9 @@ import br.com.uvets.uvetsandroid.data.local.LocalStorage
 import br.com.uvets.uvetsandroid.data.model.Pet
 import br.com.uvets.uvetsandroid.data.model.User
 import br.com.uvets.uvetsandroid.data.model.vo.TokensVO
+import io.reactivex.Completable
 
-class AppStorage(private val localStorage: LocalStorage, val appDatabase: AppDatabase) : Storage {
+class AppStorage(private val localStorage: LocalStorage, private val appDatabase: AppDatabase) : Storage {
     private val TAG = AppStorage::class.java.simpleName
 
     companion object {
@@ -16,8 +17,11 @@ class AppStorage(private val localStorage: LocalStorage, val appDatabase: AppDat
         const val KEY_USER_DATA = "user_data"
     }
 
-    override fun clearStorage() {
-        localStorage.clear()
+    override fun clearStorage(): Completable {
+        return Completable.fromCallable {
+            localStorage.clear()
+            appDatabase.clearAllTables()
+        }
     }
 
     override fun saveUserTokens(tokensVO: TokensVO) {

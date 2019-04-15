@@ -13,7 +13,7 @@ class AboutFragment : BaseFragment() {
     }
 
     override fun getTile(): String? {
-        return "Sobre"
+        return getString(R.string.title_about)
     }
 
     override fun initComponents(rootView: View) {

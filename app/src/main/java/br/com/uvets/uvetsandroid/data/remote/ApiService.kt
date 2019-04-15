@@ -22,7 +22,7 @@ interface ApiService {
     fun fetchUser(): Observable<User>
 
     @POST("/users")
-    fun registerTutor(@Body signUpRequestVO: SignUpRequestVO): Observable<Void>
+    fun registerTutor(@Body signUpRequestVO: SignUpRequestVO): Observable<User>
 
     // Pet Calls
     @GET("/pets")

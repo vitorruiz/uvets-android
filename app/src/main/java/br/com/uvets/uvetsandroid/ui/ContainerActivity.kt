@@ -9,6 +9,7 @@ import br.com.uvets.uvetsandroid.data.model.Pet
 import br.com.uvets.uvetsandroid.ui.createpet.CreatePetFragment
 import br.com.uvets.uvetsandroid.ui.login.LoginFragment
 import br.com.uvets.uvetsandroid.ui.signup.SignUpFragment
+import br.com.uvets.uvetsandroid.ui.splash.SplashFragment
 
 enum class ContainerView {
     SIGN_UP, CREATE_PET, UPDATE_PET, LOGIN
@@ -65,10 +66,7 @@ class ContainerActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val viewNoActionBar = intent?.extras?.getBoolean(VIEW_NO_ACTION_BAR)
-        if (viewNoActionBar != null && viewNoActionBar) {
-            //setTheme(R.style.Theme_UVets_NoActionBar)
-        }
+        setContentView(R.layout.activity_container)
 
         (intent?.extras?.getSerializable(VIEW_ID_PARAM) as ContainerView?).apply {
             var fragmentToLoad: androidx.fragment.app.Fragment = LoginFragment()
@@ -79,16 +77,11 @@ class ContainerActivity : AppCompatActivity() {
                     CreatePetFragment.updateInstance(intent!!.extras!!.getParcelable(PET_PARAM)!!)
                 ContainerView.LOGIN -> fragmentToLoad = LoginFragment()
                 null -> {
-                    //setTheme(R.style.Theme_UVets_NoActionBar)
-                    fragmentToLoad = LoginFragment()
+                    fragmentToLoad = SplashFragment()
                 }
             }
 
-            setContentView(R.layout.activity_container)
             loadFragment(fragmentToLoad)
-//            if (viewNoActionBar != null && !viewNoActionBar) {
-//                supportActionBar?.setDisplayHomeAsUpEnabled(true)
-//            }
         }
 
 

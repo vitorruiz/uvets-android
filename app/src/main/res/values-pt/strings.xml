@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Title -->
+    <string name="title_about">Sobre</string>
+    <string name="title_pets">Seus pets</string>
+    <string name="title_vets">Veterinários</string>
+
+    <!-- About -->
+    <string name="about_terms_of_service">Termos de serviço</string>
+    <string name="about_developed_by">Desenvolvido por</string>
+    <string name="about_version">Versão</string>
+
+    <!-- Create Pet -->
+    <string name="create_pet_hint_name">Nome</string>
+    <string name="create_pet_hint_race">Raça</string>
+    <string name="create_pet_hint_birth">Data de nascimento</string>
+    <string name="create_pet_hint_weight">Peso</string>
+    <string name="create_pet_castrated">Castrado</string>
+    <string name="create_pet_male">Macho</string>
+    <string name="create_pet_female">Femêa</string>
+    <string name="create_pet_error_select_gender">Selecione um gênero</string>
+
+    <!-- Login -->
+    <string name="login_hint_password">Senha*</string>
+    <string name="login_hint_login">E-mail*</string>
+
+    <!-- Sign Up -->
+    <string name="sign_up_hint_full_name">Nome Completo*</string>
+    <string name="sign_up_hint_phone">Telefone*</string>
+    <string name="sign_up_hint_email">E-mail*</string>
+    <string name="sign_up_hint_address">Endereço*</string>
+    <string name="sign_up_hint_password">Senha*</string>
+    <string name="sign_up_hint_confirm_password">Confirmação de senha*</string>
+
+    <!-- -->
+    <string name="profile_about_uvets">Sobre o UVETS</string>
+
+    <!-- Button -->
+    <string name="button_add">Adicionar</string>
+    <string name="button_login">Entrar</string>
+    <string name="button_register">Cadastre-se</string>
+    <string name="button_save">Salvar</string>
+    <string name="button_register_pet">Cadastrar Pet</string>
+    <string name="button_edit_pet">Editar Pet</string>
+
+    <!-- Navigation -->
+    <string name="navigation_pets">Pets</string>
+    <string name="navigation_vets">Veterinários</string>
+    <string name="navigation_profile">Perfil</string>
+
+    <!-- Error -->
+    <string name="error_mandatory_field">Campo obrigatório</string>
+    <string name="error_internet_connection">Problema de conexão com a internet</string>
+    <string name="error_invalid_cpf">CPF inválido</string>
+    <string name="error_password_dont_match">As senhas devem ser iguais</string>
+
+    <!-- Message -->
+    <string name="message_successful_sign_up">Cadastro realizado com sucesso!</string>
+</resources>

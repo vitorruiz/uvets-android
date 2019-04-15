@@ -76,10 +76,10 @@ class CreatePetFragment : BaseFragment(), CreatePetNavigator {
 
     private fun setUpView() {
         if (mPet == null) {
-            setTitle("Cadastrar Pet")
+            setTitle(getString(R.string.button_register_pet))
         } else {
-            setTitle("Editar Pet")
-            btCreatePet.text = "Salvar"
+            setTitle(getString(R.string.button_edit_pet))
+            btCreatePet.text = getString(R.string.button_save)
         }
 
         mPet?.let {
@@ -121,7 +121,7 @@ class CreatePetFragment : BaseFragment(), CreatePetNavigator {
                     )
                 }
             } else {
-                showError("Selecione um gênero")
+                showError(getString(R.string.create_pet_error_select_gender))
             }
         }
     }
@@ -137,28 +137,28 @@ class CreatePetFragment : BaseFragment(), CreatePetNavigator {
         var result = true
 
         if (tvPetName.text.isNullOrEmpty()) {
-            tiPetName.error = "Campo obrigatório"
+            tiPetName.error = getString(R.string.error_mandatory_field)
             result = false
         } else {
             tiPetName.isErrorEnabled = false
         }
 
         if (tvPetRace.text.isNullOrEmpty()) {
-            tiPetRace.error = "Campo obrigatório"
+            tiPetRace.error = getString(R.string.error_mandatory_field)
             result = false
         } else {
             tiPetRace.isErrorEnabled = false
         }
 
         if (tvPetBirth.text.isNullOrEmpty()) {
-            tiPetBirth.error = "Campo obrigatório"
+            tiPetBirth.error = getString(R.string.error_mandatory_field)
             result = false
         } else {
             tiPetBirth.isErrorEnabled = false
         }
 
         if (tvWeight.text.isNullOrEmpty()) {
-            tiWeight.error = "Campo obrigatório"
+            tiWeight.error = getString(R.string.error_mandatory_field)
             result = false
         } else {
             tiWeight.isErrorEnabled = false

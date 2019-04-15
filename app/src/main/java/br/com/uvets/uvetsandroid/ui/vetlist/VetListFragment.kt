@@ -30,7 +30,7 @@ class VetListFragment : BaseFragment() {
     }
 
     override fun getTile(): String? {
-        return "Veterinários"
+        return getString(R.string.title_vets)
     }
 
     override fun settings() {

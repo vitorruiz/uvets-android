@@ -47,7 +47,7 @@
                     android:id="@+id/tvPetName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Nome"
+                    android:hint="@string/create_pet_hint_name"
                     android:inputType="textCapWords" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -62,7 +62,7 @@
                     android:id="@+id/tvPetRace"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Raça"
+                    android:hint="@string/create_pet_hint_race"
                     android:inputType="textCapWords" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -78,7 +78,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:focusable="false"
-                    android:hint="Data de Nascimento" />
+                    android:hint="@string/create_pet_hint_birth" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -92,7 +92,7 @@
                     android:id="@+id/tvWeight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Peso"
+                    android:hint="@string/create_pet_hint_weight"
                     android:inputType="numberDecimal" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -101,26 +101,25 @@
                 android:id="@+id/cbCastrated"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Castrado" />
+                android:text="@string/create_pet_castrated" />
 
             <RadioGroup
                 android:id="@+id/rgSex"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:orientation="horizontal">
 
                 <androidx.appcompat.widget.AppCompatRadioButton
                     android:id="@+id/rdMale"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Macho" />
+                    android:text="@string/create_pet_male" />
 
                 <androidx.appcompat.widget.AppCompatRadioButton
                     android:id="@+id/rdFemale"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Femêa" />
+                    android:text="@string/create_pet_female" />
             </RadioGroup>
 
             <com.google.android.material.button.MaterialButton
@@ -131,7 +130,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
-                android:text="Adicionar"
+                android:text="@string/button_add"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

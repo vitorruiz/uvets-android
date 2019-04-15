@@ -32,7 +32,7 @@ class PetListFragment : BaseFragment() {
     }
 
     override fun getTile(): String? {
-        return "Seus pets"
+        return getString(R.string.title_pets)
     }
 
     override fun initComponents(rootView: View) {
@@ -78,7 +78,6 @@ class PetListFragment : BaseFragment() {
 
         fbCreatePet.setOnClickListener {
             startActivityForResult(ContainerActivity.createPetView(context!!), REQUEST_CREATE_PET)
-//            getNavigationController()?.pushFragmentWithAnim(CreatePetFragment())
         }
     }
 

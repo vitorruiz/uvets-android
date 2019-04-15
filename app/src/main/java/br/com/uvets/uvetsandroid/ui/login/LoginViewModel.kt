@@ -46,8 +46,4 @@ class LoginViewModel(userRepository: UserRepository) : BaseViewModel<LoginNaviga
                 })
         )
     }
-
-    fun isUserAuthenticated(): Boolean {
-        return userRepository.isUserAuthenticated()
-    }
 }

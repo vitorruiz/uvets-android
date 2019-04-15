@@ -17,6 +17,7 @@ import br.com.uvets.uvetsandroid.ui.login.LoginViewModel
 import br.com.uvets.uvetsandroid.ui.petlist.PetListViewModel
 import br.com.uvets.uvetsandroid.ui.profile.ProfileViewModel
 import br.com.uvets.uvetsandroid.ui.signup.SignUpViewModel
+import br.com.uvets.uvetsandroid.ui.splash.SplashViewModel
 import br.com.uvets.uvetsandroid.ui.vetlist.VetListViewModel
 import br.com.uvets.uvetsandroid.utils.AppLogger
 import org.koin.android.ext.koin.androidContext
@@ -51,6 +52,7 @@ class App : Application() {
         single { VetRepository(get()) }
 
         // View Models
+        viewModel { SplashViewModel(get()) }
         viewModel { LoginViewModel(get()) }
         viewModel { SignUpViewModel(get()) }
         viewModel { CreatePetViewModel(get(), get()) }

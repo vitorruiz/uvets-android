@@ -5,16 +5,17 @@ import br.com.uvets.uvetsandroid.data.model.User
 import br.com.uvets.uvetsandroid.data.model.vo.LoginRequestVO
 import br.com.uvets.uvetsandroid.data.model.vo.SignUpRequestVO
 import br.com.uvets.uvetsandroid.data.model.vo.TokensVO
+import io.reactivex.Completable
 import io.reactivex.Observable
 
-class UserRepository(val configuration: Configuration) {
+class UserRepository(private val configuration: Configuration) {
 
     fun getUserData(): User? {
         return configuration.getStorage().getUserData()
     }
 
-    fun logoutUser() {
-        configuration.getStorage().clearStorage()
+    fun logoutUser(): Completable {
+        return configuration.getStorage().clearStorage()
     }
 
     fun isUserAuthenticated() = (configuration.getStorage().getUserTokens() != null)
@@ -31,7 +32,7 @@ class UserRepository(val configuration: Configuration) {
         }
     }
 
-    fun registerTutor(signUpRequestVO: SignUpRequestVO): Observable<Void> {
+    fun registerTutor(signUpRequestVO: SignUpRequestVO): Observable<User> {
         return configuration.getApi().registerTutor(signUpRequestVO)
     }
 }

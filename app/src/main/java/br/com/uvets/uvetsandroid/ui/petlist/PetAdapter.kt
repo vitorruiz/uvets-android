@@ -50,8 +50,11 @@ class PetAdapter(
 
         fun bindView(pet: Pet, onPetClicked: (Int, Pet) -> Unit) = with(itemView) {
             tvPetName.text = pet.name
-            pet.photoUrl?.let {
-                ivPetPhoto.loadFromUrl(it)
+            tvPetRace.text = pet.race
+            if (pet.photoUrl == null) {
+                ivPetPhoto.setImageResource(R.drawable.ic_animal_paw_print)
+            } else {
+                ivPetPhoto.loadFromUrl(pet.photoUrl!!)
             }
 
             setOnClickListener {

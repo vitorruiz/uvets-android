@@ -17,13 +17,6 @@ class SignUpFragment : BaseFragment(), SignUpNavigator {
 
     private val mViewModel: SignUpViewModel by viewModel()
 
-//    override fun onCreateView(
-//        inflater: LayoutInflater, container: ViewGroup?,
-//        savedInstanceState: Bundle?
-//    ): View? {
-//        return inflater.inflate(br.com.uvets.uvetsandroid.R.layout.sign_up_fragment, container, false)
-//    }
-
     override fun getLayoutResource(): Int {
         return R.layout.sign_up_fragment
     }
@@ -64,55 +57,55 @@ class SignUpFragment : BaseFragment(), SignUpNavigator {
         var result = true
 
         if (tvFullName.text.isNullOrEmpty()) {
-            tiFullName.error = "Campo obrigatório"
+            tiFullName.error = getString(R.string.error_mandatory_field)
             result = false
         } else {
             tiFullName.isErrorEnabled = false
         }
 
         if (tvDoc.text.isNullOrEmpty()) {
-            tiDoc.error = "Campo obrigatório"
+            tiDoc.error = getString(R.string.error_mandatory_field)
             result = false
         } else {
             if (Validador.CPF.ehValido(tvDoc.text.toString())) {
                 tiDoc.isErrorEnabled = false
             } else {
-                tiDoc.error = "CPF inválido"
+                tiDoc.error = getString(R.string.error_invalid_cpf)
                 result = false
             }
 
         }
 
         if (tvPhone.text.isNullOrEmpty()) {
-            tiPhone.error = "Campo obrigatório"
+            tiPhone.error = getString(R.string.error_mandatory_field)
             result = false
         } else {
             tiPhone.isErrorEnabled = false
         }
 
         if (tvEmail.text.isNullOrEmpty()) {
-            tiEmail.error = "Campo obrigatório"
+            tiEmail.error = getString(R.string.error_mandatory_field)
             result = false
         } else {
             tiEmail.isErrorEnabled = false
         }
 
         if (tvAddress.text.isNullOrEmpty()) {
-            tiAddress.error = "Campo obrigatório"
+            tiAddress.error = getString(R.string.error_mandatory_field)
             result = false
         } else {
             tiAddress.isErrorEnabled = false
         }
 
         if (tvPassword.text.isNullOrEmpty()) {
-            tiPassword.error = "Campo obrigatório"
+            tiPassword.error = getString(R.string.error_mandatory_field)
             result = false
         } else {
             tiPassword.isErrorEnabled = false
         }
 
         if (tvConfirmPassword.text.isNullOrEmpty()) {
-            tiConfirmPassword.error = "Campo obrigatório"
+            tiConfirmPassword.error = getString(R.string.error_mandatory_field)
             result = false
         } else {
             tiConfirmPassword.isErrorEnabled = false
@@ -120,8 +113,8 @@ class SignUpFragment : BaseFragment(), SignUpNavigator {
 
         if (!tvPassword.text.isNullOrEmpty() && !tvConfirmPassword.text.isNullOrEmpty()) {
             if (tvPassword.text.toString() != tvConfirmPassword.text.toString()) {
-                tiPassword.error = "As senhas devem ser iguais"
-                tiConfirmPassword.error = "As senhas devem ser iguais"
+                tiPassword.error = getString(R.string.error_password_dont_match)
+                tiConfirmPassword.error = getString(R.string.error_password_dont_match)
                 result = false
             } else {
                 tiPassword.isErrorEnabled = false
@@ -132,7 +125,7 @@ class SignUpFragment : BaseFragment(), SignUpNavigator {
         return result
     }
 
-    override fun goToLogin() {
+    override fun onSignUpSuccess() {
         val returnIntent = Intent().apply {
             putExtra("user_email", tvEmail.text.toString())
             putExtra("user_pwd", tvPassword.text.toString())

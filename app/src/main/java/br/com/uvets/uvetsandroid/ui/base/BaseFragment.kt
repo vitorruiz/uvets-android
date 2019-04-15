@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import br.com.uvets.uvetsandroid.R
 import br.com.uvets.uvetsandroid.business.network.RestError
 import br.com.uvets.uvetsandroid.loading
 import br.com.uvets.uvetsandroid.showErrorToast
@@ -36,13 +38,21 @@ abstract class BaseFragment : Fragment(), BaseNavigator, IOnBackPressed {
         showSuccessToast(message)
     }
 
+    override fun showSuccess(@StringRes resId: Int) {
+        showSuccess(getString(resId))
+    }
+
     override fun showError(message: String) {
         showErrorToast(message)
     }
 
+    override fun showError(@StringRes resId: Int) {
+        showError(getString(resId))
+    }
+
     override fun onRequestError(restError: RestError) {
         if (restError.isConnectionError) {
-            showErrorToast("Problema de conexão com a internet")
+            showErrorToast(getString(R.string.error_internet_connection))
         } else {
             showErrorToast(restError.exception.message)
         }

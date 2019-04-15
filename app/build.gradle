@@ -2,9 +2,6 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: "kotlin-kapt"
-apply from: 'version_control.gradle'
-
-Properties VERSIONS = getVersionInfo()
 
 android {
     compileSdkVersion 28
@@ -12,8 +9,8 @@ android {
         applicationId "br.com.uvets.uvetsandroid"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode VERSIONS['VERSION_CODE'].toInteger()
-        versionName getVersion(VERSIONS)
+        versionCode 1
+        versionName "1.0.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true

@@ -42,7 +42,7 @@
                     android:id="@+id/tvEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="E-mail*"
+                    android:hint="@string/login_hint_login"
                     android:inputType="textEmailAddress"
                     android:maxLines="1" />
 
@@ -62,7 +62,7 @@
                     android:id="@+id/tvPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Senha*"
+                    android:hint="@string/login_hint_password"
                     android:maxLines="1" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -74,7 +74,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:text="Entrar"
+                android:text="@string/button_login"
                 app:layout_constraintEnd_toEndOf="@+id/tiPassword"
                 app:layout_constraintStart_toStartOf="@+id/tiPassword"
                 app:layout_constraintTop_toBottomOf="@+id/tiPassword" />
@@ -85,7 +85,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="24dp"
-                android:text="Cadastre-se"
+                android:text="@string/button_register"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/btLogin"
                 app:layout_constraintStart_toStartOf="@+id/btLogin"

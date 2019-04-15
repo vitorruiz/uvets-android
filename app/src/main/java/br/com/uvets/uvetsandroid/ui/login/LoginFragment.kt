@@ -62,14 +62,14 @@ class LoginFragment : BaseFragment(), LoginNavigator {
         var result = true
 
         if (tvEmail.text.isNullOrEmpty()) {
-            tiEmail.error = "Campo obrigatório"
+            tiEmail.error = getString(R.string.error_mandatory_field)
             result = false
         } else {
             tiEmail.isErrorEnabled = false
         }
 
         if (tvPassword.text.isNullOrEmpty()) {
-            tiPassword.error = "Campo obrigatório"
+            tiPassword.error = getString(R.string.error_mandatory_field)
             result = false
         } else {
             tiPassword.isErrorEnabled = false

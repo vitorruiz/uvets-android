@@ -1,6 +1,8 @@
 package br.com.uvets.uvetsandroid.ui.signup
 
+import br.com.uvets.uvetsandroid.R
 import br.com.uvets.uvetsandroid.business.network.ViewModelRxRequester
+import br.com.uvets.uvetsandroid.data.model.User
 import br.com.uvets.uvetsandroid.data.model.vo.SignUpRequestVO
 import br.com.uvets.uvetsandroid.data.repository.UserRepository
 import br.com.uvets.uvetsandroid.networkSchedulers
@@ -12,14 +14,14 @@ class SignUpViewModel(userRepository: UserRepository) : BaseViewModel<SignUpNavi
         mNavigator?.showLoader(true)
 
         registerDisposable(
-                userRepository.registerTutor(SignUpRequestVO(name, doc, phone, email, address, password))
-                        .networkSchedulers()
-                    .subscribeWith(object : ViewModelRxRequester<Void, SignUpNavigator>(this, mNavigator) {
-                            override fun onSuccess(t: Void) {
-                                mNavigator?.showSuccess("Cadastro realizado com sucesso!")
-                                mNavigator?.goToLogin()
-                            }
-                        })
+            userRepository.registerTutor(SignUpRequestVO(name, doc, phone, email, address, password))
+                .networkSchedulers()
+                .subscribeWith(object : ViewModelRxRequester<User, SignUpNavigator>(this, mNavigator) {
+                    override fun onSuccess(t: User) {
+                        mNavigator?.showSuccess(R.string.message_successful_sign_up)
+                        mNavigator?.onSignUpSuccess()
+                    }
+                })
         )
     }
 }

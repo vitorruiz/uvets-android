@@ -9,7 +9,7 @@ import br.com.uvets.uvetsandroid.networkSchedulers
 import br.com.uvets.uvetsandroid.ui.base.BaseNavigator
 import br.com.uvets.uvetsandroid.ui.base.BaseViewModel
 
-class VetListViewModel(userRepository: UserRepository, val vetRepository: VetRepository) :
+class VetListViewModel(userRepository: UserRepository, private val vetRepository: VetRepository) :
     BaseViewModel<BaseNavigator>(userRepository) {
 
     val vetListLiveData = MutableLiveData<List<Vet>>()

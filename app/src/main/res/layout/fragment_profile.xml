@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/background_light"
@@ -24,18 +25,18 @@
                     android:id="@+id/tvUserName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Vitor Ruiz"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
                     android:textColor="@color/grey_80"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    tools:text="Vitor Ruiz" />
 
                 <TextView
                     android:id="@+id/tvUserEmail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="View and edit profile"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:textColor="@color/grey_80" />
+                    android:textColor="@color/grey_80"
+                    tools:text="vitorruiz17@gmail.com" />
 
             </LinearLayout>
 
@@ -44,127 +45,94 @@
                 android:layout_height="1dp"
                 android:layout_marginLeft="@dimen/spacing_large"
                 android:layout_marginRight="@dimen/spacing_large"
-                android:background="@color/grey_20" />
+                android:background="@color/grey_200" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="center_vertical"
-                android:minHeight="70dp"
-                android:orientation="horizontal"
-                android:paddingLeft="@dimen/spacing_large"
-                android:paddingRight="@dimen/spacing_large">
+            <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="?attr/selectableItemBackground"-->
+            <!--android:clickable="true"-->
+            <!--android:focusable="true"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:minHeight="70dp"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:paddingLeft="@dimen/spacing_large"-->
+            <!--android:paddingRight="@dimen/spacing_large">-->
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Informações Pessoais"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textColor="@color/grey_80" />
+            <!--<TextView-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:text="Informações Pessoais"-->
+            <!--android:textAppearance="@style/TextAppearance.AppCompat.Medium"-->
+            <!--android:textColor="@color/grey_80" />-->
 
-                <!--<View-->
-                <!--android:layout_width="@dimen/spacing_large"-->
-                <!--android:layout_height="wrap_content" />-->
+            <!--</LinearLayout>-->
 
-                <!--<ImageButton-->
-                <!--android:layout_width="@dimen/spacing_xmlarge"-->
-                <!--android:layout_height="@dimen/spacing_xmlarge"-->
-                <!--android:background="@android:color/transparent"-->
-                <!--android:tint="@color/grey_60"-->
-                <!--app:srcCompat="@drawable/ic_alarm" />-->
+            <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1dp"-->
+            <!--android:layout_marginLeft="@dimen/spacing_large"-->
+            <!--android:layout_marginRight="@dimen/spacing_large"-->
+            <!--android:background="@color/grey_20" />-->
 
-            </LinearLayout>
+            <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="?attr/selectableItemBackground"-->
+            <!--android:clickable="true"-->
+            <!--android:focusable="true"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:minHeight="70dp"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:paddingLeft="@dimen/spacing_large"-->
+            <!--android:paddingRight="@dimen/spacing_large">-->
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="@dimen/spacing_large"
-                android:layout_marginRight="@dimen/spacing_large"
-                android:background="@color/grey_20" />
+            <!--<TextView-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:text="Pagamentos"-->
+            <!--android:textAppearance="@style/TextAppearance.AppCompat.Medium"-->
+            <!--android:textColor="@color/grey_80" />-->
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="center_vertical"
-                android:minHeight="70dp"
-                android:orientation="horizontal"
-                android:paddingLeft="@dimen/spacing_large"
-                android:paddingRight="@dimen/spacing_large">
+            <!--</LinearLayout>-->
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Pagamentos"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textColor="@color/grey_80" />
+            <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1dp"-->
+            <!--android:layout_marginLeft="@dimen/spacing_large"-->
+            <!--android:layout_marginRight="@dimen/spacing_large"-->
+            <!--android:background="@color/grey_20" />-->
 
-                <!--<View-->
-                <!--android:layout_width="@dimen/spacing_large"-->
-                <!--android:layout_height="wrap_content" />-->
+            <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="?attr/selectableItemBackground"-->
+            <!--android:clickable="true"-->
+            <!--android:focusable="true"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:minHeight="70dp"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:paddingLeft="@dimen/spacing_large"-->
+            <!--android:paddingRight="@dimen/spacing_large">-->
 
-                <!--<ImageButton-->
-                <!--android:layout_width="@dimen/spacing_xmlarge"-->
-                <!--android:layout_height="@dimen/spacing_xmlarge"-->
-                <!--android:background="@android:color/transparent"-->
-                <!--android:tint="@color/grey_60"-->
-                <!--app:srcCompat="@drawable/ic_alarm" />-->
+            <!--<TextView-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:text="Histórico de Pagamentos"-->
+            <!--android:textAppearance="@style/TextAppearance.AppCompat.Medium"-->
+            <!--android:textColor="@color/grey_80" />-->
 
-            </LinearLayout>
+            <!--</LinearLayout>-->
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="@dimen/spacing_large"
-                android:layout_marginRight="@dimen/spacing_large"
-                android:background="@color/grey_20" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="center_vertical"
-                android:minHeight="70dp"
-                android:orientation="horizontal"
-                android:paddingLeft="@dimen/spacing_large"
-                android:paddingRight="@dimen/spacing_large">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Histórico de Pagamentos"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textColor="@color/grey_80" />
-
-                <!--<View-->
-                <!--android:layout_width="@dimen/spacing_large"-->
-                <!--android:layout_height="wrap_content" />-->
-
-                <!--<ImageButton-->
-                <!--android:layout_width="@dimen/spacing_xmlarge"-->
-                <!--android:layout_height="@dimen/spacing_xmlarge"-->
-                <!--android:background="@android:color/transparent"-->
-                <!--android:tint="@color/grey_60"-->
-                <!--app:srcCompat="@drawable/ic_alarm" />-->
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="@dimen/spacing_large"
-                android:layout_marginRight="@dimen/spacing_large"
-                android:background="@color/grey_20" />
+            <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1dp"-->
+            <!--android:layout_marginLeft="@dimen/spacing_large"-->
+            <!--android:layout_marginRight="@dimen/spacing_large"-->
+            <!--android:background="@color/grey_20" />-->
 
             <LinearLayout
                 android:id="@+id/llAbout"
@@ -183,7 +151,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Sobre o UVETS"
+                    android:text="@string/profile_about_uvets"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textColor="@color/grey_80" />
 
@@ -205,7 +173,7 @@
                 android:layout_height="1dp"
                 android:layout_marginLeft="@dimen/spacing_large"
                 android:layout_marginRight="@dimen/spacing_large"
-                android:background="@color/grey_20" />
+                android:background="@color/grey_200" />
 
             <View
                 android:layout_width="match_parent"
@@ -213,7 +181,7 @@
                 android:layout_marginLeft="@dimen/spacing_large"
                 android:layout_marginTop="64dp"
                 android:layout_marginRight="@dimen/spacing_large"
-                android:background="@color/grey_20" />
+                android:background="@color/grey_200" />
 
             <LinearLayout
                 android:id="@+id/llLogout"
@@ -244,7 +212,7 @@
                 android:layout_height="1dp"
                 android:layout_marginLeft="@dimen/spacing_large"
                 android:layout_marginRight="@dimen/spacing_large"
-                android:background="@color/grey_20" />
+                android:background="@color/grey_200" />
 
         </LinearLayout>
 

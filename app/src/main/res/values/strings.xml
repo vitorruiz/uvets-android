@@ -1,9 +1,60 @@
 <resources>
-    <string name="app_name">UVets</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="app_name" translatable="false">UVets</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- Title -->
+    <string name="title_about">About</string>
+    <string name="title_pets">Your Pets</string>
+    <string name="title_vets">Veterinaries</string>
+
+    <!-- About -->
+    <string name="about_terms_of_service">Terms of Service</string>
+    <string name="about_developed_by">Developed by</string>
+    <string name="about_version">Version</string>
+
+    <!-- Create Pet -->
+    <string name="create_pet_hint_name">Name</string>
+    <string name="create_pet_hint_race">Race</string>
+    <string name="create_pet_hint_birth">Date of birth</string>
+    <string name="create_pet_hint_weight">Weight</string>
+    <string name="create_pet_castrated">Castrated</string>
+    <string name="create_pet_male">Male</string>
+    <string name="create_pet_female">Female</string>
+    <string name="create_pet_error_select_gender">Select a gender</string>
+
+    <!-- Login -->
+    <string name="login_hint_password">Password*</string>
+    <string name="login_hint_login">E-mail*</string>
+
+    <!-- Sign Up -->
+    <string name="sign_up_hint_full_name">Full Name*</string>
+    <string name="sign_up_hint_phone">Phone*</string>
+    <string name="sign_up_hint_email">E-mail*</string>
+    <string name="sign_up_hint_address">Address*</string>
+    <string name="sign_up_hint_password">Password*</string>
+    <string name="sign_up_hint_confirm_password">Confirm password*</string>
+
+    <!-- Profile -->
+    <string name="profile_about_uvets">About UVets</string>
+
+    <!-- Button -->
+    <string name="button_add">Add</string>
+    <string name="button_login">Login</string>
+    <string name="button_register">Register</string>
+    <string name="button_save">Save</string>
+    <string name="button_register_pet">Register Pet</string>
+    <string name="button_edit_pet">Edit Pet</string>
+
+    <!-- Navigation -->
+    <string name="navigation_pets">Pets</string>
+    <string name="navigation_vets">Veterinaries</string>
+    <string name="navigation_profile">Profile</string>
+
+    <!-- Error -->
+    <string name="error_mandatory_field">Mandatory field</string>
+    <string name="error_internet_connection">Internet connection problem</string>
+    <string name="error_invalid_cpf">Invalid CPF</string>
+    <string name="error_password_dont_match">Passwords must matches</string>
+
+    <!-- Message -->
+    <string name="message_successful_sign_up">Successful registration!</string>
 </resources>

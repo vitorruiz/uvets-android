@@ -4,9 +4,10 @@ import androidx.lifecycle.LiveData
 import br.com.uvets.uvetsandroid.data.model.Pet
 import br.com.uvets.uvetsandroid.data.model.User
 import br.com.uvets.uvetsandroid.data.model.vo.TokensVO
+import io.reactivex.Completable
 
 interface Storage {
-    fun clearStorage()
+    fun clearStorage(): Completable
     fun saveUserTokens(tokensVO: TokensVO)
     fun getUserTokens(): TokensVO?
     fun saveUserData(user: User)
