@@ -2,13 +2,14 @@ package br.com.uvets.uvetsandroid.ui.petlist
 
 import br.com.uvets.uvetsandroid.business.network.SimpleRxRequester
 import br.com.uvets.uvetsandroid.data.repository.PetRepository
-import br.com.uvets.uvetsandroid.data.repository.UserRepository
 import br.com.uvets.uvetsandroid.networkSchedulers
 import br.com.uvets.uvetsandroid.ui.base.BaseNavigator
 import br.com.uvets.uvetsandroid.ui.base.BaseViewModel
+import org.koin.core.inject
 
-class PetListViewModel(userRepository: UserRepository, val petRepository: PetRepository) :
-    BaseViewModel<BaseNavigator>(userRepository) {
+class PetListViewModel : BaseViewModel<BaseNavigator>() {
+
+    private val petRepository: PetRepository by inject()
 
     val mPetListLiveData = petRepository.getPetsLiveData()
 

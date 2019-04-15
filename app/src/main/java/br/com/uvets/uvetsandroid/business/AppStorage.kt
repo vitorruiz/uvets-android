@@ -6,6 +6,7 @@ import br.com.uvets.uvetsandroid.data.database.AppDatabase
 import br.com.uvets.uvetsandroid.data.local.LocalStorage
 import br.com.uvets.uvetsandroid.data.model.Pet
 import br.com.uvets.uvetsandroid.data.model.User
+import br.com.uvets.uvetsandroid.data.model.Vet
 import br.com.uvets.uvetsandroid.data.model.vo.TokensVO
 import io.reactivex.Completable
 
@@ -46,5 +47,13 @@ class AppStorage(private val localStorage: LocalStorage, private val appDatabase
 
     override fun getPets(): LiveData<List<Pet>> {
         return appDatabase.petDao().getPets()
+    }
+
+    override fun saveVets(vets: List<Vet>) {
+        appDatabase.vetDao().insertAll(vets)
+    }
+
+    override fun getVets(): LiveData<List<Vet>> {
+        return appDatabase.vetDao().getVets()
     }
 }

@@ -4,7 +4,9 @@ import android.app.Application
 import androidx.room.Room
 import br.com.uvets.uvetsandroid.business.AppConfiguration
 import br.com.uvets.uvetsandroid.business.AppStorage
+import br.com.uvets.uvetsandroid.business.FirebaseFeatureFlagging
 import br.com.uvets.uvetsandroid.business.interfaces.Configuration
+import br.com.uvets.uvetsandroid.business.interfaces.FeatureFlagging
 import br.com.uvets.uvetsandroid.business.interfaces.Storage
 import br.com.uvets.uvetsandroid.data.database.AppDatabase
 import br.com.uvets.uvetsandroid.data.local.AppLocalStorage
@@ -20,6 +22,8 @@ import br.com.uvets.uvetsandroid.ui.signup.SignUpViewModel
 import br.com.uvets.uvetsandroid.ui.splash.SplashViewModel
 import br.com.uvets.uvetsandroid.ui.vetlist.VetListViewModel
 import br.com.uvets.uvetsandroid.utils.AppLogger
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.android.viewmodel.dsl.viewModel
@@ -41,10 +45,12 @@ class App : Application() {
     }
 
     private val appModule = module {
+        single { buildRemoteConfig() }
         single { Room.databaseBuilder(get(), AppDatabase::class.java, "uvets-database").build() }
         single<LocalStorage> { AppLocalStorage(get()) }
         single<Storage> { AppStorage(get(), get()) }
         single<Configuration> { AppConfiguration(get()) }
+        single<FeatureFlagging> { FirebaseFeatureFlagging(get()) }
 
         // Repositories
         single { UserRepository(get()) }
@@ -52,12 +58,22 @@ class App : Application() {
         single { VetRepository(get()) }
 
         // View Models
-        viewModel { SplashViewModel(get()) }
-        viewModel { LoginViewModel(get()) }
-        viewModel { SignUpViewModel(get()) }
-        viewModel { CreatePetViewModel(get(), get()) }
-        viewModel { PetListViewModel(get(), get()) }
-        viewModel { VetListViewModel(get(), get()) }
-        viewModel { ProfileViewModel(get()) }
+        viewModel { SplashViewModel() }
+        viewModel { LoginViewModel() }
+        viewModel { SignUpViewModel() }
+        viewModel { CreatePetViewModel() }
+        viewModel { PetListViewModel() }
+        viewModel { VetListViewModel() }
+        viewModel { ProfileViewModel() }
+    }
+
+    private fun buildRemoteConfig(): FirebaseRemoteConfig {
+        val configSettings = FirebaseRemoteConfigSettings.Builder()
+            .setDeveloperModeEnabled(BuildConfig.DEBUG)
+            .build()
+        val remoteConfig = FirebaseRemoteConfig.getInstance()
+        remoteConfig.setConfigSettings(configSettings)
+        remoteConfig.setDefaults(R.xml.remote_config_defaults)
+        return remoteConfig
     }
 }

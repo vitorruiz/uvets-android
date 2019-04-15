@@ -1,3 +1,10 @@
 package br.com.uvets.uvetsandroid.data.model.vo
 
-class TokensVO(val accessToken: String, val refreshToken: String)
+import com.google.gson.annotations.SerializedName
+
+class TokensVO(
+    @SerializedName("accessToken")
+    val accessToken: String,
+    @SerializedName("refreshToken")
+    val refreshToken: String
+)

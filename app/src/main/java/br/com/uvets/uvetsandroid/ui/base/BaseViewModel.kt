@@ -7,9 +7,12 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
-open class BaseViewModel<N : BaseNavigator>(val userRepository: UserRepository) : ViewModel() {
+open class BaseViewModel<N : BaseNavigator> : ViewModel(), KoinComponent {
     protected var mNavigator: N? = null
+    protected val userRepository: UserRepository by inject()
 
     private val mCompositeDisposable = CompositeDisposable()
 

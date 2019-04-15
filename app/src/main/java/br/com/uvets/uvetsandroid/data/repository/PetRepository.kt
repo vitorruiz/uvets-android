@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import br.com.uvets.uvetsandroid.business.interfaces.Configuration
 import br.com.uvets.uvetsandroid.data.model.Pet
 import br.com.uvets.uvetsandroid.data.remote.RestResponseListener
-import br.com.uvets.uvetsandroid.utils.AppLogger
 import io.reactivex.Observable
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -25,7 +24,6 @@ class PetRepository(val configuration: Configuration) {
     fun fetchPets(): Observable<List<Pet>> {
         return configuration.getApiWithAuth().getPets()
             .doOnNext {
-                AppLogger.d("Dispatching ${it.size} pets from API...")
                 configuration.getStorage().savePets(it)
             }
     }

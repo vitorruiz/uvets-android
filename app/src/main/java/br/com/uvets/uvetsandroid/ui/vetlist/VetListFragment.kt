@@ -7,6 +7,7 @@ import android.view.MenuItem
 import android.view.View
 import androidx.lifecycle.Observer
 import br.com.uvets.uvetsandroid.R
+import br.com.uvets.uvetsandroid.business.interfaces.FeatureFlagging
 import br.com.uvets.uvetsandroid.ui.base.BaseFragment
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -14,10 +15,12 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.android.synthetic.main.fragment_vet_list.*
+import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class VetListFragment : BaseFragment() {
 
+    private val mFeatureFlagging: FeatureFlagging by inject()
     private val mViewModel: VetListViewModel by viewModel()
     private lateinit var mVetAdapter: VetAdapter
 
@@ -57,6 +60,11 @@ class VetListFragment : BaseFragment() {
         mMenuMapView = menu.findItem(R.id.menu_map_view)!!
 
         mMenuListView.isVisible = false
+
+        if (!mFeatureFlagging.mapFeatureEnabled) {
+            mMenuListView.isVisible = false
+            mMenuMapView.isVisible = false
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -86,9 +94,11 @@ class VetListFragment : BaseFragment() {
             mViewModel.fetchVets(true)
         }
 
-        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment
-        mapFragment?.getMapAsync {
-            initMap(it)
+        if (mFeatureFlagging.mapFeatureEnabled) {
+            val mapFragment = childFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment
+            mapFragment?.getMapAsync {
+                initMap(it)
+            }
         }
     }
 

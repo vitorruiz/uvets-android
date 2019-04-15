@@ -1,10 +1,22 @@
 package br.com.uvets.uvetsandroid.data.model.vo
 
-class CreatePetRequestVO(val name: String,
-                         val birth: Long,
-                         val race: String,
-                         val gender: String,
-                         val photoUrl: String?,
-                         val castrated: Boolean,
-                         val weight: Double?,
-                         val chipNumber: String?)
+import com.google.gson.annotations.SerializedName
+
+class CreatePetRequestVO(
+    @SerializedName("name")
+    val name: String,
+    @SerializedName("birth")
+    val birth: Long,
+    @SerializedName("race")
+    val race: String,
+    @SerializedName("gender")
+    val gender: String,
+    @SerializedName("photoUrl")
+    val photoUrl: String?,
+    @SerializedName("castrated")
+    val castrated: Boolean,
+    @SerializedName("weight")
+    val weight: Double?,
+    @SerializedName("chipNumber")
+    val chipNumber: String?
+)

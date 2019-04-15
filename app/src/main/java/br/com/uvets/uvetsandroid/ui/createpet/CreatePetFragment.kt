@@ -113,7 +113,7 @@ class CreatePetFragment : BaseFragment(), CreatePetNavigator {
                         DateFormat.getDateFormat(context).parse(tvPetBirth.text.toString()).time,
                         tvPetRace.text.toString(),
                         gender,
-                        null,
+                        mPet?.photoUrl,
                         cbCastrated.isChecked,
                         tvWeight.text.toString().toDouble(),
                         null,

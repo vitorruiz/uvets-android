@@ -3,11 +3,10 @@ package br.com.uvets.uvetsandroid.ui.login
 import br.com.uvets.uvetsandroid.business.network.ViewModelRxRequester
 import br.com.uvets.uvetsandroid.data.model.User
 import br.com.uvets.uvetsandroid.data.model.vo.TokensVO
-import br.com.uvets.uvetsandroid.data.repository.UserRepository
 import br.com.uvets.uvetsandroid.networkSchedulers
 import br.com.uvets.uvetsandroid.ui.base.BaseViewModel
 
-class LoginViewModel(userRepository: UserRepository) : BaseViewModel<LoginNavigator>(userRepository) {
+class LoginViewModel : BaseViewModel<LoginNavigator>() {
 
     fun login(email: String, password: String) {
         mNavigator?.showLoader(true)

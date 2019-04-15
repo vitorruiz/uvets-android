@@ -1,18 +1,17 @@
 package br.com.uvets.uvetsandroid.ui.vetlist
 
-import androidx.lifecycle.MutableLiveData
-import br.com.uvets.uvetsandroid.business.network.ViewModelRxRequester
-import br.com.uvets.uvetsandroid.data.model.Vet
-import br.com.uvets.uvetsandroid.data.repository.UserRepository
+import br.com.uvets.uvetsandroid.business.network.SimpleRxRequester
 import br.com.uvets.uvetsandroid.data.repository.VetRepository
 import br.com.uvets.uvetsandroid.networkSchedulers
 import br.com.uvets.uvetsandroid.ui.base.BaseNavigator
 import br.com.uvets.uvetsandroid.ui.base.BaseViewModel
+import org.koin.core.inject
 
-class VetListViewModel(userRepository: UserRepository, private val vetRepository: VetRepository) :
-    BaseViewModel<BaseNavigator>(userRepository) {
+class VetListViewModel : BaseViewModel<BaseNavigator>() {
 
-    val vetListLiveData = MutableLiveData<List<Vet>>()
+    private val vetRepository: VetRepository by inject()
+
+    val vetListLiveData = vetRepository.getVetsLiveData()
 
     fun fetchVets(force: Boolean = false) {
         if (vetListLiveData.value.isNullOrEmpty() || force) {
@@ -21,9 +20,9 @@ class VetListViewModel(userRepository: UserRepository, private val vetRepository
             registerDisposable(
                 vetRepository.fetchVets()
                     .networkSchedulers()
-                    .subscribeWith(object : ViewModelRxRequester<List<Vet>, BaseNavigator>(this, mNavigator) {
-                        override fun onSuccess(t: List<Vet>) {
-                            vetListLiveData.postValue(t)
+                    .subscribeWith(object : SimpleRxRequester() {
+                        override fun onFinish() {
+                            mNavigator?.showLoader(false)
                         }
                     })
             )
