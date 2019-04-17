@@ -22,6 +22,7 @@ import br.com.uvets.uvetsandroid.ui.signup.SignUpViewModel
 import br.com.uvets.uvetsandroid.ui.splash.SplashViewModel
 import br.com.uvets.uvetsandroid.ui.vetlist.VetListViewModel
 import br.com.uvets.uvetsandroid.utils.AppLogger
+import com.facebook.stetho.Stetho
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
 import org.koin.android.ext.koin.androidContext
@@ -36,6 +37,7 @@ class App : Application() {
         super.onCreate()
 
         AppLogger.init()
+        Stetho.initializeWithDefaults(this)
 
         startKoin {
             androidLogger()

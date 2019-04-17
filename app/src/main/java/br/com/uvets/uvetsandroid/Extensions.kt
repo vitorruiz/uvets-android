@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import br.com.uvets.uvetsandroid.ui.base.BaseFragment
 import com.blankj.utilcode.util.KeyboardUtils
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.esafirm.imagepicker.features.ImagePicker
 import com.esafirm.imagepicker.features.ReturnMode
 import com.google.gson.Gson
@@ -23,20 +22,19 @@ inline fun <reified T> Gson.fromJson(json: String) = this.fromJson<T>(json, obje
 fun ImageView.loadFromFile(imageFile: File) {
     Glide.with(this.context)
         .load(imageFile)
-        .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+        //.diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
         .into(this)
 }
 
 fun ImageView.loadFromUrl(imageUrl: String) {
     Glide.with(this.context)
         .load(imageUrl)
-        .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+        //.diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
         .into(this)
 }
 
 fun ImageView.enableImagePickerOnClick(fragment: Fragment) {
     setOnClickListener {
-        //EasyImage.openChooserWithGallery(fragment, "Selecione", 1)
         ImagePicker.create(fragment)
             .returnMode(ReturnMode.ALL) // set whether pick and / or camera action should return immediate result or not.
             .folderMode(true) // folder mode (false by default)
