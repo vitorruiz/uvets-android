@@ -56,4 +56,7 @@
 
     <!-- Message -->
     <string name="message_successful_sign_up">Cadastro realizado com sucesso!</string>
+    <string name="vet_detail_dialog_description">Description</string>
+    <string name="button_request_scheduling">Solicitar Agendamento</string>
+    <string name="vet_detail_dialog_services">Services</string>
 </resources>

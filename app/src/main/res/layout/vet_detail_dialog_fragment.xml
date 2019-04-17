@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivVetPhoto"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:layout_marginStart="@dimen/spacing_material_2x"
+                android:layout_marginTop="@dimen/spacing_material_2x"
+                android:src="@drawable/ic_veterinary_24dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvVetName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/spacing_material_2x"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+                app:layout_constraintBottom_toTopOf="@+id/tvVetClassification"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@id/ivVetPhoto"
+                app:layout_constraintTop_toTopOf="@+id/ivVetPhoto"
+                tools:text="Gilson" />
+
+            <TextView
+                android:id="@+id/tvVetClassification"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_material_0_5x"
+                android:layout_marginEnd="@dimen/spacing_material_2x"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                app:layout_constraintBottom_toTopOf="@+id/tvVetAddress"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@id/ivVetPhoto"
+                app:layout_constraintTop_toBottomOf="@+id/tvVetName"
+                tools:text="Clinico Geral" />
+
+            <TextView
+                android:id="@+id/tvVetAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_material_0_5x"
+                android:layout_marginEnd="@dimen/spacing_material_2x"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                app:layout_constraintBottom_toBottomOf="@+id/ivVetPhoto"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@id/ivVetPhoto"
+                app:layout_constraintTop_toBottomOf="@+id/tvVetClassification"
+                tools:text="Rua Teste, 123" />
+
+            <TextView
+                android:id="@+id/tvLabelDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_material_2x"
+                android:layout_marginTop="@dimen/spacing_material_3x"
+                android:text="@string/vet_detail_dialog_description"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Overline"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ivVetPhoto" />
+
+            <TextView
+                android:id="@+id/tvVetDescription"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_material_2x"
+                android:layout_marginTop="@dimen/spacing_material_0_5x"
+                android:layout_marginEnd="@dimen/spacing_material_2x"
+                android:text="@string/lorem_ipsum"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvLabelDescription" />
+
+            <TextView
+                android:id="@+id/tvLabelServices"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_material_2x"
+                android:layout_marginTop="@dimen/spacing_material_1x"
+                android:text="@string/vet_detail_dialog_services"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Overline"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvVetDescription" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvServiceList"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_material_2x"
+                android:layout_marginTop="@dimen/spacing_material_0_5x"
+                android:layout_marginEnd="@dimen/spacing_material_2x"
+                android:visibility="gone"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvLabelServices"
+                app:spanCount="2"
+                tools:listitem="@layout/item_vet_service" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btRequestScheduling"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_material_2x"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="@dimen/spacing_material_2x"
+                android:layout_marginBottom="@dimen/spacing_material_2x"
+                android:text="@string/button_request_scheduling"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rvServiceList"
+                app:layout_constraintVertical_bias="0" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</com.google.android.material.card.MaterialCardView>

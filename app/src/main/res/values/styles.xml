@@ -95,4 +95,10 @@
     <!--<item name="colorAccent">@color/colorSecondary</item>-->
     <!--</style>-->
 
+    <style name="AppDialogFragment" parent="Theme.MaterialComponents.Light.BottomSheetDialog">
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:cacheColorHint">@android:color/transparent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
 </resources>

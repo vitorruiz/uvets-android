@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name" translatable="false">UVets</string>
+    <string name="lorem_ipsum" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer est magna, laoreet in semper a, elementum nec sem. Vivamus molestie dignissim ipsum, ultricies gravida purus placerat a. Nunc erat tortor, ornare sit amet sapien non, cursus dapibus dolor. Donec a lacinia sem. Mauris consectetur aliquet nibh, vel interdum dolor pretium ac. Suspendisse arcu massa, laoreet sit amet feugiat id, efficitur a sem. Praesent quis faucibus neque, nec consequat urna.</string>
 
     <!-- Title -->
     <string name="title_about">About</string>
@@ -36,6 +37,10 @@
     <!-- Profile -->
     <string name="profile_about_uvets">About UVets</string>
 
+    <!-- Vet Detail Dialog -->
+    <string name="vet_detail_dialog_description">Description</string>
+    <string name="vet_detail_dialog_services">Services</string>
+
     <!-- Button -->
     <string name="button_add">Add</string>
     <string name="button_login">Login</string>
@@ -43,6 +48,7 @@
     <string name="button_save">Save</string>
     <string name="button_register_pet">Register Pet</string>
     <string name="button_edit_pet">Edit Pet</string>
+    <string name="button_request_scheduling">Request Scheduling</string>
 
     <!-- Navigation -->
     <string name="navigation_pets">Pets</string>

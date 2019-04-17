@@ -89,7 +89,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_material_small"
+                    android:layout_marginTop="@dimen/spacing_material_0_5x"
                     android:text="Marcos Matsuda"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textColor="@color/grey_90" />
@@ -97,7 +97,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_material_small"
+                    android:layout_marginTop="@dimen/spacing_material_0_5x"
                     android:text="Vitor Ruiz"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textColor="@color/grey_90" />
@@ -105,7 +105,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_material_small"
+                    android:layout_marginTop="@dimen/spacing_material_0_5x"
                     android:text="Wagner Rodrigues"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textColor="@color/grey_90" />
