@@ -47,7 +47,7 @@ android {
         }
         local {
             dimension "env"
-            buildConfigField "String", "BASE_URL", "\"http://192.168.0.6:5000\""
+            buildConfigField "String", "BASE_URL", "\"http://172.22.38.221:5000\""
             buildConfigField "String", "ENV_NAME", "\"LOCAL\""
         }
         server {

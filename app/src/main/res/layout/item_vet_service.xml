@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="horizontal"
-        android:padding="@dimen/spacing_material_0_5x">
+        android:padding="@dimen/spacing_material_1x">
 
         <TextView
             android:id="@+id/tvServiceName"

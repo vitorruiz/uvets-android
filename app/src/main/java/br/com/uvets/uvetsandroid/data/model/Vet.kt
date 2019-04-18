@@ -27,5 +27,7 @@ data class Vet(
     @SerializedName("classification")
     val classification: String,
     @SerializedName("rating")
-    val rating: Double
+    val rating: Double,
+    @SerializedName("services")
+    val services: List<VetService>
 ) : Parcelable

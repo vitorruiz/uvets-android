@@ -11,6 +11,7 @@
     <dimen name="spacing_material_3x">24dp</dimen>
     <dimen name="spacing_material_4x">32dp</dimen>
     <dimen name="spacing_material_8x">64dp</dimen>
+    <dimen name="spacing_material_12x">96dp</dimen>
     <dimen name="spacing_material_16x">128dp</dimen>
 
     <!-- General Spacing -->

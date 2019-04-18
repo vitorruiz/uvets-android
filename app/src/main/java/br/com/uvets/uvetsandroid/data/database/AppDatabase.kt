@@ -6,7 +6,7 @@ import br.com.uvets.uvetsandroid.data.model.Pet
 import br.com.uvets.uvetsandroid.data.model.Vet
 
 @Database(entities = [Pet::class, Vet::class], version = 1, exportSchema = false)
-@TypeConverters(DateTypeConverter::class, AddressTypeConverter::class)
+@TypeConverters(DateTypeConverter::class, AddressTypeConverter::class, VetServicesTypeConverter::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun petDao(): PetDao
     abstract fun vetDao(): VetDao

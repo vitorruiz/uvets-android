@@ -8,8 +8,8 @@ import android.view.View
 import androidx.lifecycle.Observer
 import br.com.uvets.uvetsandroid.R
 import br.com.uvets.uvetsandroid.business.interfaces.FeatureFlagging
-import br.com.uvets.uvetsandroid.data.model.Vet
 import br.com.uvets.uvetsandroid.ui.base.BaseFragment
+import br.com.uvets.uvetsandroid.ui.vetdetail.VetDetailDialogFragment
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
@@ -88,7 +88,7 @@ class VetListFragment : BaseFragment() {
 
     private fun setUpView() {
         mVetAdapter = VetAdapter(context!!, arrayListOf()) {
-            VetDetailDialogFragment.newInstance(it).show(childFragmentManager, null)
+            VetDetailDialogFragment.newInstance(it).show(activity!!.supportFragmentManager, null)
         }
 
         rvVetList.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
@@ -134,10 +134,6 @@ class VetListFragment : BaseFragment() {
         mViewModel.vetListLiveData.observe(this, Observer { vetList ->
             vetList?.let { mVetAdapter.refreshList(it) }
         })
-    }
-
-    private fun showVetDetailsDialog(vet: Vet) {
-
     }
 
     override fun showLoader(isLoading: Boolean) {

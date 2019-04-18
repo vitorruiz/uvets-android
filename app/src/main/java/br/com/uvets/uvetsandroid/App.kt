@@ -18,6 +18,7 @@ import br.com.uvets.uvetsandroid.ui.createpet.CreatePetViewModel
 import br.com.uvets.uvetsandroid.ui.login.LoginViewModel
 import br.com.uvets.uvetsandroid.ui.petlist.PetListViewModel
 import br.com.uvets.uvetsandroid.ui.profile.ProfileViewModel
+import br.com.uvets.uvetsandroid.ui.scheduletreatment.ScheduleTreatmentViewModel
 import br.com.uvets.uvetsandroid.ui.signup.SignUpViewModel
 import br.com.uvets.uvetsandroid.ui.splash.SplashViewModel
 import br.com.uvets.uvetsandroid.ui.vetlist.VetListViewModel
@@ -67,6 +68,7 @@ class App : Application() {
         viewModel { PetListViewModel() }
         viewModel { VetListViewModel() }
         viewModel { ProfileViewModel() }
+        viewModel { ScheduleTreatmentViewModel() }
     }
 
     private fun buildRemoteConfig(): FirebaseRemoteConfig {

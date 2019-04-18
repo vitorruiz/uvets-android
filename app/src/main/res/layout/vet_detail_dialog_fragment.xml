@@ -9,7 +9,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -107,7 +106,6 @@
                 android:layout_marginStart="@dimen/spacing_material_2x"
                 android:layout_marginTop="@dimen/spacing_material_0_5x"
                 android:layout_marginEnd="@dimen/spacing_material_2x"
-                android:visibility="gone"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -115,8 +113,9 @@
                 app:spanCount="2"
                 tools:listitem="@layout/item_vet_service" />
 
-            <androidx.appcompat.widget.AppCompatButton
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btRequestScheduling"
+                style="@style/AppButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_material_2x"

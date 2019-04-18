@@ -6,6 +6,7 @@ import br.com.uvets.uvetsandroid.data.model.Vet
 import br.com.uvets.uvetsandroid.data.model.vo.LoginRequestVO
 import br.com.uvets.uvetsandroid.data.model.vo.SignUpRequestVO
 import br.com.uvets.uvetsandroid.data.model.vo.TokensVO
+import br.com.uvets.uvetsandroid.data.model.vo.VetScheduleVO
 import io.reactivex.Observable
 import kotlinx.coroutines.Deferred
 import okhttp3.MultipartBody
@@ -41,4 +42,10 @@ interface ApiService {
     // Vet Calls
     @GET("/vets")
     fun getVets(): Observable<List<Vet>>
+
+    @GET("/vets/{id}/schedule")
+    fun getAvailableSchedule(@Path("id") id: Long, @Query("date") date: String?): Observable<VetScheduleVO>
+
+    @POST("/vets/{id}/schedule")
+    fun scheduleTreatment(@Path("id") id: Long)
 }

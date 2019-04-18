@@ -2,6 +2,8 @@ package br.com.uvets.uvetsandroid.data.database
 
 import androidx.room.TypeConverter
 import br.com.uvets.uvetsandroid.data.model.Address
+import br.com.uvets.uvetsandroid.data.model.VetService
+import br.com.uvets.uvetsandroid.fromJson
 import com.google.gson.Gson
 import java.util.*
 
@@ -27,7 +29,17 @@ class AddressTypeConverter {
     }
 
     @TypeConverter
-    fun toJsonString(address: Address?): String? {
+    fun toJson(address: Address?): String? {
         return Gson().toJson(address)
     }
+}
+
+class VetServicesTypeConverter {
+
+    @TypeConverter
+    fun toList(value: String?): List<VetService>? =
+        if (value == null) null else Gson().fromJson<List<VetService>>(value)
+
+    @TypeConverter
+    fun toJson(vetServices: List<VetService>?): String? = Gson().toJson(vetServices)
 }
