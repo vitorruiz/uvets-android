@@ -46,6 +46,13 @@ class PetAdapter(
         notifyItemChanged(index)
     }
 
+    fun removeItemAt(position: Int): Pet {
+        val pet = petList[position]
+        petList.removeAt(position)
+        notifyItemRemoved(position)
+        return pet
+    }
+
     class PetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bindView(pet: Pet, onPetClicked: (Int, Pet) -> Unit) = with(itemView) {

@@ -7,6 +7,7 @@ import br.com.uvets.uvetsandroid.data.model.vo.SignUpRequestVO
 import br.com.uvets.uvetsandroid.data.model.vo.TokensVO
 import io.reactivex.Completable
 import io.reactivex.Observable
+import okhttp3.ResponseBody
 
 class UserRepository(private val configuration: Configuration) {
 
@@ -24,6 +25,10 @@ class UserRepository(private val configuration: Configuration) {
         return configuration.getApi().auth(LoginRequestVO(email, password)).doOnNext {
             configuration.getStorage().saveUserTokens(it)
         }
+    }
+
+    fun registerDevice(): Observable<ResponseBody> {
+        return configuration.getApiWithAuth().registerDevice(configuration.getStorage().getDeviceId()!!)
     }
 
     fun fetchUser(): Observable<User> {

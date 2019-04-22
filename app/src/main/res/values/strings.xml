@@ -1,16 +1,23 @@
 <resources>
     <string name="app_name" translatable="false">UVets</string>
-    <string name="lorem_ipsum" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer est magna, laoreet in semper a, elementum nec sem. Vivamus molestie dignissim ipsum, ultricies gravida purus placerat a. Nunc erat tortor, ornare sit amet sapien non, cursus dapibus dolor. Donec a lacinia sem. Mauris consectetur aliquet nibh, vel interdum dolor pretium ac. Suspendisse arcu massa, laoreet sit amet feugiat id, efficitur a sem. Praesent quis faucibus neque, nec consequat urna.</string>
+
+    <!-- Notification Channels -->
+    <string name="notif_channel_name" translatable="false">UVets Channel</string>
+    <string name="notif_channel_description" translatable="false">UVets Notification Channel</string>
 
     <!-- Title -->
     <string name="title_about">About</string>
     <string name="title_pets">Your Pets</string>
     <string name="title_vets">Veterinaries</string>
+    <string name="title_schedule_treatment">Schedule an Appointment</string>
 
     <!-- About -->
     <string name="about_terms_of_service">Terms of Service</string>
     <string name="about_developed_by">Developed by</string>
     <string name="about_version">Version</string>
+
+    <!-- Pet List -->
+    <string name="pet_list_empty">You do not have any registered pet yet</string>
 
     <!-- Create Pet -->
     <string name="create_pet_hint_name">Name</string>
@@ -41,6 +48,11 @@
     <string name="vet_detail_dialog_description">Description</string>
     <string name="vet_detail_dialog_services">Services</string>
 
+    <!-- Schedule Treatment -->
+    <string name="schedule_treatment_empty">No available hours for the selected day</string>
+    <string name="schedule_treatment_select_hour">Select a hour</string>
+    <string name="schedule_treatment_select_pet">Select a pet</string>
+
     <!-- Button -->
     <string name="button_add">Add</string>
     <string name="button_login">Login</string>
@@ -49,6 +61,7 @@
     <string name="button_register_pet">Register Pet</string>
     <string name="button_edit_pet">Edit Pet</string>
     <string name="button_request_scheduling">Request Scheduling</string>
+    <string name="button_proceed_scheduling">Proceed with scheduling</string>
 
     <!-- Navigation -->
     <string name="navigation_pets">Pets</string>
@@ -63,4 +76,6 @@
 
     <!-- Message -->
     <string name="message_successful_sign_up">Successful registration!</string>
+    <string name="message_successful_scheduling">Scheduled appointment request</string>
+
 </resources>

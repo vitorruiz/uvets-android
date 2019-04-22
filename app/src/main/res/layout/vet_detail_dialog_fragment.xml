@@ -82,7 +82,6 @@
                 android:layout_marginStart="@dimen/spacing_material_2x"
                 android:layout_marginTop="@dimen/spacing_material_0_5x"
                 android:layout_marginEnd="@dimen/spacing_material_2x"
-                android:text="@string/lorem_ipsum"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -99,19 +98,33 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvVetDescription" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvServiceList"
-                android:layout_width="0dp"
+            <!--<androidx.recyclerview.widget.RecyclerView-->
+            <!--android:id="@+id/rvServiceList"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginStart="@dimen/spacing_material_2x"-->
+            <!--android:layout_marginTop="@dimen/spacing_material_0_5x"-->
+            <!--android:layout_marginEnd="@dimen/spacing_material_2x"-->
+            <!--app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintTop_toBottomOf="@id/tvLabelServices"-->
+            <!--app:spanCount="2"-->
+            <!--tools:listitem="@layout/item_vet_service" />-->
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/cgServices"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_material_2x"
                 android:layout_marginTop="@dimen/spacing_material_0_5x"
                 android:layout_marginEnd="@dimen/spacing_material_2x"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                android:isScrollContainer="true"
+                app:chipSpacing="@dimen/spacing_material_1x"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvLabelServices"
-                app:spanCount="2"
-                tools:listitem="@layout/item_vet_service" />
+                app:singleSelection="true" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btRequestScheduling"
@@ -122,11 +135,11 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="@dimen/spacing_material_2x"
                 android:layout_marginBottom="@dimen/spacing_material_2x"
-                android:text="@string/button_request_scheduling"
+                android:text="@string/button_proceed_scheduling"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rvServiceList"
+                app:layout_constraintTop_toBottomOf="@+id/cgServices"
                 app:layout_constraintVertical_bias="0" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

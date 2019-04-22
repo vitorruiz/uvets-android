@@ -16,6 +16,7 @@ class AppStorage(private val localStorage: LocalStorage, private val appDatabase
     companion object {
         const val KEY_USER_TOKENS = "user_tokens"
         const val KEY_USER_DATA = "user_data"
+        const val KEY_DEVICE_ID = "device_id"
     }
 
     override fun clearStorage(): Completable {
@@ -39,6 +40,14 @@ class AppStorage(private val localStorage: LocalStorage, private val appDatabase
 
     override fun getUserData(): User? {
         return localStorage.getSerialized(KEY_USER_DATA, null, User::class.java)
+    }
+
+    override fun saveDeviceId(deviceId: String) {
+        localStorage.putString(KEY_DEVICE_ID, deviceId, LocalStorage.PersistenceLevel.SURVIVE_SESSIONS)
+    }
+
+    override fun getDeviceId(): String? {
+        return localStorage.getString(KEY_DEVICE_ID, null)
     }
 
     override fun savePets(pets: List<Pet>) {

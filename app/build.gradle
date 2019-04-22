@@ -47,7 +47,7 @@ android {
         }
         local {
             dimension "env"
-            buildConfigField "String", "BASE_URL", "\"http://172.22.38.221:5000\""
+            buildConfigField "String", "BASE_URL", "\"http://192.168.0.6:5000\""
             buildConfigField "String", "ENV_NAME", "\"LOCAL\""
         }
         server {
@@ -86,6 +86,7 @@ dependencies {
     // Firebase
     implementation 'com.google.firebase:firebase-core:16.0.8'
     implementation 'com.google.firebase:firebase-config:16.5.0'
+    implementation 'com.google.firebase:firebase-messaging:17.6.0'
 
     // Kotlin Coroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1'
@@ -118,7 +119,8 @@ dependencies {
     implementation "com.google.code.gson:gson:$gson_version"
 
     implementation 'com.ncapdevi:frag-nav:3.2.0'
-    implementation 'com.afollestad.material-dialogs:core:2.0.3'
+    implementation 'com.afollestad.material-dialogs:core:2.8.1'
+    implementation 'com.afollestad.material-dialogs:datetime:2.8.1'
     implementation 'br.com.concrete:canarinho:2.0.1'
     implementation 'com.github.esafirm.android-image-picker:imagepicker:2.0.0'
     implementation 'id.zelory:compressor:2.1.0'

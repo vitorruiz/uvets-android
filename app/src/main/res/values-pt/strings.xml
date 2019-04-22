@@ -4,6 +4,7 @@
     <string name="title_about">Sobre</string>
     <string name="title_pets">Seus pets</string>
     <string name="title_vets">Veterinários</string>
+    <string name="title_schedule_treatment">Agendar uma Consulta</string>
 
     <!-- About -->
     <string name="about_terms_of_service">Termos de serviço</string>
@@ -20,6 +21,9 @@
     <string name="create_pet_female">Femêa</string>
     <string name="create_pet_error_select_gender">Selecione um gênero</string>
 
+    <!-- Pet List -->
+    <string name="pet_list_empty">Você ainda não possui nenhum pet cadastrado</string>
+
     <!-- Login -->
     <string name="login_hint_password">Senha*</string>
     <string name="login_hint_login">E-mail*</string>
@@ -32,8 +36,17 @@
     <string name="sign_up_hint_password">Senha*</string>
     <string name="sign_up_hint_confirm_password">Confirmação de senha*</string>
 
-    <!-- -->
+    <!-- Profile -->
     <string name="profile_about_uvets">Sobre o UVETS</string>
+
+    <!-- Vet Detail Dialog -->
+    <string name="vet_detail_dialog_description">Descrição</string>
+    <string name="vet_detail_dialog_services">Serviços</string>
+
+    <!-- Schedule Treatment -->
+    <string name="schedule_treatment_empty">Nenhum horário disponível para o dia selecionado</string>
+    <string name="schedule_treatment_select_hour">Selecione um horário</string>
+    <string name="schedule_treatment_select_pet">Selecione o pet</string>
 
     <!-- Button -->
     <string name="button_add">Adicionar</string>
@@ -42,6 +55,8 @@
     <string name="button_save">Salvar</string>
     <string name="button_register_pet">Cadastrar Pet</string>
     <string name="button_edit_pet">Editar Pet</string>
+    <string name="button_request_scheduling">Solicitar Agendamento</string>
+    <string name="button_proceed_scheduling">Proseguir com o agendamento</string>
 
     <!-- Navigation -->
     <string name="navigation_pets">Pets</string>
@@ -56,7 +71,6 @@
 
     <!-- Message -->
     <string name="message_successful_sign_up">Cadastro realizado com sucesso!</string>
-    <string name="vet_detail_dialog_description">Description</string>
-    <string name="button_request_scheduling">Solicitar Agendamento</string>
-    <string name="vet_detail_dialog_services">Services</string>
+    <string name="message_successful_scheduling">Solicitação de agendamento realizada</string>
+
 </resources>

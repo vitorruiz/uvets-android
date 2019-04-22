@@ -8,6 +8,7 @@ import android.widget.EditText
 import android.widget.RadioGroup
 import bloder.com.blitzcore.mask.BlitzMaskFormatter
 import bloder.com.blitzcore.validation.DefaultBlitzValidations
+import com.google.android.material.chip.ChipGroup
 import java.util.ArrayList
 import kotlin.collections.HashSet
 
@@ -86,6 +87,10 @@ class AppFormValidations : DefaultBlitzValidations() {
 
     fun RadioGroup.isAnySelected(): View = bindViewValidation(this) {
         this.checkedRadioButtonId != -1
+    }
+
+    fun ChipGroup.isAnySelected(): View = bindViewValidation(this) {
+        this.checkedChipId != -1
     }
 }
 

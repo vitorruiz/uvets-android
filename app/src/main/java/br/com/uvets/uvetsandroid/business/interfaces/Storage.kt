@@ -13,6 +13,8 @@ interface Storage {
     fun getUserTokens(): TokensVO?
     fun saveUserData(user: User)
     fun getUserData(): User?
+    fun saveDeviceId(deviceId: String)
+    fun getDeviceId(): String?
 
     fun savePets(pets: List<Pet>)
     fun getPets(): LiveData<List<Pet>>

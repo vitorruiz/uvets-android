@@ -1,5 +1,6 @@
 package br.com.uvets.uvetsandroid.ui.base
 
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,8 @@ import android.view.ViewGroup
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import br.com.uvets.uvetsandroid.R
 import br.com.uvets.uvetsandroid.business.network.RestError
 import br.com.uvets.uvetsandroid.loading
@@ -15,6 +18,7 @@ import br.com.uvets.uvetsandroid.showSuccessToast
 import br.com.uvets.uvetsandroid.ui.ContainerActivity
 import br.com.uvets.uvetsandroid.ui.MainActivity
 import com.ncapdevi.fragnav.FragNavController
+import kotlinx.android.synthetic.main.empty_view.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 
 abstract class BaseFragment : Fragment(), BaseNavigator, IOnBackPressed {
@@ -30,6 +34,7 @@ abstract class BaseFragment : Fragment(), BaseNavigator, IOnBackPressed {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setUpToolbar()
+        setupEmptyView()
         initComponents(view)
         super.onViewCreated(view, savedInstanceState)
     }
@@ -66,6 +71,13 @@ abstract class BaseFragment : Fragment(), BaseNavigator, IOnBackPressed {
         loading(isLoading)
     }
 
+    protected fun showEmptyView(isEmpty: Boolean) {
+        if (emptyViewContainer != null) {
+            emptyViewContainer.visibility = if (isEmpty) View.VISIBLE else View.GONE
+            getRelatedEmptyView()?.visibility = if (isEmpty) View.GONE else View.VISIBLE
+        }
+    }
+
     override fun onLogoutSucceeded() {
         activity?.finish()
         startActivity(ContainerActivity.loginView(context!!))
@@ -75,7 +87,7 @@ abstract class BaseFragment : Fragment(), BaseNavigator, IOnBackPressed {
         return (activity as? MainActivity)?.fragNavController
     }
 
-    protected fun setUpToolbar() {
+    private fun setUpToolbar() {
         val parentActivity = (activity as? AppCompatActivity)
         if (toolbar != null) {
             setTitle(getTile())
@@ -95,6 +107,25 @@ abstract class BaseFragment : Fragment(), BaseNavigator, IOnBackPressed {
         }
     }
 
+    private fun setupEmptyView() {
+        if (emptyViewContainer != null) {
+            emptyViewContainer.visibility = View.GONE
+
+            getEmptyLiveMessage()?.observe(this, Observer {
+                tvEmptyText.text = it
+            })
+
+            getEmptyMessage()?.let {
+                tvEmptyText.text = it
+            }
+
+            getEmptyImage()?.let {
+                ivEmptyImage.visibility = View.VISIBLE
+                ivEmptyImage.setImageDrawable(it)
+            }
+        }
+    }
+
     override fun onBackPressed() {
 
     }
@@ -102,6 +133,14 @@ abstract class BaseFragment : Fragment(), BaseNavigator, IOnBackPressed {
     protected open fun settings() {}
 
     protected open fun getTile(): String? = null
+
+    protected open fun getEmptyLiveMessage(): LiveData<String>? = null
+
+    protected open fun getEmptyMessage(): String? = null
+
+    protected open fun getEmptyImage(): Drawable? = null
+
+    protected open fun getRelatedEmptyView(): View? = null
 
     protected abstract fun getLayoutResource(): Int
 

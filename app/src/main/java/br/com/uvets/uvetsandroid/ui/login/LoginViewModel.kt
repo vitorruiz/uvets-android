@@ -1,5 +1,6 @@
 package br.com.uvets.uvetsandroid.ui.login
 
+import br.com.uvets.uvetsandroid.business.network.SimpleRxRequester
 import br.com.uvets.uvetsandroid.business.network.ViewModelRxRequester
 import br.com.uvets.uvetsandroid.data.model.User
 import br.com.uvets.uvetsandroid.data.model.vo.TokensVO
@@ -16,6 +17,7 @@ class LoginViewModel : BaseViewModel<LoginNavigator>() {
                 .subscribeWith(object : ViewModelRxRequester<TokensVO, LoginNavigator>(this, mNavigator) {
                     override fun onSuccess(t: TokensVO) {
                         fetchUser()
+                        registerDevice()
                     }
 
                     override fun onFail(responseCode: Int) {
@@ -43,6 +45,14 @@ class LoginViewModel : BaseViewModel<LoginNavigator>() {
                         mNavigator?.onLoginSucceeded()
                     }
                 })
+        )
+    }
+
+    private fun registerDevice() {
+        registerDisposable(
+            userRepository.registerDevice()
+                .networkSchedulers()
+                .subscribeWith(object : SimpleRxRequester() {})
         )
     }
 }

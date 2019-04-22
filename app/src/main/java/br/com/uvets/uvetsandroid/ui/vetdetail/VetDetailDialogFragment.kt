@@ -5,12 +5,16 @@ import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import bloder.com.blitzcore.enableWhenUsing
+import br.com.concrete.canarinho.formatador.Formatador
+import br.com.uvets.uvetsandroid.AppFormValidations
 import br.com.uvets.uvetsandroid.R
 import br.com.uvets.uvetsandroid.data.model.Vet
 import br.com.uvets.uvetsandroid.ui.MainActivity
 import br.com.uvets.uvetsandroid.ui.scheduletreatment.ScheduleTreatmentFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.chip.Chip
 import kotlinx.android.synthetic.main.vet_detail_dialog_fragment.*
 
 class VetDetailDialogFragment : BottomSheetDialogFragment() {
@@ -36,10 +40,24 @@ class VetDetailDialogFragment : BottomSheetDialogFragment() {
         tvVetName.text = vet.name
         tvVetClassification.text = vet.classification
         tvVetAddress.text = vet.address.formatted
-        rvServiceList.adapter = VetServiceAdapter(vet.services.toMutableList())
+
+        vet.services.forEach {
+            val chip = Chip(cgServices.context).apply {
+                text = "${it.name} | ${Formatador.VALOR_COM_SIMBOLO.formata(it.price.toString())}"
+                isCheckable = true
+                isClickable = true
+                tag = it.id
+            }
+            cgServices.addView(chip)
+        }
+
         btRequestScheduling.setOnClickListener {
-            (activity as MainActivity).fragNavController.pushFragment(ScheduleTreatmentFragment.newInstance())
+            (activity as MainActivity).fragNavController.pushFragment(ScheduleTreatmentFragment.newInstance(vet.id))
             dialog?.dismiss()
+        }
+
+        btRequestScheduling.enableWhenUsing(AppFormValidations()) {
+            cgServices.isAnySelected()
         }
     }
 

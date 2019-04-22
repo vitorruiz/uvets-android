@@ -12,6 +12,7 @@ import kotlinx.coroutines.withContext
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.ResponseBody
 import java.io.File
 
 
@@ -34,6 +35,10 @@ class PetRepository(val configuration: Configuration) {
 
     fun updatePet(pet: Pet): Observable<Pet> {
         return configuration.getApiWithAuth().updatePet(pet.id!!, pet)
+    }
+
+    fun deletePet(id: Long): Observable<ResponseBody> {
+        return configuration.getApiWithAuth().deletePet(id)
     }
 
     fun uploadPhoto(petId: Long, file: File, callback: RestResponseListener<String>) {
