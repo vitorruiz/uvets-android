@@ -1,6 +1,7 @@
 package br.com.uvets.uvetsandroid.ui.splash
 
 import android.content.Intent
+import android.os.Bundle
 import android.os.Handler
 import android.view.View
 import br.com.uvets.uvetsandroid.R
@@ -17,7 +18,7 @@ class SplashFragment : BaseFragment() {
         return R.layout.splash_fragment
     }
 
-    override fun initComponents(rootView: View) {
+    override fun initComponents(rootView: View, savedInstanceState: Bundle?) {
         Handler().postDelayed({
             if (mViewModel.isUserAuthenticated()) {
                 startActivity(Intent(context!!, MainActivity::class.java))

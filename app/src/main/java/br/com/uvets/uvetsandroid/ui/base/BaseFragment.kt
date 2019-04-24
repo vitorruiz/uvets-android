@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import br.com.uvets.uvetsandroid.R
+import br.com.uvets.uvetsandroid.business.network.HttpErrorBody
 import br.com.uvets.uvetsandroid.business.network.RestError
 import br.com.uvets.uvetsandroid.loading
 import br.com.uvets.uvetsandroid.showErrorToast
@@ -35,7 +36,7 @@ abstract class BaseFragment : Fragment(), BaseNavigator, IOnBackPressed {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setUpToolbar()
         setupEmptyView()
-        initComponents(view)
+        initComponents(view, savedInstanceState)
         super.onViewCreated(view, savedInstanceState)
     }
 
@@ -63,8 +64,8 @@ abstract class BaseFragment : Fragment(), BaseNavigator, IOnBackPressed {
         }
     }
 
-    override fun onRequestFail(responseCode: Int) {
-        showErrorToast("Ocorreu um erro na requisição. Código: $responseCode")
+    override fun onRequestFail(httpErrorBody: HttpErrorBody) {
+        showErrorToast(httpErrorBody.message)
     }
 
     override fun showLoader(isLoading: Boolean) {
@@ -144,7 +145,7 @@ abstract class BaseFragment : Fragment(), BaseNavigator, IOnBackPressed {
 
     protected abstract fun getLayoutResource(): Int
 
-    protected abstract fun initComponents(rootView: View)
+    protected abstract fun initComponents(rootView: View, savedInstanceState: Bundle?)
 }
 
 interface IOnBackPressed {

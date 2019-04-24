@@ -2,6 +2,7 @@ package br.com.uvets.uvetsandroid.ui.login
 
 import android.app.Activity
 import android.content.Intent
+import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
 import android.view.View
 import br.com.uvets.uvetsandroid.R
@@ -21,7 +22,7 @@ class LoginFragment : BaseFragment(), LoginNavigator {
         return R.layout.login_fragment
     }
 
-    override fun initComponents(rootView: View) {
+    override fun initComponents(rootView: View, savedInstanceState: Bundle?) {
         mViewModel.attachNavigator(this)
 
         setUpView()

@@ -2,6 +2,7 @@ package br.com.uvets.uvetsandroid.ui.signup
 
 import android.app.Activity
 import android.content.Intent
+import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
 import android.view.View
 import br.com.concrete.canarinho.formatador.Formatador
@@ -21,7 +22,7 @@ class SignUpFragment : BaseFragment(), SignUpNavigator {
         return R.layout.sign_up_fragment
     }
 
-    override fun initComponents(rootView: View) {
+    override fun initComponents(rootView: View, savedInstanceState: Bundle?) {
         mViewModel.attachNavigator(this)
 
         setUpView()

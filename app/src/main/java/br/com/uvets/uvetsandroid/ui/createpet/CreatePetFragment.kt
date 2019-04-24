@@ -45,7 +45,7 @@ class CreatePetFragment : BaseFragment(), CreatePetNavigator {
         return R.layout.fragment_create_pet
     }
 
-    override fun initComponents(rootView: View) {
+    override fun initComponents(rootView: View, savedInstanceState: Bundle?) {
         mViewModel.attachNavigator(this)
 
         (activity as? AppCompatActivity)?.supportActionBar?.run {

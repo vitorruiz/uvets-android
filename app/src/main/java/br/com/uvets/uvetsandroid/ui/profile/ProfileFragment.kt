@@ -1,6 +1,7 @@
 package br.com.uvets.uvetsandroid.ui.profile
 
 
+import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import br.com.uvets.uvetsandroid.R
@@ -18,7 +19,7 @@ class ProfileFragment : BaseFragment() {
         return R.layout.fragment_profile
     }
 
-    override fun initComponents(rootView: View) {
+    override fun initComponents(rootView: View, savedInstanceState: Bundle?) {
         mViewModel.attachNavigator(this)
 
         setUpView()

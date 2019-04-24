@@ -1,5 +1,6 @@
 package br.com.uvets.uvetsandroid.ui.login
 
+import br.com.uvets.uvetsandroid.business.network.HttpErrorBody
 import br.com.uvets.uvetsandroid.business.network.SimpleRxRequester
 import br.com.uvets.uvetsandroid.business.network.ViewModelRxRequester
 import br.com.uvets.uvetsandroid.data.model.User
@@ -20,11 +21,11 @@ class LoginViewModel : BaseViewModel<LoginNavigator>() {
                         registerDevice()
                     }
 
-                    override fun onFail(responseCode: Int) {
-                        if (responseCode == 401) {
+                    override fun onFail(httpErrorBody: HttpErrorBody) {
+                        if (httpErrorBody.status == 401) {
                             mNavigator?.showError("Usuário ou senha inválidos")
                         } else {
-                            super.onFail(responseCode)
+                            super.onFail(httpErrorBody)
                         }
                     }
 

@@ -8,7 +8,7 @@ abstract class RxRequester<T> : DisposableObserver<T>() {
 
     abstract fun onSuccess(t: T)
     abstract fun onError(restError: RestError)
-    abstract fun onFail(responseCode: Int)
+    abstract fun onFail(httpErrorBody: HttpErrorBody)
     abstract fun onFinish()
 
     override fun onNext(t: T) {
@@ -37,11 +37,11 @@ abstract class ViewModelRxRequester<T, N : BaseNavigator>(val viewModel: BaseVie
         navigator?.onRequestError(restError)
     }
 
-    override fun onFail(responseCode: Int) {
-        if (responseCode == 401) {
+    override fun onFail(httpErrorBody: HttpErrorBody) {
+        if (httpErrorBody.status == 401) {
             viewModel.doLogout()
         }
-        navigator?.onRequestFail(responseCode)
+        navigator?.onRequestFail(httpErrorBody)
     }
 
     override fun onFinish() {
@@ -58,7 +58,7 @@ abstract class SimpleRxRequester : RxRequester<Any>() {
 
     }
 
-    override fun onFail(responseCode: Int) {
+    override fun onFail(httpErrorBody: HttpErrorBody) {
 
     }
 

@@ -1,6 +1,7 @@
 package br.com.uvets.uvetsandroid.ui.vetlist
 
 
+import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -10,14 +11,15 @@ import br.com.uvets.uvetsandroid.R
 import br.com.uvets.uvetsandroid.business.interfaces.FeatureFlagging
 import br.com.uvets.uvetsandroid.ui.base.BaseFragment
 import br.com.uvets.uvetsandroid.ui.vetdetail.VetDetailDialogFragment
+import br.com.uvets.uvetsandroid.utils.ViewAnimation
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.android.synthetic.main.fragment_vet_list.*
 import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
+
 
 class VetListFragment : BaseFragment() {
 
@@ -41,11 +43,18 @@ class VetListFragment : BaseFragment() {
         setHasOptionsMenu(true)
     }
 
-    override fun initComponents(rootView: View) {
+    override fun initComponents(rootView: View, savedInstanceState: Bundle?) {
         mViewModel.attachNavigator(this)
 
         setUpView()
         setUpObservers()
+
+        if (mFeatureFlagging.mapFeatureEnabled) {
+            mapView.onCreate(savedInstanceState)
+            mapView.getMapAsync {
+                initMap(it)
+            }
+        }
 
         mViewModel.fetchVets()
     }
@@ -71,13 +80,16 @@ class VetListFragment : BaseFragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_map_view -> {
-                llMapLayout.visibility = View.VISIBLE
+                ViewAnimation.fadeOut(swipeRefresh) {
+                    ViewAnimation.expand(mapView)
+                }
+                mapView.visibility = View.VISIBLE
                 swipeRefresh.visibility = View.GONE
                 mMenuMapView.isVisible = false
                 mMenuListView.isVisible = true
             }
             R.id.menu_list_view -> {
-                llMapLayout.visibility = View.GONE
+                mapView.visibility = View.GONE
                 swipeRefresh.visibility = View.VISIBLE
                 mMenuListView.isVisible = false
                 mMenuMapView.isVisible = true
@@ -97,13 +109,26 @@ class VetListFragment : BaseFragment() {
         swipeRefresh.setOnRefreshListener {
             mViewModel.fetchVets(true)
         }
+    }
 
-        if (mFeatureFlagging.mapFeatureEnabled) {
-            val mapFragment = childFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment
-            mapFragment?.getMapAsync {
-                initMap(it)
-            }
-        }
+    override fun onResume() {
+        mapView.onResume()
+        super.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        mapView.onPause()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mapView.onDestroy()
+    }
+
+    override fun onLowMemory() {
+        super.onLowMemory()
+        mapView.onLowMemory()
     }
 
     private fun initMap(map: GoogleMap?) {
@@ -119,12 +144,14 @@ class VetListFragment : BaseFragment() {
                         .position(LatLng(vet.address.lat!!, vet.address.lon!!))
                 }
 
-                markers[0]?.let { firstMarker ->
-                    googleMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(firstMarker.position, 15.0F))
-                }
+                if (markers.isNotEmpty()) {
+                    markers[0]?.let { firstMarker ->
+                        googleMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(firstMarker.position, 15.0F))
+                    }
 
-                markers.forEach { marker ->
-                    googleMap?.addMarker(marker)
+                    markers.forEach { marker ->
+                        googleMap?.addMarker(marker)
+                    }
                 }
             }
         })

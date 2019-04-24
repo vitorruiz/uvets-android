@@ -50,7 +50,7 @@ class ScheduleTreatmentFragment : BaseFragment(), ScheduleTreatmentNavigator {
         return cgHours
     }
 
-    override fun initComponents(rootView: View) {
+    override fun initComponents(rootView: View, savedInstanceState: Bundle?) {
         mViewModel.attachNavigator(this)
         mVetId = arguments?.getLong(EXTRA_VET_ID) ?: return
 

@@ -93,14 +93,14 @@ class RestErrorInterceptor : Interceptor {
         val response = chain.proceed(request)
 
         when (response.code()) {
-            400 -> throw BadRequest
-            401 -> throw Unauthorized
-            403 -> throw Forbidden
-            404 -> throw NotFound
-            405 -> throw MethodNotAllowed
-            500 -> throw InternalServerError
-            502 -> throw BadGateway
-            503 -> throw ServiceUnavailable
+            400 -> throw BadRequest(Gson().fromJson(response.body()?.string(), HttpErrorBody::class.java))
+            401 -> throw Unauthorized()
+            403 -> throw Forbidden(Gson().fromJson(response.body()?.string(), HttpErrorBody::class.java))
+            404 -> throw NotFound(Gson().fromJson(response.body()?.string(), HttpErrorBody::class.java))
+            405 -> throw MethodNotAllowed(Gson().fromJson(response.body()?.string(), HttpErrorBody::class.java))
+            500 -> throw InternalServerError(Gson().fromJson(response.body()?.string(), HttpErrorBody::class.java))
+            502 -> throw BadGateway(Gson().fromJson(response.body()?.string(), HttpErrorBody::class.java))
+            503 -> throw ServiceUnavailable()
         }
 
         return response

@@ -63,6 +63,31 @@ public class ViewAnimation {
     }
 
     public static void collapse(final View v) {
+        Animation a = collapseAction(v);
+        v.startAnimation(a);
+    }
+
+    public static void collapse(final View v, final AnimListener animListener) {
+        Animation a = collapseAction(v);
+        a.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                animListener.onFinish();
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        v.startAnimation(a);
+    }
+
+    private static Animation collapseAction(final View v) {
         final int initialHeight = v.getMeasuredHeight();
 
         Animation a = new Animation() {
@@ -83,7 +108,7 @@ public class ViewAnimation {
         };
 
         a.setDuration((int) (initialHeight / v.getContext().getResources().getDisplayMetrics().density));
-        v.startAnimation(a);
+        return a;
     }
 
     public static void flyInDown(final View v, final AnimListener animListener) {

@@ -4,6 +4,7 @@ package br.com.uvets.uvetsandroid.ui.petlist
 import android.app.Activity
 import android.content.Intent
 import android.graphics.drawable.Drawable
+import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
@@ -44,7 +45,7 @@ class PetListFragment : BaseFragment() {
         return swipeRefresh
     }
 
-    override fun initComponents(rootView: View) {
+    override fun initComponents(rootView: View, savedInstanceState: Bundle?) {
         mViewModel.attachNavigator(this)
 
         setUpView()

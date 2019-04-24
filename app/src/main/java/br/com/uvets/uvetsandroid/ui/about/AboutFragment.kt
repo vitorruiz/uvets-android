@@ -1,5 +1,6 @@
 package br.com.uvets.uvetsandroid.ui.about
 
+import android.os.Bundle
 import android.view.View
 import br.com.uvets.uvetsandroid.BuildConfig
 import br.com.uvets.uvetsandroid.R
@@ -16,7 +17,7 @@ class AboutFragment : BaseFragment() {
         return getString(R.string.title_about)
     }
 
-    override fun initComponents(rootView: View) {
+    override fun initComponents(rootView: View, savedInstanceState: Bundle?) {
         tvAppVersion.text = "${BuildConfig.VERSION_NAME} ${BuildConfig.ENV_NAME}"
     }
 }
