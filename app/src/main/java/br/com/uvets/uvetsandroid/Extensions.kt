@@ -7,12 +7,14 @@ import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import br.com.uvets.uvetsandroid.ui.base.BaseFragment
+import br.com.uvets.uvetsandroid.utils.Synk
 import com.blankj.utilcode.util.KeyboardUtils
 import com.bumptech.glide.Glide
 import com.esafirm.imagepicker.features.ImagePicker
 import com.esafirm.imagepicker.features.ReturnMode
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import io.reactivex.Observable
 import kotlinx.android.synthetic.main.loading_ui.*
 import java.io.File
 
@@ -94,4 +96,12 @@ fun Fragment.showErrorToast(message: String?) {
 
     toast.view = view
     toast.show()
+}
+
+/**
+ * Extension function to update [Synk] about a remote call's status
+ **/
+fun <T> Observable<T>.updateSynkStatus(key: String): Observable<T> {
+    return this.doOnNext { Synk.syncSuccess(key = key) }
+        .doOnError { Synk.syncFailure(key = key) }
 }

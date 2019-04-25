@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import br.com.uvets.uvetsandroid.business.interfaces.Configuration
 import br.com.uvets.uvetsandroid.data.model.Pet
 import br.com.uvets.uvetsandroid.data.remote.RestResponseListener
+import br.com.uvets.uvetsandroid.updateSynkStatus
+import br.com.uvets.uvetsandroid.utils.Synk
 import io.reactivex.Observable
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -24,6 +26,7 @@ class PetRepository(val configuration: Configuration) {
 
     fun fetchPets(): Observable<List<Pet>> {
         return configuration.getApiWithAuth().getPets()
+            .updateSynkStatus(key = Synk.Keys.PETS)
             .doOnNext {
                 configuration.getStorage().savePets(it)
             }

@@ -72,5 +72,6 @@
     <!-- Message -->
     <string name="message_successful_sign_up">Cadastro realizado com sucesso!</string>
     <string name="message_successful_scheduling">Solicitação de agendamento realizada</string>
+    <string name="message_username_or_password_invalid">Usuário ou senha inválidos</string>
 
 </resources>

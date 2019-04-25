@@ -6,6 +6,8 @@ import br.com.uvets.uvetsandroid.data.model.Vet
 import br.com.uvets.uvetsandroid.data.model.vo.ScheduleTreatmentVO
 import br.com.uvets.uvetsandroid.data.model.vo.TreatmentVO
 import br.com.uvets.uvetsandroid.data.model.vo.VetScheduleVO
+import br.com.uvets.uvetsandroid.updateSynkStatus
+import br.com.uvets.uvetsandroid.utils.Synk
 import io.reactivex.Observable
 
 class VetRepository(val configuration: Configuration) {
@@ -16,6 +18,7 @@ class VetRepository(val configuration: Configuration) {
 
     fun fetchVets(): Observable<List<Vet>> {
         return configuration.getApiWithAuth().getVets()
+            .updateSynkStatus(Synk.Keys.VETS)
             .doOnNext {
                 configuration.getStorage().saveVets(it)
             }

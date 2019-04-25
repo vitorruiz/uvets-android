@@ -47,7 +47,7 @@ android {
         }
         local {
             dimension "env"
-            buildConfigField "String", "BASE_URL", "\"http://192.168.0.6:5000\""
+            buildConfigField "String", "BASE_URL", "\"http://192.168.0.8:5000\""
             buildConfigField "String", "ENV_NAME", "\"LOCAL\""
         }
         server {
@@ -129,6 +129,7 @@ dependencies {
     implementation 'com.blankj:utilcodex:1.23.7'
     implementation 'bloder.com:blitz:0.0.1'
     implementation 'com.facebook.stetho:stetho:1.5.1'
+    implementation 'net.danlew:android.joda:2.10.1.2'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'

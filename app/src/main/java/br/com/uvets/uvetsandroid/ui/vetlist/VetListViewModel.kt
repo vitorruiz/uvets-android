@@ -5,6 +5,7 @@ import br.com.uvets.uvetsandroid.data.repository.VetRepository
 import br.com.uvets.uvetsandroid.networkSchedulers
 import br.com.uvets.uvetsandroid.ui.base.BaseNavigator
 import br.com.uvets.uvetsandroid.ui.base.BaseViewModel
+import br.com.uvets.uvetsandroid.utils.Synk
 import org.koin.core.inject
 
 class VetListViewModel : BaseViewModel<BaseNavigator>() {
@@ -14,8 +15,8 @@ class VetListViewModel : BaseViewModel<BaseNavigator>() {
     val vetListLiveData = vetRepository.getVetsLiveData()
 
     fun fetchVets(force: Boolean = false) {
-        if (vetListLiveData.value.isNullOrEmpty() || force) {
-            mNavigator?.showLoader(vetListLiveData.value.isNullOrEmpty())
+        if (Synk.shouldSync(Synk.Keys.VETS) || force) {
+            mNavigator?.showLoader(true)
 
             registerDisposable(
                 vetRepository.fetchVets()

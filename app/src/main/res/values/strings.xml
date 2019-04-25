@@ -77,5 +77,6 @@
     <!-- Message -->
     <string name="message_successful_sign_up">Successful registration!</string>
     <string name="message_successful_scheduling">Scheduled appointment request</string>
+    <string name="message_username_or_password_invalid">Usuário ou senha inválidos</string>
 
 </resources>

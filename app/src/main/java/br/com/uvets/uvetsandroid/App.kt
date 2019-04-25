@@ -23,9 +23,11 @@ import br.com.uvets.uvetsandroid.ui.signup.SignUpViewModel
 import br.com.uvets.uvetsandroid.ui.splash.SplashViewModel
 import br.com.uvets.uvetsandroid.ui.vetlist.VetListViewModel
 import br.com.uvets.uvetsandroid.utils.AppLogger
+import br.com.uvets.uvetsandroid.utils.Synk
 import com.facebook.stetho.Stetho
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
+import net.danlew.android.joda.JodaTimeAndroid
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.android.viewmodel.dsl.viewModel
@@ -37,7 +39,9 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
 
+        JodaTimeAndroid.init(this)
         AppLogger.init()
+        Synk.init(this, BuildConfig.DEBUG)
         Stetho.initializeWithDefaults(this)
 
         startKoin {
@@ -45,6 +49,7 @@ class App : Application() {
             androidContext(this@App)
             modules(appModule)
         }
+
     }
 
     private val appModule = module {
@@ -78,6 +83,13 @@ class App : Application() {
         val remoteConfig = FirebaseRemoteConfig.getInstance()
         remoteConfig.setConfigSettings(configSettings)
         remoteConfig.setDefaults(R.xml.remote_config_defaults)
+        remoteConfig.fetchAndActivate().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                AppLogger.d("App > RemoteConfig fetch and activated successfully!")
+            } else {
+                AppLogger.d("App > RemoteConfig fetch failed!")
+            }
+        }
         return remoteConfig
     }
 }

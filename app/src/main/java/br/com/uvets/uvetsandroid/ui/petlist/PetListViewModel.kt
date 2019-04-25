@@ -6,8 +6,10 @@ import br.com.uvets.uvetsandroid.data.repository.PetRepository
 import br.com.uvets.uvetsandroid.networkSchedulers
 import br.com.uvets.uvetsandroid.ui.base.BaseNavigator
 import br.com.uvets.uvetsandroid.ui.base.BaseViewModel
+import br.com.uvets.uvetsandroid.utils.Synk
 import okhttp3.ResponseBody
 import org.koin.core.inject
+import java.util.concurrent.TimeUnit
 
 class PetListViewModel : BaseViewModel<BaseNavigator>() {
 
@@ -16,8 +18,8 @@ class PetListViewModel : BaseViewModel<BaseNavigator>() {
     val mPetListLiveData = petRepository.getPetsLiveData()
 
     fun fetchPets(force: Boolean = false) {
-        if (mPetListLiveData.value.isNullOrEmpty() || force) {
-            mNavigator?.showLoader(mPetListLiveData.value.isNullOrEmpty())
+        if (Synk.shouldSync(Synk.Keys.PETS, 1, TimeUnit.HOURS) || force) {
+            mNavigator?.showLoader(true)
 
             registerDisposable(
                 petRepository.fetchPets()
