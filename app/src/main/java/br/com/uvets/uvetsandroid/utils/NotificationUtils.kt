@@ -44,6 +44,10 @@ object NotificationUtils {
             .addNextIntent(Intent(context, MainActivity::class.java))
             .getPendingIntent(1, PendingIntent.FLAG_UPDATE_CURRENT)
 
+        val bigTextStyle = NotificationCompat
+            .BigTextStyle()
+            .bigText(text)
+
         val notificationBuilder = NotificationCompat.Builder(context, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_animal_paw_print)
             .setContentTitle(title)
@@ -52,6 +56,8 @@ object NotificationUtils {
             .setColor(ActivityCompat.getColor(context, R.color.secondaryColor))
             .setDefaults(Notification.DEFAULT_ALL)
             .setContentIntent(pendingIntent)
+            .setStyle(bigTextStyle)
+            .setAutoCancel(true)
 
         val notificationManager = NotificationManagerCompat.from(context)
         notificationManager.notify(1, notificationBuilder.build())
