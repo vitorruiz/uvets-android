@@ -40,6 +40,7 @@ class VetDetailDialogFragment : BottomSheetDialogFragment() {
         tvVetName.text = vet.name
         tvVetClassification.text = vet.classification
         tvVetAddress.text = vet.address.formatted
+        tvVetDescription.text = vet.description
 
         vet.services.forEach {
             val chip = Chip(cgServices.context).apply {

@@ -3,10 +3,8 @@ package br.com.uvets.uvetsandroid.ui.petlist
 
 import android.app.Activity
 import android.content.Intent
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.View
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import br.com.uvets.uvetsandroid.R
 import br.com.uvets.uvetsandroid.ui.ContainerActivity
@@ -35,10 +33,6 @@ class PetListFragment : BaseFragment() {
 
     override fun getEmptyMessage(): String? {
         return getString(R.string.pet_list_empty)
-    }
-
-    override fun getEmptyImage(): Drawable? {
-        return ContextCompat.getDrawable(context!!, R.drawable.ic_pets_24dp)
     }
 
     override fun getRelatedEmptyView(): View? {

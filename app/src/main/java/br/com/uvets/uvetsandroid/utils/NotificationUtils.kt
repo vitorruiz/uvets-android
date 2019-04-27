@@ -1,16 +1,15 @@
 package br.com.uvets.uvetsandroid.utils
 
-import android.app.Notification
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
+import android.app.*
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import br.com.uvets.uvetsandroid.R
+import br.com.uvets.uvetsandroid.ui.MainActivity
 
 object NotificationUtils {
     val CHANNEL_ID = "default"
@@ -25,7 +24,7 @@ object NotificationUtils {
         val channel = NotificationChannel(
             CHANNEL_ID,
             channelName,
-            NotificationManager.IMPORTANCE_DEFAULT
+            NotificationManager.IMPORTANCE_HIGH
         ).apply {
             description = channelDescription
             //enableLights(true)
@@ -40,9 +39,10 @@ object NotificationUtils {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             createNotificationChannel(context)
         }
-//        val deletePit = PendingIntent.getBroadcast(
-//            context, 0,
-//            Intent(context, DeleteNotificationReceiver::class.java), 0)
+
+        val pendingIntent = TaskStackBuilder.create(context)
+            .addNextIntent(Intent(context, MainActivity::class.java))
+            .getPendingIntent(1, PendingIntent.FLAG_UPDATE_CURRENT)
 
         val notificationBuilder = NotificationCompat.Builder(context, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_animal_paw_print)
@@ -51,7 +51,8 @@ object NotificationUtils {
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setColor(ActivityCompat.getColor(context, R.color.secondaryColor))
             .setDefaults(Notification.DEFAULT_ALL)
-        //.setDeleteIntent(deletePit)
+            .setContentIntent(pendingIntent)
+
         val notificationManager = NotificationManagerCompat.from(context)
         notificationManager.notify(1, notificationBuilder.build())
     }
@@ -81,6 +82,22 @@ object NotificationUtils {
         val notificationManager = NotificationManagerCompat.from(context)
         notificationManager.notify(2, notificationBuilder.build())
     }
+
+//    fun notificationHeadsUp(context: Context) {
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            createNotificationChannel(context)
+//        }
+//        val notificationBuilder = NotificationCompat.Builder(context, URGENT_ID)
+//            .setSmallIcon(R.drawable.ic_favorite)
+//            .setContentTitle(context.getString(R.string.notif_title))
+//            .setContentText(context.getString(R.string.notif_text))
+//            .setColor(ActivityCompat.getColor(context, R.color.colorAccent))
+//            .setDefaults(Notification.DEFAULT_ALL)
+//            .setAutoCancel(true)
+//            .setFullScreenIntent(getContentIntent(context), true)
+//        val notificationManager = NotificationManagerCompat.from(context)
+//        notificationManager.notify(1, notificationBuilder.build())
+//    }
 
 //    fun notificationBigText(context: Context) {
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -203,20 +220,5 @@ object NotificationUtils {
 //            context.getString(R.string.notif_channel_urgent_name),
 //            NotificationManager.IMPORTANCE_HIGH)
 //        notificationManager.createNotificationChannel(channel)
-//    }
-//    fun notificationHeadsUp(context: Context) {
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//            createNotificationUrgentChannel(context)
-//        }
-//        val notificationBuilder = NotificationCompat.Builder(context, URGENT_ID)
-//            .setSmallIcon(R.drawable.ic_favorite)
-//            .setContentTitle(context.getString(R.string.notif_title))
-//            .setContentText(context.getString(R.string.notif_text))
-//            .setColor(ActivityCompat.getColor(context, R.color.colorAccent))
-//            .setDefaults(Notification.DEFAULT_ALL)
-//            .setAutoCancel(true)
-//            .setFullScreenIntent(getContentIntent(context), true)
-//        val notificationManager = NotificationManagerCompat.from(context)
-//        notificationManager.notify(1, notificationBuilder.build())
 //    }
 }

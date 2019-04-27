@@ -26,6 +26,8 @@ data class Vet(
     val crmv: String,
     @SerializedName("classification")
     val classification: String,
+    @SerializedName("description")
+    val description: String,
     @SerializedName("rating")
     val rating: Double,
     @SerializedName("services")
